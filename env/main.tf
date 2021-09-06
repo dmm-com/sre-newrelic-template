@@ -2,10 +2,10 @@ variable "nr_account_id" {
   type = number
 }
 variable "nr_api_key" {
-  type= string
+  type = string
 }
 variable "nr_region" {
-  type = string
+  type    = string
   default = "US"
 }
 
@@ -26,8 +26,8 @@ terraform {
 
 provider "newrelic" {
   account_id = var.nr_account_id
-  api_key = var.nr_api_key
-  region = var.nr_region
+  api_key    = var.nr_api_key
+  region     = var.nr_region
 }
 
 provider "aws" {
