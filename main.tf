@@ -27,7 +27,6 @@ resource "newrelic_alert_policy" "default" {
   name = "default"
 }
 
-// 死活監視
 resource "newrelic_infra_alert_condition" "alive" {
   policy_id = newrelic_alert_policy.default.id
 
