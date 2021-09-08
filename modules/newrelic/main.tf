@@ -51,7 +51,7 @@ resource "newrelic_nrql_alert_condition" "alive" {
   count = length(var.newrelic_infra_agent_alert_alive)
   name  = var.newrelic_infra_agent_alert_alive.alert_name[count.index]
 
-  aws_account_ids = join(",", var.newrelic_infra_agent_alert_alive)
+  aws_account_ids = join(",", var.newrelic_infra_agent_alert_alive.aws_account_id[count.index])
   nrql {
     query = "SELECT average(receiveBytesPerSecond) FROM NetworkSample FACET entityAndInterface WHERE aws.accountId IN (${aws_account_ids}) SINCE 1 minutes ago"
   }
@@ -67,12 +67,49 @@ resource "newrelic_nrql_alert_condition" "cpu_iowait" {
   count = length(var.newrelic_infra_agent_alert_cpu_iowait)
   name  = var.newrelic_infra_agent_alert_cpu_iowait.alert_name[count.index]
 
-  aws_account_ids = join(",", var.newrelic_infra_agent_alert_cpu_iowait)
+  aws_account_ids = join(",", var.newrelic_infra_agent_alert_cpu_iowait.aws_account_id[count.index])
   nrql {
-    query = "SELECT average(cpuIOWaitPercent) FROM SystemSample FACET entity.name WHERE aws.accountId IN (${aws_account_ids}) SINCE 5 minutes ago"
+    query = "SELECT average(cpuIOWaitPercent) FROM SystemSample FACET entityName WHERE aws.accountId IN (${aws_account_ids}) SINCE 5 minutes ago"
   }
   critical {
     operator  = "above"
     threshold = 20
+  }
+}
+
+resource "newrelic_nrql_alert_condition" "disk" {
+  policy_id = newrelic_alert_policy.default.id
+
+  count = length(var.newrelic_infra_agent_alert_disk)
+  name  = var.newrelic_infra_agent_alert_disk.alert_name[count.index]
+
+  aws_account_ids = join(",", var.newrelic_infra_agent_alert_disk.aws_account_id[count.index])
+  nrql {
+    query = "SELECT average(totalUtilizationPercent) FROM StorageSample FACET entityName WHERE aws.accountId IN (${aws_account_ids}) SINCE 1 minutes ago"
+  }
+  critical {
+    operator  = "above"
+    threshold = 90
+  }
+  warning {
+    operator  = "above"
+    threshold = 80
+  }
+}
+
+
+resource "newrelic_nrql_alert_condition" "load_average" {
+  policy_id = newrelic_alert_policy.default.id
+
+  count = length(var.newrelic_infra_agent_alert_load_average)
+  name  = var.newrelic_infra_agent_alert_load_average.alert_name[count.index]
+
+  aws_account_ids = join(",", var.newrelic_infra_agent_alert_load_average.aws_account_id[count.index])
+  nrql {
+    query = "SELECT average(loadAverageFiveMinutes) FROM SystemSample FACET entityName WHERE aws.accountId IN (${aws_account_ids}) SINCE 1 minutes ago"
+  }
+  critical {
+    operator  = "above"
+    threshold = 5
   }
 }

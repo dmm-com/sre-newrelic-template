@@ -41,3 +41,17 @@ variable "newrelic_infra_agent_alert_cpu_iowait" {
     aws_account_id = list(string)
   }))
 }
+
+variable "newrelic_infra_agent_alert_disk" {
+  type = list(object({
+    alert_name     = string
+    aws_account_id = list(string)
+  }))
+}
+
+variable "newrelic_infra_agent_alert_load_average" {
+  type = list(object({
+    alert_name     = string
+    aws_account_id = list(string)
+  }))
+}
