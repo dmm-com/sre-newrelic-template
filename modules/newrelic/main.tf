@@ -113,3 +113,20 @@ resource "newrelic_nrql_alert_condition" "load_average" {
     threshold = 5
   }
 }
+
+resource "newrelic_nrql_alert_condition" "timesync" {
+  policy_id = newrelic_alert_policy.default.id
+
+  count = length(var.newrelic_infra_agent_alert_timesync)
+  name  = var.newrelic_infra_agent_alert_timesync.alert_name[count.index]
+
+  aws_account_ids = join(",", var.newrelic_infra_agent_alert_timesync.aws_account_id[count.index])
+  // TODO: 時計サーバの指定が必要な可能性高 別の変数を用意する
+  nrql {
+    query = "SELECT average(loadAverageFiveMinutes) FROM SystemSample FACET entityName WHERE aws.accountId IN (${aws_account_ids}) SINCE 1 minutes ago"
+  }
+  critical {
+    operator  = "above"
+    threshold = 10
+  }
+}
