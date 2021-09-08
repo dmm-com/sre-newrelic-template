@@ -39,7 +39,16 @@ locals {
     },
   ]
 
-  newrelic_alive_alert_ec2tags = []
-  newrelic_cpu_alert_ec2tags = []
+  // todo: 空配列を渡した場合、動かさないように
+  newrelic_alive_alert = [
+    {
+      name        = "hoge"
+      ec2tag_name = "hogetag"
+    },
+    {
+
+    }
+  ]
+  newrelic_cpu_alert_ec2tags        = []
   newrelic_cpu_iowait_alert_ec2tags = []
 }
