@@ -23,40 +23,56 @@ resource "newrelic_synthetics_monitor" "syn_browser" {
   bypass_head_request = var.newrelic_synthetics_browser.bypass_head_request[count.index]
 }
 
-// policyをハードコードしてる部分をもう少し考える
+// todo: policyをハードコードしてる部分をもう少し考える
 resource "newrelic_alert_policy" "default" {
   name = "default"
 }
 
-// 死活監視を一旦拡張モニタリングに回す
-// resource "newrelic_nrql_alert_condition" "alive" {
-//   count = length(var.newrelic_alert_alive)
-// 
-//   policy_id  = newrelic_alert_policy.default.id
-//   name       = var.newrelic_alert_alive.name[count.index]
-//   account_id = var.newrelic_alert_alive.aws_account_id[count.index]
-// 
-//   nrql {
-//     query = "SELECT average() FROM Metric WHERE collector.name ='cloudwatch-metric-streams' FACET entity.name"
-//   }
-//   critical {
-//     operator  = "above"
-//     threshold = 90
-//   }
-// }
-
 resource "newrelic_nrql_alert_condition" "cpu" {
+  policy_id = newrelic_alert_policy.default.id
+
   count = length(var.newrelic_alert_cpu)
+  name  = var.newrelic_alert_cpu.name[count.index]
 
-  policy_id  = newrelic_alert_policy.default.id
-  name       = var.newrelic_alert_cpu.name[count.index]
-  account_id = var.newrelic_alert_cpu.aws_account_id[count.index]
-
+  // TODO: ec2のタグ名を入れていないのであとで入れる
   nrql {
     query = "SELECT average(aws.ec2.CPUUtilization) FROM Metric WHERE collector.name ='cloudwatch-metric-streams' FACET entity.name SINCE 30 minutes ago"
   }
   critical {
     operator  = "above"
     threshold = 90
+  }
+}
+
+// 死活監視を拡張モニタリングに回す
+resource "newrelic_nrql_alert_condition" "alive" {
+  policy_id = newrelic_alert_policy.default.id
+
+  count = length(var.newrelic_infra_agent_alert_alive)
+  name  = var.newrelic_infra_agent_alert_alive.alert_name[count.index]
+
+  aws_account_ids = join(",", var.newrelic_infra_agent_alert_alive)
+  nrql {
+    query = "SELECT average(receiveBytesPerSecond) FROM NetworkSample FACET entityAndInterface WHERE aws.accountId IN (${aws_account_ids}) SINCE 1 minutes ago"
+  }
+  critical {
+    operator  = "equal"
+    threshold = 0
+  }
+}
+
+resource "newrelic_nrql_alert_condition" "cpu_iowait" {
+  policy_id = newrelic_alert_policy.default.id
+
+  count = length(var.newrelic_infra_agent_alert_cpu_iowait)
+  name  = var.newrelic_infra_agent_alert_cpu_iowait.alert_name[count.index]
+
+  aws_account_ids = join(",", var.newrelic_infra_agent_alert_cpu_iowait)
+  nrql {
+    query = "SELECT average(cpuIOWaitPercent) FROM SystemSample FACET entity.name WHERE aws.accountId IN (${aws_account_ids}) SINCE 5 minutes ago"
+  }
+  critical {
+    operator  = "above"
+    threshold = 20
   }
 }

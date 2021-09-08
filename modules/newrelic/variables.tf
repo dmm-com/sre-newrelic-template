@@ -21,13 +21,6 @@ variable "newrelic_synthetics_browser" {
   }))
 }
 
-// variable "newrelic_alert_alive" {
-//   type = list(object({
-//     name        = string
-//     ec2tag_name = list(string)
-//   }))
-// }
-
 variable "newrelic_alert_cpu" {
   type = list(object({
     name        = string
@@ -35,9 +28,16 @@ variable "newrelic_alert_cpu" {
   }))
 }
 
-// variable "newrelic_alert_cpu_iowait" {
-//   type = list(object({
-//     name        = string
-//     ec2tag_name = list(string)
-//   }))
-// }
+variable "newrelic_infra_agent_alert_alive" {
+  type = list(object({
+    alert_name     = string
+    aws_account_id = list(string)
+  }))
+}
+
+variable "newrelic_infra_agent_alert_cpu_iowait" {
+  type = list(object({
+    alert_name     = string
+    aws_account_id = list(string)
+  }))
+}
