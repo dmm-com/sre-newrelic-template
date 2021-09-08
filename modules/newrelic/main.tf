@@ -28,31 +28,32 @@ resource "newrelic_alert_policy" "default" {
   name = "default"
 }
 
-resource "newrelic_nrql_alert_condition" "cpu" {
-  count = length(var.newrelic_alert_alive)
-
-  account_id = "CHANGEME!!!"
-  policy_id  = newrelic_alert_policy.default.id
-  name       = "CHANGEME"
-
-  nrql {
-    query = "SELECT average(aws.ec2.CPUUtilization) FROM Metric WHERE collector.name ='cloudwatch-metric-streams' AND aws.accountId = '${var.aws_account_id}' FACET entity.name"
-  }
-  critical {
-    operator  = "above"
-    threshold = 90
-  }
-}
+// 死活監視を一旦拡張モニタリングに回す
+// resource "newrelic_nrql_alert_condition" "alive" {
+//   count = length(var.newrelic_alert_alive)
+// 
+//   policy_id  = newrelic_alert_policy.default.id
+//   name       = var.newrelic_alert_alive.name[count.index]
+//   account_id = var.newrelic_alert_alive.aws_account_id[count.index]
+// 
+//   nrql {
+//     query = "SELECT average() FROM Metric WHERE collector.name ='cloudwatch-metric-streams' FACET entity.name"
+//   }
+//   critical {
+//     operator  = "above"
+//     threshold = 90
+//   }
+// }
 
 resource "newrelic_nrql_alert_condition" "cpu" {
   count = length(var.newrelic_alert_cpu)
 
-  account_id = "CHANGEME!!!"
   policy_id  = newrelic_alert_policy.default.id
-  name       = "CHANGEME"
+  name       = var.newrelic_alert_cpu.name[count.index]
+  account_id = var.newrelic_alert_cpu.aws_account_id[count.index]
 
   nrql {
-    query = "SELECT average(aws.ec2.CPUUtilization) FROM Metric WHERE collector.name ='cloudwatch-metric-streams' AND aws.accountId = '${var.aws_account_id}' FACET entity.name"
+    query = "SELECT average(aws.ec2.CPUUtilization) FROM Metric WHERE collector.name ='cloudwatch-metric-streams' FACET entity.name SINCE 30 minutes ago"
   }
   critical {
     operator  = "above"
