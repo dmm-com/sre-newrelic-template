@@ -21,44 +21,53 @@ variable "newrelic_synthetics_browser" {
   }))
 }
 
-variable "newrelic_alert_cpu" {
+variable "aws_account_ids" {
+  type = list(string)
+}
+
+variable "cpu_alert_names" {
+  type = list(string)
+}
+
+// New Relic の infrastructure agent を使用
+variable "alive_alert_names" {
+  type = list(string)
+}
+
+// New Relic の infrastructure agent を使用
+variable "cpuiowait_alert_names" {
+  type = list(string)
+}
+
+// New Relic の infrastructure agent を使用
+variable "disk_alert_names" {
   type = list(object({
-    name        = string
-    ec2tag_name = list(string)
+    alert_name = string
   }))
 }
 
-variable "newrelic_infra_agent_alert_alive" {
-  type = list(object({
-    alert_name     = string
-    aws_account_id = list(string)
-  }))
+// New Relic の infrastructure agent を使用
+variable "load_average_alert_names" {
+  type = list(string)
 }
 
-variable "newrelic_infra_agent_alert_cpu_iowait" {
-  type = list(object({
-    alert_name     = string
-    aws_account_id = list(string)
-  }))
+// New Relic の infrastructure agent を使用
+variable "timesync_alert_names" {
+  type = list(string)
 }
 
-variable "newrelic_infra_agent_alert_disk" {
-  type = list(object({
-    alert_name     = string
-    aws_account_id = list(string)
-  }))
+// New Relic の infrastructure agent を使用
+variable "memory_alert_names" {
+  type = list(string)
 }
 
-variable "newrelic_infra_agent_alert_load_average" {
-  type = list(object({
-    alert_name     = string
-    aws_account_id = list(string)
-  }))
-}
+// variable "alert_network" {
+//   type = list(object({
+//     alert_name = string
+//   }))
+// }
 
-variable "newrelic_infra_agent_alert_timesync" {
-  type = list(object({
-    alert_name     = string
-    aws_account_id = list(string)
-  }))
+// New Relic の infrastructure agent を使用
+variable "rds_alive_alert_names" {
+  type = list(string)
 }
