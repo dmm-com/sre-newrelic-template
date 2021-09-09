@@ -182,3 +182,41 @@ resource "newrelic_nrql_alert_condition" "rds_alive" {
     threshold = 0
   }
 }
+
+resource "newrelic_nrql_alert_condition" "rds_replica_lag" {
+  policy_id = newrelic_alert_policy.default.id
+
+  count = length(var.rds_replica_lag_alert_names)
+  name  = var.rds_replica_lag_alert_names[count.index]
+
+  aws_account_ids = join(",", var.aws_account.ids)
+
+  nrql {
+    // TODO: レプリカラグがレプリカがないと取れなそうなので、NRQLで試す
+    query = "SELECT average(aws.rds.ReplicaLag) FROM Metrics FACET entityName WHERE aws.accountId IN (${aws_account_ids}) SINCE 3 minutes ago"
+  }
+  critical {
+    operator  = "above"
+    threshold = 1
+  }
+}
+
+
+resource "newrelic_nrql_alert_condition" "rds_connection" {
+  policy_id = newrelic_alert_policy.default.id
+
+  count = length(var.rds_connection_alert_names)
+  name  = var.rds_connection_alert_names[count.index]
+
+  aws_account_ids = join(",", var.aws_account.ids)
+
+  nrql {
+    // TODO: FACETがentityNameだとClientConnectionが、rds.targetだとmaxconnectionが取れないので、どうやって分割するか
+    query = "SELECT average(aws.rds.ReplicaLag) FROM Metrics FACET entityName WHERE aws.accountId IN (${aws_account_ids}) SINCE 3 minutes ago"
+  }
+  critical {
+    operator = "above"
+    // todo: 割合は未定、あとで入れる
+    threshold = 99
+  }
+}

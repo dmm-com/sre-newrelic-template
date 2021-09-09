@@ -61,13 +61,21 @@ variable "memory_alert_names" {
   type = list(string)
 }
 
+// New Relic の infrastructure agent を使用
 // variable "alert_network" {
 //   type = list(object({
 //     alert_name = string
 //   }))
 // }
 
-// New Relic の infrastructure agent を使用
 variable "rds_alive_alert_names" {
+  type = list(string)
+}
+
+variable "rds_replica_lag_alert_names" {
+  type = list(string)
+}
+
+variable "rds_connection_alert_names" {
   type = list(string)
 }
