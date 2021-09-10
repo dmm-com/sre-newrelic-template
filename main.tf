@@ -1,3 +1,8 @@
+
+terraform {
+  required_version = "1.0.6"
+}
+
 terraform {
   required_version = "1.0.6"
 
