@@ -29,28 +29,28 @@ provider "aws" {
 }
 
 resource "newrelic_synthetics_monitor" "ping" {
-  count = length(var.newrelic_synthetics_pings)
+  count = length(var.newrelic_synthetics_ping)
 
   type                      = "SIMPLE"
-  name                      = var.newrelic_synthetics_ping.name[count.index]
-  frequency                 = var.newrelic_synthetics_ping.frequency[count.index]
-  uri                       = var.newrelic_synthetics_ping.uri[count.index]
-  validation_string         = var.newrelic_synthetics_ping.validation_string[count.index]
-  verify_ssl                = var.newrelic_synthetics_ping.verify_ssl[count.index]
-  bypass_head_request       = var.newrelic_synthetics_ping.bypass_head_request[count.index]
-  treat_redirect_as_failure = var.newrelic_synthetics_ping.treat_redirect_as_failure[count.index]
+  name                      = var.newrelic_synthetics_ping[count.index].name
+  frequency                 = var.newrelic_synthetics_ping[count.index].frequency
+  uri                       = var.newrelic_synthetics_ping[count.index].uri
+  validation_string         = var.newrelic_synthetics_ping[count.index].validation_string
+  verify_ssl                = var.newrelic_synthetics_ping[count.index].verify_ssl
+  bypass_head_request       = var.newrelic_synthetics_ping[count.index].bypass_head_request
+  treat_redirect_as_failure = var.newrelic_synthetics_ping[count.index].treat_redirect_as_failure
 }
 
 resource "newrelic_synthetics_monitor" "syn_browser" {
   count = length(var.newrelic_synthetics_browser)
 
   type                = "BROWSER"
-  name                = var.newrelic_synthetics_browser.name[count.index]
-  frequency           = var.newrelic_synthetics_browser.frequency[count.index]
-  uri                 = var.newrelic_synthetics_browser.uri[count.index]
-  validation_string   = var.newrelic_synthetics_browser.validation_string[count.index]
-  verify_ssl          = var.newrelic_synthetics_browser.verify_ssl[count.index]
-  bypass_head_request = var.newrelic_synthetics_browser.bypass_head_request[count.index]
+  name                = var.newrelic_synthetics_browser[count.index].name
+  frequency           = var.newrelic_synthetics_browser[count.index].frequency
+  uri                 = var.newrelic_synthetics_browser[count.index].uri
+  validation_string   = var.newrelic_synthetics_browser[count.index].validation_string
+  verify_ssl          = var.newrelic_synthetics_browser[count.index].verify_ssl
+  bypass_head_request = var.newrelic_synthetics_browser[count.index].bypass_head_request
 }
 
 resource "newrelic_alert_policy" "default" {
@@ -61,11 +61,11 @@ resource "newrelic_alert_channel" "channel" {
   count = length(var.alert_slack_channel)
 
   type = "slack"
-  name = var.alert_slack_channel.name[count.index]
+  name = var.alert_slack_channel[count.index].name
 
   config {
-    url     = var.alert_slack_channel.url[count.index]
-    channel = var.alert_slack_channel.channel[count.index]
+    url     = var.alert_slack_channel[count.index].url
+    channel = var.alert_slack_channel[count.index].channel
   }
 }
 
