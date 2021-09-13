@@ -1,5 +1,5 @@
-nr_account_id = 123456789 // 変更する
-nr_api_key    = testkeytestkey // 変更する
+nr_account_id = 123456789        // 変更する
+nr_api_key    = "testkeytestkey" // 変更する
 nr_region     = "US"
 
 aws_region = "ap-northeast-1"
