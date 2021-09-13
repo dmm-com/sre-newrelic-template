@@ -34,6 +34,8 @@ resource "newrelic_synthetics_monitor" "ping" {
   type                      = "SIMPLE"
   name                      = var.newrelic_synthetics_ping[count.index].name
   frequency                 = var.newrelic_synthetics_ping[count.index].frequency
+  status                    = var.newrelic_synthetics_ping[count.index].status
+  locations                 = var.newrelic_synthetics_ping[count.index].locations
   uri                       = var.newrelic_synthetics_ping[count.index].uri
   validation_string         = var.newrelic_synthetics_ping[count.index].validation_string
   verify_ssl                = var.newrelic_synthetics_ping[count.index].verify_ssl
@@ -47,6 +49,8 @@ resource "newrelic_synthetics_monitor" "syn_browser" {
   type                = "BROWSER"
   name                = var.newrelic_synthetics_browser[count.index].name
   frequency           = var.newrelic_synthetics_browser[count.index].frequency
+  status              = var.newrelic_synthetics_browser[count.index].status
+  locations           = var.newrelic_synthetics_browser[count.index].locations
   uri                 = var.newrelic_synthetics_browser[count.index].uri
   validation_string   = var.newrelic_synthetics_browser[count.index].validation_string
   verify_ssl          = var.newrelic_synthetics_browser[count.index].verify_ssl
@@ -72,8 +76,9 @@ resource "newrelic_alert_channel" "channel" {
 resource "newrelic_nrql_alert_condition" "cpu" {
   policy_id = newrelic_alert_policy.default.id
 
-  count = length(var.cpu_alert_names)
-  name  = var.cpu_alert_names[count.index]
+  count                        = length(var.cpu_alert_names)
+  name                         = var.cpu_alert_names[count.index]
+  violation_time_limit_seconds = 3600
 
   // TODO: ec2のタグ名を入れていないのであとで入れる
   nrql {

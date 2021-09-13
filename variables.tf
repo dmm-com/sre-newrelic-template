@@ -16,6 +16,8 @@ variable "newrelic_synthetics_ping" {
   type = list(object({
     name                      = string
     frequency                 = number
+    status                    = string
+    locations                 = list(string)
     uri                       = string
     validation_string         = string
     verify_ssl                = bool
@@ -29,6 +31,8 @@ variable "newrelic_synthetics_browser" {
   type = list(object({
     name                = string
     frequency           = number
+    status              = string
+    locations           = list(string)
     uri                 = string
     validation_string   = string
     verify_ssl          = bool
