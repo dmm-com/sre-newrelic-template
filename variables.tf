@@ -55,8 +55,12 @@ variable "alert_slack_channel" {
   default = []
 }
 
-variable "cpu_alert_names" {
-  type    = list(string)
+variable "cpu_alerts" {
+  type = list(object({
+    name          = string
+    ec2_tag_key   = string
+    ec2_tag_value = string
+  }))
   default = []
 }
 
