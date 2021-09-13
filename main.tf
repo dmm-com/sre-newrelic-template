@@ -80,7 +80,6 @@ resource "newrelic_nrql_alert_condition" "cpu" {
   name                         = var.cpu_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
-  // TODO: ec2のタグ名を入れていないのであとで入れる
   nrql {
     query             = "SELECT average(aws.ec2.CPUUtilization) FROM Metric WHERE collector.name ='cloudwatch-metric-streams' AND tags.${var.cpu_alerts[count.index].ec2_tag_key} = '${var.cpu_alerts[count.index].ec2_tag_value}' FACET entity.name SINCE 30 minutes ago"
     evaluation_offset = 3
@@ -99,12 +98,13 @@ resource "newrelic_nrql_alert_condition" "alive" {
   violation_time_limit_seconds = 3600
 
   nrql {
-    query             = "SELECT average(receiveBytesPerSecond) FROM NetworkSample FACET entityAndInterface WHERE aws.accountId IN (${join(",", var.aws_account_ids)}) SINCE 1 minutes ago"
+    // TODO: EC2の監視を使う
+    query             = "FROM Metric SELECT count(*) WHERE collector.name ='cloudwatch-metric-streams' AND aws.accountId IN (${join(",", var.aws_account_ids)}) AND aws.ec2.state IS NOT NULL AND aws.ec2.state != 'running' FACET aws.ec2.InstanceId SINCE 5 minutes ago"
     evaluation_offset = 3
   }
   critical {
-    operator  = "equals"
-    threshold = 0
+    operator  = "above"
+    threshold = 1
   }
 }
 
