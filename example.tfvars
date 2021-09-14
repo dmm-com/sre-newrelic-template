@@ -1,8 +1,7 @@
 nr_account_id = 123456789        // 変更する
 nr_api_key    = "testkeytestkey" // 変更する
-nr_region     = "US"
 
-aws_region = "ap-northeast-1"
+aws_account_id = "987654321" // 変更する
 
 // -------------------------------------------
 // Synthetics
@@ -10,20 +9,16 @@ aws_region = "ap-northeast-1"
 newrelic_synthetics_ping = [
   {
     name                      = "hogeping"
-    frequency                 = 1 // minutes(1,5,10,15,30,60,360,720,1440 のどれか)
     status                    = "ENABLED"
     uri                       = "https://hogehoge.com"
     validation_string         = "test"
-    locations                 = ["AWS_AP-NORTHEAST-1", "AWS_US_WEST_1", "AWS_US_EAST_1"]
     verify_ssl                = true
     bypass_head_request       = false
     treat_redirect_as_failure = true
   },
   {
     name                      = "hugaping"
-    frequency                 = 1
     status                    = "ENABLED"
-    locations                 = ["AWS_AP-NORTHEAST-1", "AWS_US_WEST_1", "AWS_US_EAST_1"]
     uri                       = "http://fugafuga.com"
     validation_string         = "test"
     verify_ssl                = false
@@ -35,8 +30,6 @@ newrelic_synthetics_ping = [
 newrelic_synthetics_browser = [
   {
     name                = "hogesynbrowser"
-    frequency           = 1
-    locations           = ["AWS_AP-NORTHEAST-1", "AWS_US_WEST_1", "AWS_US_EAST_1"]
     status              = "ENABLED"
     uri                 = "https://hogehoge.com"
     validation_string   = "test"
@@ -45,8 +38,6 @@ newrelic_synthetics_browser = [
   },
   {
     name                = "fugasynbrowser"
-    frequency           = 1
-    locations           = ["AWS_AP-NORTHEAST-1", "AWS_US_WEST_1", "AWS_US_EAST_1"]
     status              = "ENABLED"
     uri                 = "http://hogehoge.com"
     validation_string   = "test"
@@ -58,7 +49,6 @@ newrelic_synthetics_browser = [
 // -------------------------------------------
 // Alart
 // -------------------------------------------
-aws_account_ids = []
 
 alert_slack_channel = [{
   name    = "hoge"

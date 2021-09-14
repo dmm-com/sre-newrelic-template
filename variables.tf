@@ -4,12 +4,10 @@ variable "nr_account_id" {
 variable "nr_api_key" {
   type = string
 }
-variable "nr_region" {
-  type = string
-}
 
-variable "aws_region" {
-  type = string
+variable "aws_account_id" {
+  type    = string
+  default = ""
 }
 
 variable "newrelic_synthetics_ping" {
@@ -17,7 +15,6 @@ variable "newrelic_synthetics_ping" {
     name                      = string
     frequency                 = number
     status                    = string
-    locations                 = list(string)
     uri                       = string
     validation_string         = string
     verify_ssl                = bool
@@ -32,7 +29,6 @@ variable "newrelic_synthetics_browser" {
     name                = string
     frequency           = number
     status              = string
-    locations           = list(string)
     uri                 = string
     validation_string   = string
     verify_ssl          = bool
@@ -41,10 +37,6 @@ variable "newrelic_synthetics_browser" {
   default = []
 }
 
-variable "aws_account_ids" {
-  type    = list(string)
-  default = []
-}
 
 variable "alert_slack_channel" {
   type = list(object({
@@ -64,7 +56,6 @@ variable "cpu_alerts" {
   default = []
 }
 
-// New Relic の infrastructure agent を使用
 variable "alive_alert_names" {
   type    = list(string)
   default = []

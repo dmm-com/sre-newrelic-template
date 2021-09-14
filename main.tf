@@ -1,8 +1,3 @@
-
-terraform {
-  required_version = "1.0.6"
-}
-
 terraform {
   required_version = "1.0.6"
 
@@ -11,50 +6,13 @@ terraform {
       source  = "newrelic/newrelic"
       version = "~> 2.25.0"
     }
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.57.0"
-    }
   }
 }
 
 provider "newrelic" {
+  region     = "US"
   account_id = var.nr_account_id
   api_key    = var.nr_api_key
-  region     = var.nr_region
-}
-
-provider "aws" {
-  region = var.aws_region
-}
-
-resource "newrelic_synthetics_monitor" "ping" {
-  count = length(var.newrelic_synthetics_ping)
-
-  type                      = "SIMPLE"
-  name                      = var.newrelic_synthetics_ping[count.index].name
-  frequency                 = var.newrelic_synthetics_ping[count.index].frequency
-  status                    = var.newrelic_synthetics_ping[count.index].status
-  locations                 = var.newrelic_synthetics_ping[count.index].locations
-  uri                       = var.newrelic_synthetics_ping[count.index].uri
-  validation_string         = var.newrelic_synthetics_ping[count.index].validation_string
-  verify_ssl                = var.newrelic_synthetics_ping[count.index].verify_ssl
-  bypass_head_request       = var.newrelic_synthetics_ping[count.index].bypass_head_request
-  treat_redirect_as_failure = var.newrelic_synthetics_ping[count.index].treat_redirect_as_failure
-}
-
-resource "newrelic_synthetics_monitor" "syn_browser" {
-  count = length(var.newrelic_synthetics_browser)
-
-  type                = "BROWSER"
-  name                = var.newrelic_synthetics_browser[count.index].name
-  frequency           = var.newrelic_synthetics_browser[count.index].frequency
-  status              = var.newrelic_synthetics_browser[count.index].status
-  locations           = var.newrelic_synthetics_browser[count.index].locations
-  uri                 = var.newrelic_synthetics_browser[count.index].uri
-  validation_string   = var.newrelic_synthetics_browser[count.index].validation_string
-  verify_ssl          = var.newrelic_synthetics_browser[count.index].verify_ssl
-  bypass_head_request = var.newrelic_synthetics_browser[count.index].bypass_head_request
 }
 
 resource "newrelic_alert_policy" "default" {
@@ -98,8 +56,7 @@ resource "newrelic_nrql_alert_condition" "alive" {
   violation_time_limit_seconds = 3600
 
   nrql {
-    // TODO: EC2の監視を使う
-    query             = "FROM Metric SELECT count(*) WHERE collector.name ='cloudwatch-metric-streams' AND aws.accountId IN (${join(",", var.aws_account_ids)}) AND aws.ec2.state IS NOT NULL AND aws.ec2.state != 'running' FACET aws.ec2.InstanceId SINCE 5 minutes ago"
+    query             = "SELECT count(*) FROM Metric WHERE collector.name ='cloudwatch-metric-streams' AND aws.accountId IN (${join(",", var.aws_account_ids)}) AND aws.ec2.state IS NOT NULL AND aws.ec2.state != 'running' FACET aws.ec2.InstanceId SINCE 5 minutes ago"
     evaluation_offset = 3
   }
   critical {
@@ -171,7 +128,7 @@ resource "newrelic_nrql_alert_condition" "timesync" {
   name                         = var.timesync_alert_names[count.index]
   violation_time_limit_seconds = 3600
 
-  // TODO: chrony + 時刻同期を使って行う
+  // TODO: 時刻管理サーバのunixtimestamp - 監視対象サーバへのunixtimestamp > 10ならアラート
   nrql {
     query             = "SELECT average(loadAverageFiveMinutes) FROM SystemSample FACET entityName WHERE aws.accountId IN (${join(",", var.aws_account_ids)}) SINCE 1 minutes ago"
     evaluation_offset = 3
