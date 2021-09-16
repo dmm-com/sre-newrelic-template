@@ -25,6 +25,9 @@ terraform plan -var-file foo.tfvars
 
 とすると使用できます。
 
+### 注意点
+
+AWSのタグは、New Relicに反映されるまでかなり時間がかかります。30分程度待ってから動作確認することをおすすめします。
 ### 複数のAWSアカウントを使用したい場合
 
 tfvars を分けることで対応してください。
@@ -41,5 +44,5 @@ EC2 など一部ではタグでの切り分けが可能ですが、実装が間�
   - New Relic 側からは、Cloud Watch Metric Stream とそれ以外が混在しているため、見分けがつきにくい
   - 例えば [EC2](https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/viewing_metrics_with_cloudwatch.html), [RDS](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/monitoring-cloudwatch.html), [Elastcache(memcached)](https://docs.aws.amazon.com/ja_jp/AmazonElastiCache/latest/mem-ug/CacheMetrics.html) であればドキュメントに記載がある
     - 特にデータの単位は New Relic 側からは分からないので、適宜AWS側で調べたほうが早い
-- 死活監視は素直に行うことは難しい
-  - RDS などでは、ネットワークが全く流れていない場合は落ちているという判定をしているが、これはstatusが素直に取れないため
+- 一部の死活監視は素直に行うことは難しい
+  - Aurora 以外の RDS などでは、ネットワークが全く流れていない場合は落ちているという判定をしているが、これは直接statusに取れないため

@@ -65,18 +65,18 @@ variable "newrelic_synthetics_browser" {
 
 variable "ec2_cpu_alerts" {
   type = list(object({
-    name          = string
-    ec2_tag_key   = string
-    ec2_tag_value = string
+    name      = string
+    tag_key   = string
+    tag_value = string
   }))
   default = []
 }
 
 variable "ec2_alive_alerts" {
   type = list(object({
-    name          = string
-    ec2_tag_key   = string
-    ec2_tag_value = string
+    name      = string
+    tag_key   = string
+    tag_value = string
   }))
   default = []
 }
@@ -84,9 +84,9 @@ variable "ec2_alive_alerts" {
 // New Relic の infrastructure agent を使用
 variable "ec2_cpuiowait_alerts" {
   type = list(object({
-    name          = string
-    ec2_tag_key   = string
-    ec2_tag_value = string
+    name      = string
+    tag_key   = string
+    tag_value = string
   }))
   default = []
 }
@@ -94,9 +94,9 @@ variable "ec2_cpuiowait_alerts" {
 // New Relic の infrastructure agent を使用
 variable "ec2_disk_alerts" {
   type = list(object({
-    name          = string
-    ec2_tag_key   = string
-    ec2_tag_value = string
+    name      = string
+    tag_key   = string
+    tag_value = string
   }))
   default = []
 }
@@ -104,9 +104,9 @@ variable "ec2_disk_alerts" {
 // New Relic の infrastructure agent を使用
 variable "ec2_load_average_alerts" {
   type = list(object({
-    name          = string
-    ec2_tag_key   = string
-    ec2_tag_value = string
+    name      = string
+    tag_key   = string
+    tag_value = string
   }))
   default = []
 }
@@ -115,9 +115,9 @@ variable "ec2_load_average_alerts" {
 // Flex については README に記載
 variable "ec2_timesync_alerts" {
   type = list(object({
-    name          = string
-    ec2_tag_key   = string
-    ec2_tag_value = string
+    name      = string
+    tag_key   = string
+    tag_value = string
   }))
   default = []
 }
@@ -125,9 +125,9 @@ variable "ec2_timesync_alerts" {
 // New Relic の infrastructure agent を使用
 variable "ec2_memory_alerts" {
   type = list(object({
-    name          = string
-    ec2_tag_key   = string
-    ec2_tag_value = string
+    name      = string
+    tag_key   = string
+    tag_value = string
   }))
   default = []
 }
@@ -137,43 +137,66 @@ variable "ec2_network_alerts" {
     name                     = string
     max_limit_bandwidth_mbps = number
     metrics_interval_minutes = number
-    ec2_tag_key              = string
-    ec2_tag_value            = string
+    tag_key                  = string
+    tag_value                = string
   }))
   default = []
 }
 
-variable "rds_alive_alert_names" {
-  type    = list(string)
+variable "rds_alive_alerts" {
+  type = list(object({
+    name      = string
+    tag_key   = string
+    tag_value = string
+  }))
   default = []
 }
 
-variable "rds_replica_lag_alert_names" {
-  type    = list(string)
+variable "rds_replica_lag_alerts" {
+  type = list(object({
+    name      = string
+    tag_key   = string
+    tag_value = string
+  }))
   default = []
 }
 
-variable "rds_aurora_alive_alert_names" {
-  type    = list(string)
+variable "rds_aurora_alive_alerts" {
+  type = list(object({
+    name      = string
+    tag_key   = string
+    tag_value = string
+  }))
   default = []
 }
 
-variable "rds_aurora_replica_lag_alert_names" {
-  type    = list(string)
+variable "rds_aurora_replica_lag_alerts" {
+  type = list(object({
+    name      = string
+    tag_key   = string
+    tag_value = string
+  }))
   default = []
 }
 
-variable "elasticache_cpu_alert_names" {
-  type    = list(string)
+// Elasticache はタグが取れない可能性あり
+variable "elasticache_cpu_alerts" {
+  type = list(object({
+    name      = string
+  }))
   default = []
 }
 
-variable "elasticache_swap_alert_names" {
-  type    = list(string)
+variable "elasticache_swap_alerts" {
+  type = list(object({
+    name      = string
+  }))
   default = []
 }
 
-variable "elasticache_memory_alert_names" {
-  type    = list(string)
+variable "elasticache_memory_alerts" {
+  type = list(object({
+    name      = string
+  }))
   default = []
 }

@@ -1,23 +1,23 @@
-nr_account_id  = 123456789        // 変更する
-nr_api_key     = "testkeytestkey" // 変更する
-nr_external_id = "123456789"      // 普通はnr_account_idと同じ
+nr_account_id  = // 数値型
+nr_api_key     = ""
+nr_external_id = // 数値型
 
 aws_region     = "ap-northeast-1"
-aws_access_key = "qwertyiopasdfgh"
-aws_secret_key = "thisissecret"
-aws_account_id = "77777777" // 変更する
+aws_access_key = ""
+aws_secret_key = ""
+aws_account_id = "" // 文字列型
 
 // -------------------------------------------
 // Synthetics
 // -------------------------------------------
 newrelic_synthetics_ping = [
   {
-    name                      = "hogeping"
+    name                      = "TopPage"
     status                    = "ENABLED"
-    uri                       = "https://hogehoge.com"
-    validation_string         = "test"
+    uri                       = "https://dmm.com/"
+    validation_string         = "" // レスポンスが正しいかチェックする時のバリデーション用文字列
     verify_ssl                = true
-    bypass_head_request       = false
+    bypass_head_request       = false // pingチェックのときデフォルトのHEADリクエストをスキップし、代わりにGETリクエストを使用する
     treat_redirect_as_failure = true
   },
   {
@@ -33,10 +33,10 @@ newrelic_synthetics_ping = [
 
 newrelic_synthetics_browser = [
   {
-    name                = "hogesynbrowser"
+    name                = "TopPage"
     status              = "ENABLED"
-    uri                 = "https://hogehoge.com"
-    validation_string   = "test"
+    uri                 = "https://www.dmm.com"
+    validation_string   = "Welcome to DMM.com!"
     verify_ssl          = true
     bypass_head_request = false
   },
@@ -47,38 +47,94 @@ newrelic_synthetics_browser = [
     validation_string   = "test"
     verify_ssl          = false
     bypass_head_request = false
-  },
+  }
 ]
 
 // -------------------------------------------
 // Alart
 // -------------------------------------------
-alert_policy_name = "hogepolicy"
+alert_policy_name = "prodAlert"
 
 alert_slack_channel = {
-  name    = "hoge"
-  url     = "https://hooks.slack.com/services/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"
+  name    = "prodAlertSlack"
+  url     = "" // slack hook url
   channel = "newrelic-alert-test"
 }
 
 // EC2 alerts
-ec2_cpu_alerts          = []
-ec2_alive_alerts        = []
-ec2_cpuiowait_alerts    = []
-ec2_disk_alerts         = []
-ec2_load_average_alerts = []
-ec2_timesync_alerts     = []
-ec2_memory_alerts       = []
-ec2_network_alerts      = []
+ec2_cpu_alerts = [{
+  name      = "ec2 cpu"
+  tag_key   = "prod"
+  tag_value = "api"
+}]
+ec2_alive_alerts = [{
+  name      = "ec2 alive"
+  tag_key   = "prod"
+  tag_value = "api"
+}]
+ec2_cpuiowait_alerts = [{
+  name      = "ec2 cpuiowait"
+  tag_key   = "prod"
+  tag_value = "api"
+}]
+ec2_disk_alerts = [{
+  name      = "ec2 disk"
+  tag_key   = "prod"
+  tag_value = "api"
+}]
+ec2_load_average_alerts = [{
+  name      = "ec2 load average"
+  tag_key   = "prod"
+  tag_value = "api"
+}]
+ec2_timesync_alerts = [{
+  name      = "ec2 timesync"
+  tag_key   = "prod"
+  tag_value = "api"
+}]
+ec2_memory_alerts = [{
+  name      = "ec2 memory"
+  tag_key   = "prod"
+  tag_value = "api"
+}]
+ec2_network_alerts = [{
+  name                     = "ec2 network"
+  max_limit_bandwidth_mbps = 1000 // 監視インスタンスタイプの帯域上限 この場合は 1000mbps
+  metrics_interval_minutes = 1    // 拡張メトリクス監視(1分間隔)の場合は 1, それ以外の場合は5分間隔なので 5
+  tag_key                  = "prod"
+  tag_value                = "api"
+}]
 
 // RDS alert
-rds_alive_alert_names       = []
-rds_replica_lag_alert_names = []
+rds_alive_alerts = [{
+  name      = "rds alive"
+  tag_key   = "prod"
+  tag_value = "customer"
+}]
+rds_replica_lag_alerts = [{
+  name      = "rds replicalag"
+  tag_key   = "prod"
+  tag_value = "customer"
+}]
 // For Aurora
-rds_aurora_alive_alert_names       = []
-rds_aurora_replica_lag_alert_names = []
+rds_aurora_alive_alerts = [{
+  name      = "rds aurora alive"
+  tag_key   = "prod"
+  tag_value = "customer"
+}]
+rds_aurora_replica_lag_alerts = [{
+  name      = "rds aurora replicalag"
+  tag_key   = "prod"
+  tag_value = "customer"
+}]
 
 // Elasticache alerts
-elasticache_cpu_alert_names    = []
-elasticache_swap_alert_names   = []
-elasticache_memory_alert_names = []
+elasticache_cpu_alerts = [{
+  name = "cache"
+}]
+elasticache_swap_alerts = [{
+  name = "cache"
+}]
+elasticache_memory_alerts = [{
+  name = "cache"
+}]
