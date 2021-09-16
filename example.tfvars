@@ -62,14 +62,14 @@ alert_slack_channel = {
 }
 
 // EC2 alerts
-cpu_alerts               = []
-alive_alert_names        = []
-cpuiowait_alert_names    = []
-disk_alert_names         = []
-load_average_alert_names = []
-timesync_alerts          = []
-memory_alert_names       = []
-alert_network            = []
+ec2_cpu_alerts          = []
+ec2_alive_alerts        = []
+ec2_cpuiowait_alerts    = []
+ec2_disk_alerts         = []
+ec2_load_average_alerts = []
+ec2_timesync_alerts     = []
+ec2_memory_alerts       = []
+ec2_network_alerts      = []
 
 // RDS alert
 rds_alive_alert_names       = []
@@ -77,3 +77,8 @@ rds_replica_lag_alert_names = []
 // For Aurora
 rds_aurora_alive_alert_names       = []
 rds_aurora_replica_lag_alert_names = []
+
+// Elasticache alerts
+elasticache_cpu_alert_names    = []
+elasticache_swap_alert_names   = []
+elasticache_memory_alert_names = []

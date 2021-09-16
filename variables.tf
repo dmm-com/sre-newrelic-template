@@ -63,7 +63,7 @@ variable "newrelic_synthetics_browser" {
 }
 
 
-variable "cpu_alerts" {
+variable "ec2_cpu_alerts" {
   type = list(object({
     name          = string
     ec2_tag_key   = string
@@ -72,45 +72,67 @@ variable "cpu_alerts" {
   default = []
 }
 
-variable "alive_alert_names" {
-  type    = list(string)
-  default = []
-}
-
-// New Relic の infrastructure agent を使用
-variable "cpuiowait_alert_names" {
-  type    = list(string)
-  default = []
-}
-
-// New Relic の infrastructure agent を使用
-variable "disk_alert_names" {
-  type    = list(string)
-  default = []
-}
-
-// New Relic の infrastructure agent を使用
-variable "load_average_alert_names" {
-  type    = list(string)
-  default = []
-}
-
-// New Relic の infrastructure agent を使用
-variable "timesync_alerts" {
+variable "ec2_alive_alerts" {
   type = list(object({
-    name                  = string
-    reference_instance_id = string
+    name          = string
+    ec2_tag_key   = string
+    ec2_tag_value = string
   }))
   default = []
 }
 
 // New Relic の infrastructure agent を使用
-variable "memory_alert_names" {
-  type    = list(string)
+variable "ec2_cpuiowait_alerts" {
+  type = list(object({
+    name          = string
+    ec2_tag_key   = string
+    ec2_tag_value = string
+  }))
   default = []
 }
 
-variable "alert_network" {
+// New Relic の infrastructure agent を使用
+variable "ec2_disk_alerts" {
+  type = list(object({
+    name          = string
+    ec2_tag_key   = string
+    ec2_tag_value = string
+  }))
+  default = []
+}
+
+// New Relic の infrastructure agent を使用
+variable "ec2_load_average_alerts" {
+  type = list(object({
+    name          = string
+    ec2_tag_key   = string
+    ec2_tag_value = string
+  }))
+  default = []
+}
+
+// New Relic の infrastructure agent と Flex を使用
+// Flex については README に記載
+variable "ec2_timesync_alerts" {
+  type = list(object({
+    name          = string
+    ec2_tag_key   = string
+    ec2_tag_value = string
+  }))
+  default = []
+}
+
+// New Relic の infrastructure agent を使用
+variable "ec2_memory_alerts" {
+  type = list(object({
+    name          = string
+    ec2_tag_key   = string
+    ec2_tag_value = string
+  }))
+  default = []
+}
+
+variable "ec2_network_alerts" {
   type = list(object({
     name                     = string
     max_limit_bandwidth_mbps = number
