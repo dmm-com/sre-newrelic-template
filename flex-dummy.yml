@@ -1,0 +1,11 @@
+integrations:
+  - name: nri-flex
+    config:
+      name: dummyflex
+      apis:
+        - name: dummyflex
+          commands:
+            - run: "echo dummy"
+              split: horizontal
+              set_header: [dummy]
+              split_by: \s

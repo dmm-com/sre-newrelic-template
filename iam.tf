@@ -1,7 +1,3 @@
-variable "nr_external_id" {
-  type = string
-}
-
 resource "aws_iam_role" "newrelic" {
   name               = "NewRelicInfrastructure-Integrations"
   description        = "NewRelic AWS Integration"

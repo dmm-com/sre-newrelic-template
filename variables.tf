@@ -5,15 +5,41 @@ variable "nr_api_key" {
   type = string
 }
 
+variable "nr_external_id" {
+  type = string
+}
+
+variable "aws_region" {
+  type = string
+}
+
+variable "aws_access_key" {
+  type = string
+}
+
+variable "aws_secret_key" {
+  type = string
+}
+
 variable "aws_account_id" {
-  type    = string
-  default = ""
+  type = string
+}
+
+variable "alert_policy_name" {
+  type = string
+}
+
+variable "alert_slack_channel" {
+  type = object({
+    name    = string
+    url     = string
+    channel = string
+  })
 }
 
 variable "newrelic_synthetics_ping" {
   type = list(object({
     name                      = string
-    frequency                 = number
     status                    = string
     uri                       = string
     validation_string         = string
@@ -27,7 +53,6 @@ variable "newrelic_synthetics_ping" {
 variable "newrelic_synthetics_browser" {
   type = list(object({
     name                = string
-    frequency           = number
     status              = string
     uri                 = string
     validation_string   = string
@@ -37,15 +62,6 @@ variable "newrelic_synthetics_browser" {
   default = []
 }
 
-
-variable "alert_slack_channel" {
-  type = list(object({
-    name    = string
-    url     = string
-    channel = string
-  }))
-  default = []
-}
 
 variable "cpu_alerts" {
   type = list(object({
@@ -80,8 +96,11 @@ variable "load_average_alert_names" {
 }
 
 // New Relic の infrastructure agent を使用
-variable "timesync_alert_names" {
-  type    = list(string)
+variable "timesync_alerts" {
+  type = list(object({
+    name                  = string
+    reference_instance_id = string
+  }))
   default = []
 }
 
@@ -91,11 +110,11 @@ variable "memory_alert_names" {
   default = []
 }
 
-// New Relic の infrastructure agent を使用
 variable "alert_network" {
   type = list(object({
-    name                = string
-    max_limit_bandwidth = number
+    name                     = string
+    max_limit_bandwidth_mbps = number
+    metrics_interval_minutes = number
   }))
   default = []
 }
@@ -110,7 +129,27 @@ variable "rds_replica_lag_alert_names" {
   default = []
 }
 
-variable "rds_connection_alert_names" {
+variable "rds_aurora_alive_alert_names" {
+  type    = list(string)
+  default = []
+}
+
+variable "rds_aurora_replica_lag_alert_names" {
+  type    = list(string)
+  default = []
+}
+
+variable "elasticache_cpu_alert_names" {
+  type    = list(string)
+  default = []
+}
+
+variable "elasticache_swap_alert_names" {
+  type    = list(string)
+  default = []
+}
+
+variable "elasticache_memory_alert_names" {
   type    = list(string)
   default = []
 }
