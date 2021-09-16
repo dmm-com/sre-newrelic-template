@@ -137,6 +137,8 @@ variable "ec2_network_alerts" {
     name                     = string
     max_limit_bandwidth_mbps = number
     metrics_interval_minutes = number
+    ec2_tag_key              = string
+    ec2_tag_value            = string
   }))
   default = []
 }
