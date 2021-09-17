@@ -1,6 +1,6 @@
 resource "newrelic_synthetics_monitor" "ping" {
   count     = length(var.newrelic_synthetics_ping)
-  locations = ["AWS_AP-NORTHEAST-1", "AWS_US_WEST_1", "AWS_US_EAST_1"]
+  locations = ["AWS_AP_NORTHEAST_1", "AWS_US_WEST_1", "AWS_US_EAST_1"]
   frequency = 1
 
   type                      = "SIMPLE"
@@ -15,7 +15,7 @@ resource "newrelic_synthetics_monitor" "ping" {
 
 resource "newrelic_synthetics_monitor" "syn_browser" {
   count     = length(var.newrelic_synthetics_browser)
-  locations = ["AWS_AP-NORTHEAST-1", "AWS_US_WEST_1", "AWS_US_EAST_1"]
+  locations = ["AWS_AP_NORTHEAST_1", "AWS_US_WEST_1", "AWS_US_EAST_1"]
   frequency = 1
 
   type                = "BROWSER"

@@ -11,6 +11,7 @@ New RelicとAWSのアカウントがそれぞれ必要です。
 また、別に以下の準備が必要となります。
 
 - [Amazon CloudWatch Metric Stream と New Relic の連携](https://newrelic.com/jp/blog/how-to-relic/aws-cloudwatch-metric-streams)
+- [アラートを送る Slack の New Relic の準備](https://docs.newrelic.com/jp/docs/alerts-applied-intelligence/new-relic-alerts/alert-notifications/notification-channels-control-where-send-alerts/#slack)
 - [EC2 の監視を行う場合、New Relic infrastructure agent を EC2 インスタンスに導入](https://docs.newrelic.com/jp/docs/infrastructure/infrastructure-monitoring/get-started/get-started-infrastructure-monitoring/#install)
   - 一部の監視に、[独自のメトリクスを追加するflex](https://docs.newrelic.com/jp/docs/integrations/host-integrations/host-integrations-list/flex-integration-tool-build-your-own-integration/)を使用しているため、`/etc/newrelic-infra/integrations.d/flex-dummy.yml` にリポジトリのflex-dummy にコピー
 
@@ -28,13 +29,16 @@ terraform plan -var-file foo.tfvars
 ### 注意点
 
 AWSのタグは、New Relicに反映されるまでかなり時間がかかります。30分程度待ってから動作確認することをおすすめします。
+
 ### 複数のAWSアカウントを使用したい場合
 
 tfvars を分けることで対応してください。
 
 ### 同一のAWSアカウント内に、複数のサブシステムがあり、監視を切り分けたい場合
 
-EC2 など一部ではタグでの切り分けが可能ですが、実装が間に合っていない部分もあります。
+EC2 などではタグでの切り分けが可能です。
+Elasticache などではタグの指定ができませんが、これは現状の検証ではタグが使えなかったためです。
+詳しくはvariable.tfをご覧ください。
 
 ## コードの書き換えを行いたい場合
 
