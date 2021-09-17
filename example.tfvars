@@ -5,7 +5,7 @@ nr_external_id = // 数値型
 aws_region     = "ap-northeast-1"
 aws_access_key = ""
 aws_secret_key = ""
-aws_account_id = "" // 文字列型
+aws_account_id = ""
 
 // -------------------------------------------
 // Synthetics
@@ -15,7 +15,7 @@ newrelic_synthetics_ping = [
     name                      = "TopPage"
     status                    = "ENABLED"
     uri                       = "https://dmm.com/"
-    validation_string         = "" // レスポンスが正しいかチェックする時のバリデーション用文字列
+    validation_string         = "" // レスポンスが正しいかチェックする時用のバリデーション文字列
     verify_ssl                = true
     bypass_head_request       = false // pingチェックのときデフォルトのHEADリクエストをスキップし、代わりにGETリクエストを使用する
     treat_redirect_as_failure = true
@@ -58,7 +58,7 @@ alert_policy_name = "prodAlert"
 alert_slack_channel = {
   name    = "prodAlertSlack"
   url     = "" // slack hook url
-  channel = "newrelic-alert-test"
+  channel = "" // Team Channel用
 }
 
 // EC2 alerts
@@ -99,8 +99,8 @@ ec2_memory_alerts = [{
 }]
 ec2_network_alerts = [{
   name                     = "ec2 network"
-  max_limit_bandwidth_mbps = 1000 // 監視インスタンスタイプの帯域上限 この場合は 1000mbps
-  metrics_interval_minutes = 1    // 拡張メトリクス監視(1分間隔)の場合は 1, それ以外の場合は5分間隔なので 5
+  max_limit_bandwidth_mbps = 1000 // 監視対象インスタンスの帯域上限 この場合は 1000mbps
+  metrics_interval_minutes = 1    // 拡張メトリクス監視(1分間隔)を使用する場合は 1, それ以外の場合は5分間隔なので 5
   tag_key                  = "prod"
   tag_value                = "api"
 }]
@@ -130,11 +130,11 @@ rds_aurora_replica_lag_alerts = [{
 
 // Elasticache alerts
 elasticache_cpu_alerts = [{
-  name = "cache"
+  name = "elasticache cpu"
 }]
 elasticache_swap_alerts = [{
-  name = "cache"
+  name = "elasticache swap"
 }]
 elasticache_memory_alerts = [{
-  name = "cache"
+  name = "elasticache memory"
 }]
