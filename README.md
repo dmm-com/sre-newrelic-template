@@ -13,7 +13,8 @@ New RelicとAWSのアカウントがそれぞれ必要です。
 - [Amazon CloudWatch Metric Stream と New Relic の連携](https://newrelic.com/jp/blog/how-to-relic/aws-cloudwatch-metric-streams)
 - [アラートを送る Slack の New Relic の準備](https://docs.newrelic.com/jp/docs/alerts-applied-intelligence/new-relic-alerts/alert-notifications/notification-channels-control-where-send-alerts/#slack)
 - [EC2 の監視を行う場合、New Relic infrastructure agent を EC2 インスタンスに導入](https://docs.newrelic.com/jp/docs/infrastructure/infrastructure-monitoring/get-started/get-started-infrastructure-monitoring/#install)
-  - 一部の監視に、[独自のメトリクスを追加するflex](https://docs.newrelic.com/jp/docs/integrations/host-integrations/host-integrations-list/flex-integration-tool-build-your-own-integration/)を使用しているため、`/etc/newrelic-infra/integrations.d/flex-dummy.yml` にリポジトリのflex-dummy にコピー
+  - 一部の監視に、[独自のメトリクスを追加するflex](https://docs.newrelic.com/jp/docs/integrations/host-integrations/host-integrations-list/flex-integration-tool-build-your-own-integration/)を使用しているため、  
+  `/etc/newrelic-infra/integrations.d/flex-dummy.yml` にリポジトリのflex-dummy にコピー
 
 ## 使い方
 
@@ -21,7 +22,8 @@ example.tfvars を元に監視対象や、必要な認証情報を記載したtf
 
 ```bash
 terraform init
-terraform plan -var-file foo.tfvars
+terraform plan -var-file prod.tfvars
+terraform apply -var-file prod.tfvars
 ```
 
 とすると使用できます。
