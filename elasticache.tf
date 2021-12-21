@@ -50,12 +50,12 @@ resource "newrelic_nrql_alert_condition" "memcached_memory" {
   violation_time_limit_seconds = 3600
 
   nrql {
-    query             = "SELECT average(aws.elasticache.Evictions) FROM Metric WHERE aws.accountId IN (${var.aws_account_id}) FACET aws.elasticache.CacheClusterId"
+    query             = "SELECT average(aws.elasticache.FreeableMemory) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
     evaluation_offset = 3
   }
   critical {
-    operator              = "above"
-    threshold             = 0
+    operator              = "below"
+    threshold             = 300
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
