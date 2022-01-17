@@ -8,7 +8,7 @@ resource "newrelic_nrql_alert_condition" "memcached_cpu" {
   violation_time_limit_seconds = 3600
 
   nrql {
-    query             = "SELECT average(aws.elasticache.CPUUtilization) FROM Metric WHERE aws.accountId IN (${var.aws_account_id}) FACET aws.elasticache.CacheClusterId"
+    query             = "SELECT average(aws.elasticache.CPUUtilization) FROM Metric WHERE aws.accountId IN (${var.aws_account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
     evaluation_offset = 3
   }
   critical {
@@ -29,7 +29,7 @@ resource "newrelic_nrql_alert_condition" "memcached_swap" {
   violation_time_limit_seconds = 3600
 
   nrql {
-    query             = "SELECT average(aws.elasticache.SwapUsage) FROM Metric WHERE aws.accountId IN (${var.aws_account_id}) FACET aws.elasticache.CacheClusterId"
+    query             = "SELECT average(aws.elasticache.SwapUsage) FROM Metric WHERE aws.accountId IN (${var.aws_account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
     evaluation_offset = 3
   }
   critical {
