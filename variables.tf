@@ -200,3 +200,10 @@ variable "elasticache_memory_alerts" {
   }))
   default = []
 }
+
+variable "cloudfront_4xx_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
