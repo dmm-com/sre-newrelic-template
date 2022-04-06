@@ -214,3 +214,10 @@ variable "cloudfront_5xx_alerts" {
   }))
   default = []
 }
+
+variable "cloudfront_origin_latency_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}

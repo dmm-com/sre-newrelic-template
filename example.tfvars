@@ -146,3 +146,6 @@ cloudfront_4xx_alerts = [{
 cloudfront_5xx_alerts = [{
   name = "cloudfront 5xx"
 }]
+cloudfront_origin_latency_alerts = [{
+  name = "cloudfront origin latency"
+}]
