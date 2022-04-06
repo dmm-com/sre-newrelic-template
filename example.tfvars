@@ -1,5 +1,5 @@
 nr_account_id  = // 数値型
-nr_api_key     = ""
+nr_api_key     = "" // Type:USERのAPIキー
 nr_external_id = // 数値型
 
 aws_region     = "ap-northeast-1"
