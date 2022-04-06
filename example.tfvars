@@ -143,3 +143,6 @@ elasticache_memory_alerts = [{
 cloudfront_4xx_alerts = [{
   name = "cloudfront 4xx"
 }]
+cloudfront_5xx_alerts = [{
+  name = "cloudfront 5xx"
+}]

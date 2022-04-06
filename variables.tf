@@ -207,3 +207,10 @@ variable "cloudfront_4xx_alerts" {
   }))
   default = []
 }
+
+variable "cloudfront_5xx_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
