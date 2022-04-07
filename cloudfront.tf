@@ -7,6 +7,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_4xx" {
   name                         = var.cloudfront_4xx_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
+  aggregation_window = "60"
   aggregation_method = "event_flow"
   aggregation_delay  = "120"
 
@@ -30,6 +31,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_5xx" {
   name                         = var.cloudfront_5xx_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
+  aggregation_window = "60"
   aggregation_method = "event_flow"
   aggregation_delay  = "120"
 
@@ -53,6 +55,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_origin_latency" {
   name                         = var.cloudfront_origin_latency_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
+  aggregation_window = "60"
   aggregation_method = "event_flow"
   aggregation_delay  = "120"
 
