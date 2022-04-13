@@ -37,6 +37,10 @@ variable "alert_slack_channel" {
   })
 }
 
+variable "slack_mention" {
+  type = string
+}
+
 variable "newrelic_synthetics_ping" {
   type = list(object({
     name                      = string

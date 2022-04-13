@@ -3,6 +3,8 @@ resource "newrelic_nrql_alert_condition" "memcached_cpu" {
   type           = "static"
   value_function = "single_value"
 
+  description = "Attention <@${var.slack_mention}>"
+
   count                        = length(var.elasticache_cpu_alerts)
   name                         = var.elasticache_cpu_alerts[count.index].name
   violation_time_limit_seconds = 3600
@@ -24,6 +26,8 @@ resource "newrelic_nrql_alert_condition" "memcached_swap" {
   type           = "static"
   value_function = "single_value"
 
+  description = "Attention <@${var.slack_mention}>"
+
   count                        = length(var.elasticache_swap_alerts)
   name                         = var.elasticache_swap_alerts[count.index].name
   violation_time_limit_seconds = 3600
@@ -44,6 +48,8 @@ resource "newrelic_nrql_alert_condition" "memcached_memory" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
 
   count                        = length(var.elasticache_memory_alerts)
   name                         = var.elasticache_memory_alerts[count.index].name

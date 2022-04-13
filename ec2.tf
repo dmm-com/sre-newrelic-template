@@ -3,6 +3,8 @@ resource "newrelic_nrql_alert_condition" "cpu" {
   type           = "static"
   value_function = "single_value"
 
+  description = "Attention <@${var.slack_mention}>"
+
   count                        = length(var.ec2_cpu_alerts)
   name                         = var.ec2_cpu_alerts[count.index].name
   violation_time_limit_seconds = 3600
@@ -23,6 +25,8 @@ resource "newrelic_nrql_alert_condition" "alive" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
 
   count                        = length(var.ec2_alive_alerts)
   name                         = var.ec2_alive_alerts[count.index].name
@@ -47,6 +51,8 @@ resource "newrelic_nrql_alert_condition" "cpu_iowait" {
   type           = "static"
   value_function = "single_value"
 
+  description = "Attention <@${var.slack_mention}>"
+
   count                        = length(var.ec2_cpuiowait_alerts)
   name                         = var.ec2_cpuiowait_alerts[count.index].name
   violation_time_limit_seconds = 3600
@@ -67,6 +73,8 @@ resource "newrelic_nrql_alert_condition" "disk" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
 
   count                        = length(var.ec2_disk_alerts)
   name                         = var.ec2_disk_alerts[count.index].name
@@ -95,6 +103,8 @@ resource "newrelic_nrql_alert_condition" "load_average" {
   type           = "static"
   value_function = "single_value"
 
+  description = "Attention <@${var.slack_mention}>"
+
   count                        = length(var.ec2_load_average_alerts)
   name                         = var.ec2_load_average_alerts[count.index].name
   violation_time_limit_seconds = 3600
@@ -115,6 +125,8 @@ resource "newrelic_nrql_alert_condition" "timesync" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
 
   count                        = length(var.ec2_timesync_alerts)
   name                         = var.ec2_timesync_alerts[count.index].name
@@ -137,6 +149,8 @@ resource "newrelic_nrql_alert_condition" "memory" {
   type           = "static"
   value_function = "single_value"
 
+  description = "Attention <@${var.slack_mention}>"
+
   count                        = length(var.ec2_memory_alerts)
   name                         = var.ec2_memory_alerts[count.index].name
   violation_time_limit_seconds = 3600
@@ -157,6 +171,8 @@ resource "newrelic_nrql_alert_condition" "network" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
 
   count                        = length(var.ec2_network_alerts)
   name                         = var.ec2_network_alerts[count.index].name

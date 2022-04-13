@@ -6,6 +6,8 @@ resource "newrelic_nrql_alert_condition" "rds_replica_lag" {
   type           = "static"
   value_function = "single_value"
 
+  description = "Attention <@${var.slack_mention}>"
+
   count                        = length(var.rds_replica_lag_alerts)
   name                         = var.rds_replica_lag_alerts[count.index].name
   violation_time_limit_seconds = 3600
@@ -31,6 +33,8 @@ resource "newrelic_nrql_alert_condition" "rds_aurora_alive" {
   type           = "static"
   value_function = "single_value"
 
+  description = "Attention <@${var.slack_mention}>"
+
   count                        = length(var.rds_aurora_alive_alerts)
   name                         = var.rds_aurora_alive_alerts[count.index].name
   violation_time_limit_seconds = 3600
@@ -53,6 +57,8 @@ resource "newrelic_nrql_alert_condition" "rds_aurora_replica_lag" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
 
   count                        = length(var.rds_aurora_replica_lag_alerts)
   name                         = var.rds_aurora_replica_lag_alerts[count.index].name
