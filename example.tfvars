@@ -7,6 +7,8 @@ aws_access_key = ""
 aws_secret_key = ""
 aws_account_id = ""
 
+slack_mention  = ""
+
 // -------------------------------------------
 // Synthetics
 // -------------------------------------------
