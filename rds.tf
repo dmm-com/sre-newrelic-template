@@ -12,9 +12,12 @@ resource "newrelic_nrql_alert_condition" "rds_replica_lag" {
   name                         = var.rds_replica_lag_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
   nrql {
     query             = "SELECT average(aws.rds.ReplicaLag) FROM Metric WHERE aws.accountId IN (${var.aws_account_id}) AND tags.${var.rds_replica_lag_alerts[count.index].tag_key} = '${var.rds_replica_lag_alerts[count.index].tag_value}' FACET aws.rds.DBInstanceIdentifier"
-    evaluation_offset = 3
   }
   critical {
     operator           = "above"
@@ -41,9 +44,12 @@ resource "newrelic_nrql_alert_condition" "rds_aurora_alive" {
   expiration_duration          = 300
   open_violation_on_expiration = true
 
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
   nrql {
     query             = "SELECT count(aws.rds.status) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${var.aws_account_id}) AND aws.rds.status IN ('stopping','stopped') AND tags.${var.rds_aurora_alive_alerts[count.index].tag_key} = '${var.rds_aurora_alive_alerts[count.index].tag_value}' FACET entityName"
-    evaluation_offset = 3
   }
   critical {
     operator           = "above"
@@ -64,9 +70,12 @@ resource "newrelic_nrql_alert_condition" "rds_aurora_replica_lag" {
   name                         = var.rds_aurora_replica_lag_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
   nrql {
     query             = "SELECT average(aws.rds.AuroraReplicaLag) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${var.aws_account_id}) AND tags.${var.rds_aurora_replica_lag_alerts[count.index].tag_key} = '${var.rds_aurora_replica_lag_alerts[count.index].tag_value}' FACET entityName"
-    evaluation_offset = 3
   }
   critical {
     operator           = "above"

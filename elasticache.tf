@@ -9,9 +9,12 @@ resource "newrelic_nrql_alert_condition" "memcached_cpu" {
   name                         = var.elasticache_cpu_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
   nrql {
     query             = "SELECT average(aws.elasticache.CPUUtilization) FROM Metric WHERE aws.accountId IN (${var.aws_account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
-    evaluation_offset = 3
   }
   critical {
     operator              = "above"
@@ -32,9 +35,12 @@ resource "newrelic_nrql_alert_condition" "memcached_swap" {
   name                         = var.elasticache_swap_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
   nrql {
     query             = "SELECT average(aws.elasticache.SwapUsage) FROM Metric WHERE aws.accountId IN (${var.aws_account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
-    evaluation_offset = 3
   }
   critical {
     operator              = "above"
@@ -55,9 +61,12 @@ resource "newrelic_nrql_alert_condition" "memcached_memory" {
   name                         = var.elasticache_memory_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
   nrql {
     query             = "SELECT average(aws.elasticache.FreeableMemory) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
-    evaluation_offset = 3
   }
   critical {
     operator              = "below"
