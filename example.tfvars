@@ -140,3 +140,14 @@ elasticache_swap_alerts = [{
 elasticache_memory_alerts = [{
   name = "elasticache memory"
 }]
+
+// CloudFront alerts
+cloudfront_4xx_alerts = [{
+  name = "cloudfront 4xx"
+}]
+cloudfront_5xx_alerts = [{
+  name = "cloudfront 5xx"
+}]
+cloudfront_origin_latency_alerts = [{
+  name = "cloudfront origin latency"
+}]
