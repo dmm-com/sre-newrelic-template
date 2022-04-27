@@ -3,6 +3,8 @@ resource "newrelic_nrql_alert_condition" "cloudfront_4xx" {
   type           = "static"
   value_function = "single_value"
 
+  description = "Attention <@${var.slack_mention}>"
+
   count                        = length(var.cloudfront_4xx_alerts)
   name                         = var.cloudfront_4xx_alerts[count.index].name
   violation_time_limit_seconds = 3600
@@ -27,6 +29,8 @@ resource "newrelic_nrql_alert_condition" "cloudfront_5xx" {
   type           = "static"
   value_function = "single_value"
 
+  description = "Attention <@${var.slack_mention}>"
+
   count                        = length(var.cloudfront_5xx_alerts)
   name                         = var.cloudfront_5xx_alerts[count.index].name
   violation_time_limit_seconds = 3600
@@ -50,6 +54,8 @@ resource "newrelic_nrql_alert_condition" "cloudfront_origin_latency" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
 
   count                        = length(var.cloudfront_origin_latency_alerts)
   name                         = var.cloudfront_origin_latency_alerts[count.index].name
