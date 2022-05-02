@@ -5,7 +5,6 @@ nr_external_id = // 数値型
 aws_region     = "ap-northeast-1"
 aws_access_key = ""
 aws_secret_key = ""
-aws_account_id = ""
 
 slack_mention  = ""
 

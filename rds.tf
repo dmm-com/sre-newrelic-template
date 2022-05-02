@@ -17,7 +17,7 @@ resource "newrelic_nrql_alert_condition" "rds_replica_lag" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.ReplicaLag) FROM Metric WHERE aws.accountId IN (${var.aws_account_id}) AND tags.${var.rds_replica_lag_alerts[count.index].tag_key} = '${var.rds_replica_lag_alerts[count.index].tag_value}' FACET aws.rds.DBInstanceIdentifier"
+    query             = "SELECT average(aws.rds.ReplicaLag) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_replica_lag_alerts[count.index].tag_key} = '${var.rds_replica_lag_alerts[count.index].tag_value}' FACET aws.rds.DBInstanceIdentifier"
   }
   critical {
     operator           = "above"
@@ -49,7 +49,7 @@ resource "newrelic_nrql_alert_condition" "rds_aurora_alive" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT count(aws.rds.status) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${var.aws_account_id}) AND aws.rds.status IN ('stopping','stopped') AND tags.${var.rds_aurora_alive_alerts[count.index].tag_key} = '${var.rds_aurora_alive_alerts[count.index].tag_value}' FACET entityName"
+    query             = "SELECT count(aws.rds.status) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND aws.rds.status IN ('stopping','stopped') AND tags.${var.rds_aurora_alive_alerts[count.index].tag_key} = '${var.rds_aurora_alive_alerts[count.index].tag_value}' FACET entityName"
   }
   critical {
     operator           = "above"
@@ -75,7 +75,7 @@ resource "newrelic_nrql_alert_condition" "rds_aurora_replica_lag" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.AuroraReplicaLag) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${var.aws_account_id}) AND tags.${var.rds_aurora_replica_lag_alerts[count.index].tag_key} = '${var.rds_aurora_replica_lag_alerts[count.index].tag_value}' FACET entityName"
+    query             = "SELECT average(aws.rds.AuroraReplicaLag) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_aurora_replica_lag_alerts[count.index].tag_key} = '${var.rds_aurora_replica_lag_alerts[count.index].tag_value}' FACET entityName"
   }
   critical {
     operator           = "above"
