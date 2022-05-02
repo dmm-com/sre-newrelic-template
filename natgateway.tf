@@ -1,3 +1,6 @@
+// 監視メトリクス：PacketsDropCount
+// 内容：NAT ゲートウェイによって破棄されたパケットの数。
+//
 resource "newrelic_nrql_alert_condition" "natgateway_packets_drop_count" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
@@ -24,6 +27,9 @@ resource "newrelic_nrql_alert_condition" "natgateway_packets_drop_count" {
   }
 }
 
+// 監視メトリクス：ErrorPortAllocation
+// 内容：NAT ゲートウェイが送信元ポートを割り当てられなかった回数。
+//
 resource "newrelic_nrql_alert_condition" "natgateway_error_port_allocation" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
