@@ -139,6 +139,9 @@ elasticache_swap_usage_alerts = [{
 elasticache_freeable_memory_alerts = [{
   name = "elasticache freeable memory"
 }]
+elasticache_evictions_alerts = [{
+  name = "elasticache evictions"
+}]
 
 // CloudFront alerts
 cloudfront_4xx_alerts = [{

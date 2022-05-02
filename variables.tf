@@ -201,6 +201,13 @@ variable "elasticache_freeable_memory_alerts" {
   default = []
 }
 
+variable "elasticache_evictions_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
 variable "cloudfront_4xx_alerts" {
   type = list(object({
     name      = string
