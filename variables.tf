@@ -208,6 +208,13 @@ variable "elasticache_evictions_alerts" {
   default = []
 }
 
+variable "elasticache_currconnections_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
 variable "cloudfront_4xx_alerts" {
   type = list(object({
     name      = string

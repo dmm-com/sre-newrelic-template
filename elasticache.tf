@@ -114,3 +114,33 @@ resource "newrelic_nrql_alert_condition" "elasticache_evictions" {
     threshold_occurrences = "ALL"
   }
 }
+
+// 監視メトリクス：CurrConnections (Memcached/Redis)
+// 内容1：特定の時点でキャッシュに接続された接続回数。 (Memcached)
+// 内容2：リードレプリカからの接続を除く、クライアント接続の数。 (Redis)
+//
+resource "newrelic_nrql_alert_condition" "elasticache_currconnections" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.elasticache_currconnections_alerts)
+  name                         = var.elasticache_currconnections_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(aws.elasticache.CurrConnections) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 100
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+}

@@ -142,6 +142,9 @@ elasticache_freeable_memory_alerts = [{
 elasticache_evictions_alerts = [{
   name = "elasticache evictions"
 }]
+elasticache_currconnections_alerts = [{
+  name = "elasticache currconnections"
+}]
 
 // CloudFront alerts
 cloudfront_4xx_alerts = [{
