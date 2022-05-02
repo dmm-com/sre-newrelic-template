@@ -21,10 +21,6 @@ variable "aws_secret_key" {
   type = string
 }
 
-variable "aws_account_id" {
-  type = string
-}
-
 variable "alert_policy_name" {
   type = string
 }

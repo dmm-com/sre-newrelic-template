@@ -25,6 +25,8 @@ provider "aws" {
   secret_key = var.aws_secret_key
 }
 
+data "aws_caller_identity" "self" {}
+
 // New Relic alert setting
 resource "newrelic_alert_policy" "policy" {
   name = var.alert_policy_name

@@ -14,7 +14,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_4xx" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "FROM Metric SELECT average(`aws.cloudfront.4xxErrorRate`) WHERE `aws.accountId` IN (${var.aws_account_id}) FACET `aws.cloudfront.DistributionId`"
+    query             = "FROM Metric SELECT average(`aws.cloudfront.4xxErrorRate`) WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET `aws.cloudfront.DistributionId`"
   }
   critical {
     operator              = "above"
@@ -40,7 +40,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_5xx" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "FROM Metric SELECT average(`aws.cloudfront.5xxErrorRate`) WHERE `aws.accountId` IN (${var.aws_account_id}) FACET `aws.cloudfront.DistributionId`"
+    query             = "FROM Metric SELECT average(`aws.cloudfront.5xxErrorRate`) WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET `aws.cloudfront.DistributionId`"
   }
   critical {
     operator              = "above"
@@ -66,7 +66,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_origin_latency" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "FROM Metric SELECT average(`aws.cloudfront.OriginLatency`) WHERE `aws.accountId` IN (${var.aws_account_id}) FACET `aws.cloudfront.DistributionId`"
+    query             = "FROM Metric SELECT average(`aws.cloudfront.OriginLatency`) WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET `aws.cloudfront.DistributionId`"
   }
   critical {
     operator              = "above"
