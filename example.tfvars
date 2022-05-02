@@ -150,3 +150,11 @@ cloudfront_5xx_alerts = [{
 cloudfront_origin_latency_alerts = [{
   name = "cloudfront origin latency"
 }]
+
+// NatGateway alerts
+natgateway_packets_drop_count_alerts = [{
+  name = "natgateway drop packets"
+}]
+natgateway_error_port_allocation_alerts = [{
+  name = "natgateway error port allocation"
+}]
