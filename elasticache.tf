@@ -1,4 +1,4 @@
-// 監視メトリクス：CPUUtilization (Memcached)
+// 監視メトリクス：CPUUtilization (Memcached/Redis)
 // 内容：ホスト全体の CPU 使用率の割合 (%)。
 //
 resource "newrelic_nrql_alert_condition" "memcached_cpu" {
@@ -27,7 +27,7 @@ resource "newrelic_nrql_alert_condition" "memcached_cpu" {
   }
 }
 
-// 監視メトリクス：SwapUsage (Memcached)
+// 監視メトリクス：SwapUsage (Memcached/Redis)
 // 内容：ホストで使用されるスワップの量。
 //
 resource "newrelic_nrql_alert_condition" "memcached_swap" {
@@ -56,7 +56,7 @@ resource "newrelic_nrql_alert_condition" "memcached_swap" {
   }
 }
 
-// 監視メトリクス：FreeableMemory (Memcached)
+// 監視メトリクス：FreeableMemory (Memcached/Redis)
 // 内容：ホストで使用可能な空きメモリの量。
 //
 resource "newrelic_nrql_alert_condition" "memcached_memory" {
