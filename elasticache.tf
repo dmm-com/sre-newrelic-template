@@ -1,15 +1,15 @@
 // 監視メトリクス：CPUUtilization (Memcached/Redis)
 // 内容：ホスト全体の CPU 使用率の割合 (%)。
 //
-resource "newrelic_nrql_alert_condition" "memcached_cpu" {
+resource "newrelic_nrql_alert_condition" "elasticache_cpu_utilization" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_cpu_alerts)
-  name                         = var.elasticache_cpu_alerts[count.index].name
+  count                        = length(var.elasticache_cpu_utilization_alerts)
+  name                         = var.elasticache_cpu_utilization_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -30,15 +30,15 @@ resource "newrelic_nrql_alert_condition" "memcached_cpu" {
 // 監視メトリクス：SwapUsage (Memcached/Redis)
 // 内容：ホストで使用されるスワップの量。
 //
-resource "newrelic_nrql_alert_condition" "memcached_swap" {
+resource "newrelic_nrql_alert_condition" "elasticache_swap_usage" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_swap_alerts)
-  name                         = var.elasticache_swap_alerts[count.index].name
+  count                        = length(var.elasticache_swap_usage_alerts)
+  name                         = var.elasticache_swap_usage_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -59,15 +59,15 @@ resource "newrelic_nrql_alert_condition" "memcached_swap" {
 // 監視メトリクス：FreeableMemory (Memcached/Redis)
 // 内容：ホストで使用可能な空きメモリの量。
 //
-resource "newrelic_nrql_alert_condition" "memcached_memory" {
+resource "newrelic_nrql_alert_condition" "elasticache_freeable_memory" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_memory_alerts)
-  name                         = var.elasticache_memory_alerts[count.index].name
+  count                        = length(var.elasticache_freeable_memory_alerts)
+  name                         = var.elasticache_freeable_memory_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"

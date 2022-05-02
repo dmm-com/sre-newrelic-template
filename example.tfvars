@@ -130,14 +130,14 @@ rds_aurora_replica_lag_alerts = [{
 }]
 
 // Elasticache alerts
-elasticache_cpu_alerts = [{
-  name = "elasticache cpu"
+elasticache_cpu_utilization_alerts = [{
+  name = "elasticache cpu utilization"
 }]
-elasticache_swap_alerts = [{
-  name = "elasticache swap"
+elasticache_swap_usage_alerts = [{
+  name = "elasticache swap usage"
 }]
-elasticache_memory_alerts = [{
-  name = "elasticache memory"
+elasticache_freeable_memory_alerts = [{
+  name = "elasticache freeable memory"
 }]
 
 // CloudFront alerts
