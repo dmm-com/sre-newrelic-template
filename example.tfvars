@@ -63,28 +63,23 @@ alert_slack_channel = {
 }
 
 // EC2 alerts
-ec2_cpu_alerts = [{
-  name      = "ec2 cpu"
+ec2_cpu_utilization_alerts = [{
   tag_key   = "prod"
   tag_value = "api"
 }]
-ec2_alive_alerts = [{
-  name      = "ec2 alive"
+ec2_status_check_failed_alerts = [{
   tag_key   = "prod"
   tag_value = "api"
 }]
-ec2_cpuiowait_alerts = [{
-  name      = "ec2 cpuiowait"
+ec2_cpu_iowait_percent_alerts = [{
   tag_key   = "prod"
   tag_value = "api"
 }]
-ec2_disk_alerts = [{
-  name      = "ec2 disk"
+ec2_total_utilization_percent_alerts = [{
   tag_key   = "prod"
   tag_value = "api"
 }]
-ec2_load_average_alerts = [{
-  name      = "ec2 load average"
+ec2_load_average_five_minute_alerts = [{
   tag_key   = "prod"
   tag_value = "api"
 }]
@@ -93,13 +88,11 @@ ec2_timesync_alerts = [{
   tag_key   = "prod"
   tag_value = "api"
 }]
-ec2_memory_alerts = [{
-  name      = "ec2 memory"
+ec2_memory_used_percent_alerts = [{
   tag_key   = "prod"
   tag_value = "api"
 }]
-ec2_network_alerts = [{
-  name                     = "ec2 network"
+ec2_network_bandwidth_used_percent_alerts = [{
   max_limit_bandwidth_mbps = 1000 // 監視対象インスタンスの帯域上限 この場合は 1000mbps
   metrics_interval_minutes = 1    // 拡張メトリクス監視(1分間隔)を使用する場合は 1, それ以外の場合は5分間隔なので 5
   tag_key                  = "prod"
