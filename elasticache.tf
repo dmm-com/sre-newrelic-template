@@ -202,3 +202,32 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_replication_lag" {
     threshold_occurrences = "ALL"
   }
 }
+
+// 監視メトリクス：DatabaseMemoryUsagePercentage (Redis)
+// 内容：使用中のクラスターで使用中のメモリの割合。
+//
+resource "newrelic_nrql_alert_condition" "elasticache_redis_database_memory_usage_percentage" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.elasticache_redis_database_memory_usage_percentage_alerts)
+  name                         = var.elasticache_redis_database_memory_usage_percentage_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(aws.elasticache.DatabaseMemoryUsagePercentage) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 80
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+}

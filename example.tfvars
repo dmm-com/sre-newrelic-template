@@ -151,6 +151,9 @@ elasticache_redis_engine_cpu_utilization_alerts = [{
 elasticache_redis_replication_lag_alerts = [{
   name = "elasticache redis replication lag"
 }]
+elasticache_redis_database_memory_usage_percentage_alerts = [{
+  name = "elasticache redis database memory usage percentage"
+}]
 
 // CloudFront alerts
 cloudfront_4xx_alerts = [{
