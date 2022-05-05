@@ -155,8 +155,8 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_engine_cpu_utilizati
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_cpu_utilization_alerts)
-  name                         = var.elasticache_cpu_utilization_alerts[count.index].name
+  count                        = length(var.elasticache_redis_engine_cpu_utilization_alerts)
+  name                         = var.elasticache_redis_engine_cpu_utilization_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
