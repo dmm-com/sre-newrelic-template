@@ -148,6 +148,9 @@ elasticache_currconnections_alerts = [{
 elasticache_redis_engine_cpu_utilization_alerts = [{
   name = "elasticache redis engine cpu utilization"
 }]
+elasticache_redis_replication_lag_alerts = [{
+  name = "elasticache redis replication lag"
+}]
 
 // CloudFront alerts
 cloudfront_4xx_alerts = [{

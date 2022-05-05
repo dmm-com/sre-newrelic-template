@@ -173,3 +173,32 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_engine_cpu_utilizati
     threshold_occurrences = "ALL"
   }
 }
+
+// 監視メトリクス：ReplicationLag (Redis)
+// 内容：レプリカのプライマリノードからの変更適用の進行状況を秒で表します。Redis エンジンバージョン 5.0.6 以降では、ラグはミリ秒単位で測定できます。
+//
+resource "newrelic_nrql_alert_condition" "elasticache_redis_replication_lag" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.elasticache_redis_replication_lag_alerts)
+  name                         = var.elasticache_redis_replication_lag_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(aws.elasticache.ReplicationLag) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 10
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+}
