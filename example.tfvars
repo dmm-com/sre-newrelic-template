@@ -145,6 +145,9 @@ elasticache_evictions_alerts = [{
 elasticache_currconnections_alerts = [{
   name = "elasticache currconnections"
 }]
+elasticache_redis_engine_cpu_utilization_alerts = [{
+  name = "elasticache redis engine cpu utilization"
+}]
 
 // CloudFront alerts
 cloudfront_4xx_alerts = [{

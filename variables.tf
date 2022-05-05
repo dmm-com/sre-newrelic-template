@@ -215,6 +215,13 @@ variable "elasticache_currconnections_alerts" {
   default = []
 }
 
+variable "elasticache_redis_engine_cpu_utilization_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
 variable "cloudfront_4xx_alerts" {
   type = list(object({
     name      = string

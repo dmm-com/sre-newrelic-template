@@ -144,3 +144,32 @@ resource "newrelic_nrql_alert_condition" "elasticache_currconnections" {
     threshold_occurrences = "ALL"
   }
 }
+
+// 監視メトリクス：EngineCPUUtilization (Redis)
+// 内容：Redis エンジンスレッドの CPU 使用率を提供します。
+//
+resource "newrelic_nrql_alert_condition" "elasticache_redis_engine_cpu_utilization" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.elasticache_cpu_utilization_alerts)
+  name                         = var.elasticache_cpu_utilization_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(aws.elasticache.EngineCPUUtilization) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 90
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+}
