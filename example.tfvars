@@ -112,7 +112,6 @@ rds_replica_lag_alerts = [{
   tag_key   = "prod"
   tag_value = "customer"
 }]
-// For Aurora
 rds_aurora_replica_lag_alerts = [{
   name      = "rds aurora replicalag"
   tag_key   = "prod"
