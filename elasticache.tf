@@ -79,7 +79,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_freeable_memory" {
   }
   critical {
     operator              = "below"
-    threshold             = 300
+    threshold             = 300000000
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
