@@ -107,11 +107,6 @@ ec2_network_alerts = [{
 }]
 
 // RDS alert
-rds_alive_alerts = [{
-  name      = "rds alive"
-  tag_key   = "prod"
-  tag_value = "customer"
-}]
 rds_replica_lag_alerts = [{
   name      = "rds replicalag"
   tag_key   = "prod"

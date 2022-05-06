@@ -143,15 +143,6 @@ variable "ec2_network_alerts" {
   default = []
 }
 
-variable "rds_alive_alerts" {
-  type = list(object({
-    name      = string
-    tag_key   = string
-    tag_value = string
-  }))
-  default = []
-}
-
 variable "rds_replica_lag_alerts" {
   type = list(object({
     name      = string
