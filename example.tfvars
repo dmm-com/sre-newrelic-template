@@ -110,6 +110,11 @@ ec2_disk_used_percent_alerts = [{
   tag_key   = "prod"
   tag_value = "api"
 }]
+ec2_inodes_used_percent_alerts = [{
+  name      = "[EC2] iノード使用率監視"
+  tag_key   = "prod"
+  tag_value = "api"
+}]
 
 // RDS alert
 rds_alive_alerts = [{

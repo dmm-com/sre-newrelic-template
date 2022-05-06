@@ -153,6 +153,16 @@ variable "ec2_disk_used_percent_alerts" {
   default = []
 }
 
+// New Relic の infrastructure agent を使用
+variable "ec2_inodes_used_percent_alerts" {
+  type = list(object({
+    name      = string
+    tag_key   = string
+    tag_value = string
+  }))
+  default = []
+}
+
 variable "rds_alive_alerts" {
   type = list(object({
     name      = string
