@@ -77,7 +77,7 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_iowait_percent" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(cpuIOWaitPercent) FROM SystemSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.ec2_cpu_iowait_percent_alerts[count.index].tag_key} = '${var.ec2_cpu_iowait_percent_alerts[count.index].tag_value}' FACET aws.ec2.InstanceId"
+    query             = "SELECT average(cpuIOWaitPercent) FROM SystemSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.ec2_cpu_iowait_percent_alerts[count.index].tag_key} = '${var.ec2_cpu_iowait_percent_alerts[count.index].tag_value}' FACET entityKey"
   }
   critical {
     operator              = "above"
@@ -106,7 +106,7 @@ resource "newrelic_nrql_alert_condition" "ec2_total_utilization_percent" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(totalUtilizationPercent) FROM StorageSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.ec2_total_utilization_percent_alerts[count.index].tag_key} = '${var.ec2_total_utilization_percent_alerts[count.index].tag_value}' FACET aws.ec2.InstanceId"
+    query             = "SELECT average(totalUtilizationPercent) FROM StorageSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.ec2_total_utilization_percent_alerts[count.index].tag_key} = '${var.ec2_total_utilization_percent_alerts[count.index].tag_value}' FACET entityKey"
   }
   critical {
     operator              = "above"
@@ -141,7 +141,7 @@ resource "newrelic_nrql_alert_condition" "ec2_load_average_five_minute" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(loadAverageFiveMinute) FROM SystemSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.ec2_load_average_five_minute_alerts[count.index].tag_key} = '${var.ec2_load_average_five_minute_alerts[count.index].tag_value}' FACET aws.ec2.instanceId"
+    query             = "SELECT average(loadAverageFiveMinute) FROM SystemSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.ec2_load_average_five_minute_alerts[count.index].tag_key} = '${var.ec2_load_average_five_minute_alerts[count.index].tag_value}' FACET entityKey"
   }
   critical {
     operator              = "above"
@@ -199,7 +199,7 @@ resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(memoryUsedPercent) FROM SystemSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.ec2_memory_used_percent_alerts[count.index].tag_key} = '${var.ec2_memory_used_percent_alerts[count.index].tag_value}' FACET aws.ec2.instanceId"
+    query             = "SELECT average(memoryUsedPercent) FROM SystemSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.ec2_memory_used_percent_alerts[count.index].tag_key} = '${var.ec2_memory_used_percent_alerts[count.index].tag_value}' FACET entityKey"
   }
   critical {
     operator              = "above"
