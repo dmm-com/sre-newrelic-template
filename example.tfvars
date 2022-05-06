@@ -153,8 +153,8 @@ cloudfront_origin_latency_alerts = [{
 
 // NatGateway alerts
 natgateway_packets_drop_count_alerts = [{
-  name = "natgateway drop packets"
+  name = "[NAT Gateway] パケットドロップ監視"
 }]
 natgateway_error_port_allocation_alerts = [{
-  name = "natgateway error port allocation"
+  name = "[NAT Gateway] ポート割り当てエラー監視"
 }]
