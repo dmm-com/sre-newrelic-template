@@ -170,7 +170,7 @@ resource "newrelic_nrql_alert_condition" "ec2_timesync" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT abs(latest(timestamp-flex.time.endMs)) AS timeshift FROM flexStatusSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.ec2_timesync_alerts[count.index].tag_key} = '${var.ec2_timesync_alerts[count.index].tag_value}' FACET aws.ec2.instanceId"
+    query             = "SELECT abs(latest(timestamp-flex.time.endMs)) AS timeshift FROM flexStatusSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.ec2_timesync_alerts[count.index].tag_key} = '${var.ec2_timesync_alerts[count.index].tag_value}' FACET entityKey"
   }
   critical {
     operator              = "above"
