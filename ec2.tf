@@ -210,8 +210,7 @@ resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
 }
 
 // 監視メトリクス：NetworkIn, NetworkOut
-// 内容：NetworkIn すべてのネットワークインターフェイスを通じ、このインスタンスによって受信されたバイトの数。
-// 内容：NetworkOut すべてのネットワークインターフェイスを通じ、このインスタンスから送信されたバイトの数。
+// 内容：帯域使用率を算出。
 //
 resource "newrelic_nrql_alert_condition" "ec2_network_bandwidth_used_percent" {
   policy_id      = newrelic_alert_policy.policy.id
