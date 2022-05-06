@@ -161,15 +161,6 @@ variable "rds_replica_lag_alerts" {
   default = []
 }
 
-variable "rds_aurora_alive_alerts" {
-  type = list(object({
-    name      = string
-    tag_key   = string
-    tag_value = string
-  }))
-  default = []
-}
-
 variable "rds_aurora_replica_lag_alerts" {
   type = list(object({
     name      = string
