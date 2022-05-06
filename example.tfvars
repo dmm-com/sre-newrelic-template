@@ -99,7 +99,7 @@ ec2_memory_used_percent_alerts = [{
   tag_value = "api"
 }]
 ec2_network_bandwidth_used_percent_alerts = [{
-  name                     = "ec2 network bandwidth used percent"
+  name                     = "[EC2] ネットワーク帯域使用率監視"
   max_limit_bandwidth_mbps = 1000 // 監視対象インスタンスの帯域上限 この場合は 1000mbps
   metrics_interval_minutes = 1    // 拡張メトリクス監視(1分間隔)を使用する場合は 1, それ以外の場合は5分間隔なので 5
   tag_key                  = "prod"
