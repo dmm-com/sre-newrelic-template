@@ -1,6 +1,9 @@
 // --------------------
 // Expect Aurora
 // --------------------
+// 監視メトリクス：ReplicaLag (RDS)
+// 内容：レプリカ遅延 (ミリ秒)
+//
 resource "newrelic_nrql_alert_condition" "rds_replica_lag" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
@@ -59,6 +62,9 @@ resource "newrelic_nrql_alert_condition" "rds_aurora_alive" {
   }
 }
 
+// 監視メトリクス：AuroraReplicaLag (Aurora)
+// 内容：Aurora でのレプリカ遅延 (ミリ秒)
+//
 resource "newrelic_nrql_alert_condition" "rds_aurora_replica_lag" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
