@@ -89,7 +89,7 @@ ec2_load_average_five_minute_alerts = [{
   tag_value = "api"
 }]
 ec2_timesync_alerts = [{
-  name      = "ec2 timesync"
+  name      = "[EC2] 時刻同期監視"
   tag_key   = "prod"
   tag_value = "api"
 }]
