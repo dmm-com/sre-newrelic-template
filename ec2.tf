@@ -239,3 +239,32 @@ resource "newrelic_nrql_alert_condition" "ec2_network_bandwidth_used_percent" {
     threshold_occurrences = "ALL"
   }
 }
+
+// 監視イベント：diskUsedPercent
+// 内容：累積ディスク使用率の割合。
+//
+resource "newrelic_nrql_alert_condition" "ec2_disk_used_percent" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.ec2_disk_used_percent_alerts)
+  name                         = var.ec2_disk_used_percent_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(diskUsedPercent) FROM StorageSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.ec2_disk_used_percent_alerts[count.index].tag_key} = '${var.ec2_disk_used_percent_alerts[count.index].tag_value}' FACET entityKey"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 90
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+}

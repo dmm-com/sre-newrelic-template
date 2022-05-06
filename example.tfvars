@@ -105,6 +105,11 @@ ec2_network_bandwidth_used_percent_alerts = [{
   tag_key                  = "prod"
   tag_value                = "api"
 }]
+ec2_disk_used_percent_alerts = [{
+  name      = "[EC2] ディスク使用率監視"
+  tag_key   = "prod"
+  tag_value = "api"
+}]
 
 // RDS alert
 rds_alive_alerts = [{
