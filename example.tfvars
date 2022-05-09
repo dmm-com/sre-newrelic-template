@@ -108,12 +108,12 @@ ec2_network_alerts = [{
 
 // RDS alert
 rds_replica_lag_alerts = [{
-  name      = "[RDS] レプリカ遅延監視"
+  name      = "[RDS] レプリカ同期遅延監視"
   tag_key   = "prod"
   tag_value = "customer"
 }]
 rds_aurora_replica_lag_alerts = [{
-  name      = "[Aurora] レプリカ遅延監視"
+  name      = "[Aurora] レプリカ同期遅延監視"
   tag_key   = "prod"
   tag_value = "customer"
 }]
