@@ -147,6 +147,11 @@ rds_deadlocks_alerts = [{
   tag_key   = "prod"
   tag_value = "customer"
 }]
+rds_free_storage_space_alerts = [{
+  name      = "[RDS] ストレージ空き容量監視"
+  tag_key   = "prod"
+  tag_value = "customer"
+}]
 
 // Elasticache alerts
 elasticache_cpu_alerts = [{

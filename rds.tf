@@ -230,3 +230,32 @@ resource "newrelic_nrql_alert_condition" "rds_deadlocks" {
     threshold_occurrences = "ALL"
   }
 }
+
+// 監視メトリクス：FreeStorageSpace (RDS)
+// 内容：使用可能なストレージ領域の容量。
+//
+resource "newrelic_nrql_alert_condition" "rds_free_storage_space" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.rds_free_storage_space_alerts)
+  name                         = var.rds_free_storage_space_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(aws.rds.FreeStorageSpace) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_free_storage_space_alerts[count.index].tag_key} = '${var.rds_free_storage_space_alerts[count.index].tag_value}' FACET entityName"
+  }
+  critical {
+    operator              = "below"
+    threshold             = 10000000000
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+}
