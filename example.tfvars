@@ -106,7 +106,7 @@ ec2_network_alerts = [{
   tag_value                = "api"
 }]
 
-// RDS alert
+// RDS/Aurora alert
 rds_replica_lag_alerts = [{
   name      = "[RDS] レプリカ同期遅延監視"
   tag_key   = "prod"
