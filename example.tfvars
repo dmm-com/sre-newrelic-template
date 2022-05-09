@@ -122,6 +122,11 @@ rds_cpu_utilization_alerts = [{
   tag_key   = "prod"
   tag_value = "customer"
 }]
+rds_freeable_memory_alerts = [{
+  name      = "[RDS/Aurora] メモリ空き容量監視"
+  tag_key   = "prod"
+  tag_value = "customer"
+}]
 
 // Elasticache alerts
 elasticache_cpu_alerts = [{
