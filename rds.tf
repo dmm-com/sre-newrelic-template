@@ -259,3 +259,32 @@ resource "newrelic_nrql_alert_condition" "rds_free_storage_space" {
     threshold_occurrences = "ALL"
   }
 }
+
+// 監視メトリクス：SwapUsage (RDS)
+// 内容：DB インスタンスで使用するスワップ領域の量。
+//
+resource "newrelic_nrql_alert_condition" "rds_swap_usage" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.rds_swap_usage_alerts)
+  name                         = var.rds_swap_usage_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(aws.rds.SwapUsage) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_swap_usage_alerts[count.index].tag_key} = '${var.rds_swap_usage_alerts[count.index].tag_value}' FACET entityName"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 10
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+}

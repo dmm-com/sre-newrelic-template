@@ -152,6 +152,11 @@ rds_free_storage_space_alerts = [{
   tag_key   = "prod"
   tag_value = "customer"
 }]
+rds_swap_usage_alerts = [{
+  name      = "[RDS] SWAP使用量監視"
+  tag_key   = "prod"
+  tag_value = "customer"
+}]
 
 // Elasticache alerts
 elasticache_cpu_alerts = [{

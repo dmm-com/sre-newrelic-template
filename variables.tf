@@ -224,6 +224,15 @@ variable "rds_free_storage_space_alerts" {
   default = []
 }
 
+variable "rds_swap_usage_alerts" {
+  type = list(object({
+    name      = string
+    tag_key   = string
+    tag_value = string
+  }))
+  default = []
+}
+
 // Elasticache はタグが取れない可能性あり
 variable "elasticache_cpu_alerts" {
   type = list(object({
