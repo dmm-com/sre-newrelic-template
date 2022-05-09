@@ -137,6 +137,11 @@ rds_database_connections_alerts = [{
   tag_key   = "prod"
   tag_value = "customer"
 }]
+rds_blocked_transactions_alerts = [{
+  name      = "[Aurora] ブロックトランザクション数監視"
+  tag_key   = "prod"
+  tag_value = "customer"
+}]
 
 // Elasticache alerts
 elasticache_cpu_alerts = [{
