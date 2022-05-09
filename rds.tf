@@ -55,3 +55,32 @@ resource "newrelic_nrql_alert_condition" "rds_aurora_replica_lag" {
     threshold_occurrences = "ALL"
   }
 }
+
+// 監視メトリクス：CPUUtilization (RDS/Aurora)
+// 内容：CPU 使用率。
+//
+resource "newrelic_nrql_alert_condition" "rds_cpu_utilization" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.rds_cpu_utilization_alerts)
+  name                         = var.rds_cpu_utilization_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(aws.rds.CPUUtilization) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_cpu_utilization_alerts[count.index].tag_key} = '${var.rds_cpu_utilization_alerts[count.index].tag_value}' FACET entityName"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 90
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+}

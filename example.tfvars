@@ -117,6 +117,11 @@ rds_aurora_replica_lag_alerts = [{
   tag_key   = "prod"
   tag_value = "customer"
 }]
+rds_cpu_utilization_alerts = [{
+  name      = "[RDS/Aurora] CPU使用率監視"
+  tag_key   = "prod"
+  tag_value = "customer"
+}]
 
 // Elasticache alerts
 elasticache_cpu_alerts = [{
