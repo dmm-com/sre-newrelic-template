@@ -202,3 +202,31 @@ resource "newrelic_nrql_alert_condition" "rds_blocked_transactions" {
   }
 }
 
+// 監視メトリクス：Deadlocks (Aurora)
+// 内容：1 秒あたりのデータベース内のデッドロックの平均回数。
+//
+resource "newrelic_nrql_alert_condition" "rds_deadlocks" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.rds_deadlocks_alerts)
+  name                         = var.rds_deadlocks_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(aws.rds.Deadlocks) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_deadlocks_alerts[count.index].tag_key} = '${var.rds_deadlocks_alerts[count.index].tag_value}' FACET entityName"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 10
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+}

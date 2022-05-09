@@ -206,6 +206,15 @@ variable "rds_blocked_transactions_alerts" {
   default = []
 }
 
+variable "rds_deadlocks_alerts" {
+  type = list(object({
+    name      = string
+    tag_key   = string
+    tag_value = string
+  }))
+  default = []
+}
+
 // Elasticache はタグが取れない可能性あり
 variable "elasticache_cpu_alerts" {
   type = list(object({

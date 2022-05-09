@@ -142,6 +142,11 @@ rds_blocked_transactions_alerts = [{
   tag_key   = "prod"
   tag_value = "customer"
 }]
+rds_deadlocks_alerts = [{
+  name      = "[Aurora] デッドロック数監視"
+  tag_key   = "prod"
+  tag_value = "customer"
+}]
 
 // Elasticache alerts
 elasticache_cpu_alerts = [{
