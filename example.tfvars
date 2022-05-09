@@ -132,6 +132,11 @@ rds_free_local_storage_alerts = [{
   tag_key   = "prod"
   tag_value = "customer"
 }]
+rds_database_connections_alerts = [{
+  name      = "[RDS/Aurora] データベース接続数監視"
+  tag_key   = "prod"
+  tag_value = "customer"
+}]
 
 // Elasticache alerts
 elasticache_cpu_alerts = [{
