@@ -151,8 +151,8 @@ resource "newrelic_nrql_alert_condition" "ec2_load_average_five_minute" {
   }
 }
 
-// 監視イベント：
-// 内容：
+// 監視イベント：timeshift
+// 内容：時刻同期のずれ。
 //
 resource "newrelic_nrql_alert_condition" "ec2_timesync" {
   policy_id      = newrelic_alert_policy.policy.id
