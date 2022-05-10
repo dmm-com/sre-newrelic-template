@@ -133,7 +133,7 @@ resource "newrelic_nrql_alert_condition" "elb_alb_unhealthy_host_count" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT sum(aws.applicationelb.UnHealthyHostCount) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.applicationelb.TargetGroup"
+    query             = "SELECT average(aws.applicationelb.UnHealthyHostCount) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.applicationelb.TargetGroup"
   }
   critical {
     operator              = "above"
