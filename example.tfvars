@@ -165,5 +165,5 @@ elb_target_connection_error_count_alerts = [{
   name = "[ALB] Target 接続確立エラー数監視"
 }]
 elb_unhealthy_host_count_alerts = [{
-  name = "[ALB] Target 異常数監視"
+  name = "[ALB/NLB/CLB] Target 異常数監視"
 }]
