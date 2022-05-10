@@ -114,18 +114,18 @@ resource "newrelic_nrql_alert_condition" "elb_target_connection_error_count" {
   }
 }
 
-// 監視メトリクス：UnHealthyHostCount (ALB/NLB/CLB)
+// 監視メトリクス：UnHealthyHostCount (ALB)
 // 内容：異常と見なされるターゲットの数。
 //
-resource "newrelic_nrql_alert_condition" "elb_unhealthy_host_count" {
+resource "newrelic_nrql_alert_condition" "elb_alb_unhealthy_host_count" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elb_unhealthy_host_count_alerts)
-  name                         = var.elb_unhealthy_host_count_alerts[count.index].name
+  count                        = length(var.elb_alb_unhealthy_host_count_alerts)
+  name                         = var.elb_alb_unhealthy_host_count_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"

@@ -250,7 +250,7 @@ variable "elb_target_connection_error_count_alerts" {
   default = []
 }
 
-variable "elb_unhealthy_host_count_alerts" {
+variable "elb_alb_unhealthy_host_count_alerts" {
   type = list(object({
     name      = string
   }))
