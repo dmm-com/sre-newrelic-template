@@ -150,3 +150,20 @@ cloudfront_5xx_alerts = [{
 cloudfront_origin_latency_alerts = [{
   name = "cloudfront origin latency"
 }]
+
+// ELB alerts
+elb_http_code_elb_5xx_count_alerts = [{
+  name = "[ALB] LB 5xx エラー数監視"
+}]
+elb_rejected_connection_count_alerts = [{
+  name = "[ALB] LB リクエスト拒否数監視"
+}]
+elb_http_code_target_5xx_count_alerts = [{
+  name = "[ALB] Target 5xx エラー数監視"
+}]
+elb_target_connection_error_count_alerts = [{
+  name = "[ALB] Target 接続確立エラー数監視"
+}]
+elb_unhealthy_host_count_alerts = [{
+  name = "[ALB] Target 異常数監視"
+}]

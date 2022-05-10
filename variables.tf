@@ -221,3 +221,38 @@ variable "cloudfront_origin_latency_alerts" {
   }))
   default = []
 }
+
+variable "elb_http_code_elb_5xx_count_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "elb_rejected_connection_count_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "elb_http_code_target_5xx_count_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "elb_target_connection_error_count_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "elb_unhealthy_host_count_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
