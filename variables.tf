@@ -256,3 +256,17 @@ variable "elb_alb_unhealthy_host_count_alerts" {
   }))
   default = []
 }
+
+variable "elb_port_allocation_error_count_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "elb_nlb_unhealthy_host_count_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
