@@ -180,21 +180,56 @@ variable "rds_aurora_replica_lag_alerts" {
 }
 
 // Elasticache はタグが取れない可能性あり
-variable "elasticache_cpu_alerts" {
+variable "elasticache_cpu_utilization_alerts" {
   type = list(object({
     name      = string
   }))
   default = []
 }
 
-variable "elasticache_swap_alerts" {
+variable "elasticache_swap_usage_alerts" {
   type = list(object({
     name      = string
   }))
   default = []
 }
 
-variable "elasticache_memory_alerts" {
+variable "elasticache_freeable_memory_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "elasticache_evictions_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "elasticache_currconnections_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "elasticache_redis_engine_cpu_utilization_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "elasticache_redis_replication_lag_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "elasticache_redis_database_memory_usage_percentage_alerts" {
   type = list(object({
     name      = string
   }))

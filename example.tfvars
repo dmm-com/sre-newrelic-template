@@ -130,14 +130,29 @@ rds_aurora_replica_lag_alerts = [{
 }]
 
 // Elasticache alerts
-elasticache_cpu_alerts = [{
-  name = "elasticache cpu"
+elasticache_cpu_utilization_alerts = [{
+  name = "[ElastiCache] CPU使用率監視"
 }]
-elasticache_swap_alerts = [{
-  name = "elasticache swap"
+elasticache_swap_usage_alerts = [{
+  name = "[ElastiCache] SWAP使用量監視"
 }]
-elasticache_memory_alerts = [{
-  name = "elasticache memory"
+elasticache_freeable_memory_alerts = [{
+  name = "[ElastiCache] 空きメモリ監視"
+}]
+elasticache_evictions_alerts = [{
+  name = "[ElastiCache] 排除キー監視"
+}]
+elasticache_currconnections_alerts = [{
+  name = "[ElastiCache] クライアント接続数監視"
+}]
+elasticache_redis_engine_cpu_utilization_alerts = [{
+  name = "[ElastiCache] RedisスレッドCPU使用率監視"
+}]
+elasticache_redis_replication_lag_alerts = [{
+  name = "[ElastiCache] Redisレプリケーションラグ監視"
+}]
+elasticache_redis_database_memory_usage_percentage_alerts = [{
+  name = "[ElastiCache] Redisメモリ使用率監視"
 }]
 
 // CloudFront alerts
