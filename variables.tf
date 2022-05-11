@@ -236,14 +236,14 @@ variable "elasticache_redis_database_memory_usage_percentage_alerts" {
   default = []
 }
 
-variable "cloudfront_4xx_alerts" {
+variable "cloudfront_4xx_error_rate_alerts" {
   type = list(object({
     name      = string
   }))
   default = []
 }
 
-variable "cloudfront_5xx_alerts" {
+variable "cloudfront_5xx_error_rate_alerts" {
   type = list(object({
     name      = string
   }))
