@@ -221,3 +221,31 @@ variable "cloudfront_origin_latency_alerts" {
   }))
   default = []
 }
+
+variable "ecs_cpu_utilization_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "ecs_memory_used_percent_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "ecs_task_running_percent_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "ecs_running_task_count_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}

@@ -150,3 +150,17 @@ cloudfront_5xx_alerts = [{
 cloudfront_origin_latency_alerts = [{
   name = "cloudfront origin latency"
 }]
+
+// ECS alerts
+ecs_cpu_utilization_alerts = [{
+  name = "[ECS] CPU使用率監視"
+}]
+ecs_memory_used_percent_alerts = [{
+  name = "[ECS] メモリ使用率監視"
+}]
+ecs_task_running_percent_alerts = [{
+  name = "[ECS] タスク正常率監視"
+}]
+ecs_running_task_count_alerts = [{
+  name = "[ECS] タスク起動数監視"
+}]
