@@ -156,10 +156,10 @@ elasticache_redis_database_memory_usage_percentage_alerts = [{
 }]
 
 // CloudFront alerts
-cloudfront_4xx_alerts = [{
+cloudfront_4xx_error_rate_alerts = [{
   name = "[CloudFront] 4xx エラー率監視"
 }]
-cloudfront_5xx_alerts = [{
+cloudfront_5xx_error_rate_alerts = [{
   name = "[CloudFront] 5xx エラー率監視"
 }]
 cloudfront_origin_latency_alerts = [{
