@@ -17,7 +17,7 @@ resource "newrelic_nrql_alert_condition" "rds_replica_lag" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.ReplicaLag) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_replica_lag_alerts[count.index].tag_key} = '${var.rds_replica_lag_alerts[count.index].tag_value}' FACET aws.rds.DBInstanceIdentifier"
+    query             = "SELECT average(aws.rds.ReplicaLag) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.rds.DBInstanceIdentifier"
   }
   critical {
     operator           = "above"
@@ -46,7 +46,7 @@ resource "newrelic_nrql_alert_condition" "rds_aurora_replica_lag" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.AuroraReplicaLag) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_aurora_replica_lag_alerts[count.index].tag_key} = '${var.rds_aurora_replica_lag_alerts[count.index].tag_value}' FACET entityName"
+    query             = "SELECT average(aws.rds.AuroraReplicaLag) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityName"
   }
   critical {
     operator           = "above"
@@ -75,7 +75,7 @@ resource "newrelic_nrql_alert_condition" "rds_cpu_utilization" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.CPUUtilization) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_cpu_utilization_alerts[count.index].tag_key} = '${var.rds_cpu_utilization_alerts[count.index].tag_value}' FACET entityName"
+    query             = "SELECT average(aws.rds.CPUUtilization) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityName"
   }
   critical {
     operator              = "above"
@@ -104,7 +104,7 @@ resource "newrelic_nrql_alert_condition" "rds_freeable_memory" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.FreeableMemory) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_freeable_memory_alerts[count.index].tag_key} = '${var.rds_freeable_memory_alerts[count.index].tag_value}' FACET entityName"
+    query             = "SELECT average(aws.rds.FreeableMemory) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityName"
   }
   critical {
     operator              = "below"
@@ -134,7 +134,7 @@ resource "newrelic_nrql_alert_condition" "rds_free_local_storage" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.FreeLocalStorage) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_free_local_storage_alerts[count.index].tag_key} = '${var.rds_free_local_storage_alerts[count.index].tag_value}' FACET entityName"
+    query             = "SELECT average(aws.rds.FreeLocalStorage) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityName"
   }
   critical {
     operator              = "below"
@@ -163,7 +163,7 @@ resource "newrelic_nrql_alert_condition" "rds_database_connections" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.DatabaseConnections) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_database_connections_alerts[count.index].tag_key} = '${var.rds_database_connections_alerts[count.index].tag_value}' FACET entityName"
+    query             = "SELECT average(aws.rds.DatabaseConnections) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityName"
   }
   critical {
     operator              = "above"
@@ -192,7 +192,7 @@ resource "newrelic_nrql_alert_condition" "rds_blocked_transactions" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.BlockedTransactions) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_blocked_transactions_alerts[count.index].tag_key} = '${var.rds_blocked_transactions_alerts[count.index].tag_value}' FACET entityName"
+    query             = "SELECT average(aws.rds.BlockedTransactions) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityName"
   }
   critical {
     operator              = "above"
@@ -221,7 +221,7 @@ resource "newrelic_nrql_alert_condition" "rds_deadlocks" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.Deadlocks) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_deadlocks_alerts[count.index].tag_key} = '${var.rds_deadlocks_alerts[count.index].tag_value}' FACET entityName"
+    query             = "SELECT average(aws.rds.Deadlocks) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityName"
   }
   critical {
     operator              = "above"
@@ -250,7 +250,7 @@ resource "newrelic_nrql_alert_condition" "rds_free_storage_space" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.FreeStorageSpace) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_free_storage_space_alerts[count.index].tag_key} = '${var.rds_free_storage_space_alerts[count.index].tag_value}' FACET entityName"
+    query             = "SELECT average(aws.rds.FreeStorageSpace) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityName"
   }
   critical {
     operator              = "below"
@@ -279,7 +279,7 @@ resource "newrelic_nrql_alert_condition" "rds_swap_usage" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.SwapUsage) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) AND tags.${var.rds_swap_usage_alerts[count.index].tag_key} = '${var.rds_swap_usage_alerts[count.index].tag_value}' FACET entityName"
+    query             = "SELECT average(aws.rds.SwapUsage) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityName"
   }
   critical {
     operator              = "above"

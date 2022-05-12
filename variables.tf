@@ -146,8 +146,6 @@ variable "ec2_network_alerts" {
 variable "rds_replica_lag_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
@@ -155,8 +153,6 @@ variable "rds_replica_lag_alerts" {
 variable "rds_aurora_replica_lag_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
@@ -164,8 +160,6 @@ variable "rds_aurora_replica_lag_alerts" {
 variable "rds_cpu_utilization_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
@@ -173,8 +167,6 @@ variable "rds_cpu_utilization_alerts" {
 variable "rds_freeable_memory_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
@@ -182,8 +174,6 @@ variable "rds_freeable_memory_alerts" {
 variable "rds_free_local_storage_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
@@ -191,8 +181,6 @@ variable "rds_free_local_storage_alerts" {
 variable "rds_database_connections_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
@@ -200,8 +188,6 @@ variable "rds_database_connections_alerts" {
 variable "rds_blocked_transactions_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
@@ -209,8 +195,6 @@ variable "rds_blocked_transactions_alerts" {
 variable "rds_deadlocks_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
@@ -218,8 +202,6 @@ variable "rds_deadlocks_alerts" {
 variable "rds_free_storage_space_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
@@ -227,8 +209,6 @@ variable "rds_free_storage_space_alerts" {
 variable "rds_swap_usage_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
