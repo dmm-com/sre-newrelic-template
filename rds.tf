@@ -17,7 +17,7 @@ resource "newrelic_nrql_alert_condition" "rds_replica_lag" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.ReplicaLag) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.rds.DBClusterIdentifier, aws.rds.DBInstanceIdentifier"
+    query             = "SELECT average(aws.rds.ReplicaLag) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.rds.DBInstanceIdentifier"
   }
   critical {
     operator           = "above"
@@ -250,7 +250,7 @@ resource "newrelic_nrql_alert_condition" "rds_free_storage_space" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.FreeStorageSpace) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.rds.DBClusterIdentifier, aws.rds.DBInstanceIdentifier"
+    query             = "SELECT average(aws.rds.FreeStorageSpace) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.rds.DBInstanceIdentifier"
   }
   critical {
     operator              = "below"
@@ -279,7 +279,7 @@ resource "newrelic_nrql_alert_condition" "rds_swap_usage" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.rds.SwapUsage) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.rds.DBClusterIdentifier, aws.rds.DBInstanceIdentifier"
+    query             = "SELECT average(aws.rds.SwapUsage) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.rds.DBInstanceIdentifier"
   }
   critical {
     operator              = "above"
