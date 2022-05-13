@@ -178,3 +178,11 @@ elb_port_allocation_error_count_alerts = [{
 elb_nlb_unhealthy_host_count_alerts = [{
   name = "[NLB] Target 異常数監視"
 }]
+
+// NatGateway alerts
+natgateway_packets_drop_count_alerts = [{
+  name = "[NAT Gateway] パケットドロップ監視"
+}]
+natgateway_error_port_allocation_alerts = [{
+  name = "[NAT Gateway] ポート割り当てエラー監視"
+}]

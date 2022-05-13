@@ -257,6 +257,20 @@ variable "cloudfront_origin_latency_alerts" {
   default = []
 }
 
+variable "natgateway_packets_drop_count_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "natgateway_error_port_allocation_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
 variable "elb_http_code_elb_5xx_count_alerts" {
   type = list(object({
     name      = string
