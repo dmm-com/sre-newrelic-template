@@ -63,50 +63,40 @@ variable "newrelic_synthetics_browser" {
 }
 
 
-variable "ec2_cpu_alerts" {
+variable "ec2_cpu_utilization_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
 
-variable "ec2_alive_alerts" {
+variable "ec2_status_check_failed_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
-  }))
-  default = []
-}
-
-// New Relic の infrastructure agent を使用
-variable "ec2_cpuiowait_alerts" {
-  type = list(object({
-    name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
 
 // New Relic の infrastructure agent を使用
-variable "ec2_disk_alerts" {
+variable "ec2_cpu_iowait_percent_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
 
 // New Relic の infrastructure agent を使用
-variable "ec2_load_average_alerts" {
+variable "ec2_total_utilization_percent_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
+  }))
+  default = []
+}
+
+// New Relic の infrastructure agent を使用
+variable "ec2_load_average_five_minute_alerts" {
+  type = list(object({
+    name      = string
   }))
   default = []
 }
@@ -116,29 +106,39 @@ variable "ec2_load_average_alerts" {
 variable "ec2_timesync_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
 
 // New Relic の infrastructure agent を使用
-variable "ec2_memory_alerts" {
+variable "ec2_memory_used_percent_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
 
-variable "ec2_network_alerts" {
+variable "ec2_network_bandwidth_used_percent_alerts" {
   type = list(object({
     name                     = string
     max_limit_bandwidth_mbps = number
     metrics_interval_minutes = number
-    tag_key                  = string
-    tag_value                = string
+  }))
+  default = []
+}
+
+// New Relic の infrastructure agent を使用
+variable "ec2_disk_used_percent_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+// New Relic の infrastructure agent を使用
+variable "ec2_inodes_used_percent_alerts" {
+  type = list(object({
+    name      = string
   }))
   default = []
 }
