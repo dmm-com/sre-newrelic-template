@@ -63,47 +63,37 @@ alert_slack_channel = {
 }
 
 // EC2 alerts
-ec2_cpu_alerts = [{
-  name      = "ec2 cpu"
-  tag_key   = "prod"
-  tag_value = "api"
+ec2_cpu_utilization_alerts = [{
+  name      = "[EC2] CPU使用率監視"
 }]
-ec2_alive_alerts = [{
-  name      = "ec2 alive"
-  tag_key   = "prod"
-  tag_value = "api"
+ec2_status_check_failed_alerts = [{
+  name      = "[EC2] ステータス監視"
 }]
-ec2_cpuiowait_alerts = [{
-  name      = "ec2 cpuiowait"
-  tag_key   = "prod"
-  tag_value = "api"
+ec2_cpu_iowait_percent_alerts = [{
+  name      = "[EC2] CPU I/O Wait監視"
 }]
-ec2_disk_alerts = [{
-  name      = "ec2 disk"
-  tag_key   = "prod"
-  tag_value = "api"
+ec2_total_utilization_percent_alerts = [{
+  name      = "[EC2] ディスクI/O Wait監視"
 }]
-ec2_load_average_alerts = [{
-  name      = "ec2 load average"
-  tag_key   = "prod"
-  tag_value = "api"
+ec2_load_average_five_minute_alerts = [{
+  name      = "[EC2] ロードアベレージ監視"
 }]
 ec2_timesync_alerts = [{
-  name      = "ec2 timesync"
-  tag_key   = "prod"
-  tag_value = "api"
+  name      = "[EC2] 時刻同期監視"
 }]
-ec2_memory_alerts = [{
-  name      = "ec2 memory"
-  tag_key   = "prod"
-  tag_value = "api"
+ec2_memory_used_percent_alerts = [{
+  name      = "[EC2] メモリ使用率監視"
 }]
-ec2_network_alerts = [{
-  name                     = "ec2 network"
+ec2_network_bandwidth_used_percent_alerts = [{
+  name                     = "[EC2] ネットワーク帯域使用率監視"
   max_limit_bandwidth_mbps = 1000 // 監視対象インスタンスの帯域上限 この場合は 1000mbps
   metrics_interval_minutes = 1    // 拡張メトリクス監視(1分間隔)を使用する場合は 1, それ以外の場合は5分間隔なので 5
-  tag_key                  = "prod"
-  tag_value                = "api"
+}]
+ec2_disk_used_percent_alerts = [{
+  name      = "[EC2] ディスク使用率監視"
+}]
+ec2_inodes_used_percent_alerts = [{
+  name      = "[EC2] iノード使用率監視"
 }]
 
 // RDS alert
@@ -130,25 +120,71 @@ rds_aurora_replica_lag_alerts = [{
 }]
 
 // Elasticache alerts
-elasticache_cpu_alerts = [{
-  name = "elasticache cpu"
+elasticache_cpu_utilization_alerts = [{
+  name = "[ElastiCache] CPU使用率監視"
 }]
-elasticache_swap_alerts = [{
-  name = "elasticache swap"
+elasticache_swap_usage_alerts = [{
+  name = "[ElastiCache] SWAP使用量監視"
 }]
-elasticache_memory_alerts = [{
-  name = "elasticache memory"
+elasticache_freeable_memory_alerts = [{
+  name = "[ElastiCache] 空きメモリ監視"
+}]
+elasticache_evictions_alerts = [{
+  name = "[ElastiCache] 排除キー監視"
+}]
+elasticache_currconnections_alerts = [{
+  name = "[ElastiCache] クライアント接続数監視"
+}]
+elasticache_redis_engine_cpu_utilization_alerts = [{
+  name = "[ElastiCache] RedisスレッドCPU使用率監視"
+}]
+elasticache_redis_replication_lag_alerts = [{
+  name = "[ElastiCache] Redisレプリケーションラグ監視"
+}]
+elasticache_redis_database_memory_usage_percentage_alerts = [{
+  name = "[ElastiCache] Redisメモリ使用率監視"
 }]
 
 // CloudFront alerts
-cloudfront_4xx_alerts = [{
-  name = "cloudfront 4xx"
+cloudfront_4xx_error_rate_alerts = [{
+  name = "[CloudFront] 4xx エラー率監視"
 }]
-cloudfront_5xx_alerts = [{
-  name = "cloudfront 5xx"
+cloudfront_5xx_error_rate_alerts = [{
+  name = "[CloudFront] 5xx エラー率監視"
 }]
 cloudfront_origin_latency_alerts = [{
-  name = "cloudfront origin latency"
+  name = "[CloudFront] オリジン遅延監視"
+}]
+
+// ELB alerts
+elb_http_code_elb_5xx_count_alerts = [{
+  name = "[ALB] LB 5xx エラー数監視"
+}]
+elb_rejected_connection_count_alerts = [{
+  name = "[ALB] LB リクエスト拒否数監視"
+}]
+elb_http_code_target_5xx_count_alerts = [{
+  name = "[ALB] Target 5xx エラー数監視"
+}]
+elb_target_connection_error_count_alerts = [{
+  name = "[ALB] Target 接続確立エラー数監視"
+}]
+elb_alb_unhealthy_host_count_alerts = [{
+  name = "[ALB] Target 異常数監視"
+}]
+elb_port_allocation_error_count_alerts = [{
+  name = "[NLB] ポート割り当てエラー数監視"
+}]
+elb_nlb_unhealthy_host_count_alerts = [{
+  name = "[NLB] Target 異常数監視"
+}]
+
+// NatGateway alerts
+natgateway_packets_drop_count_alerts = [{
+  name = "[NAT Gateway] パケットドロップ監視"
+}]
+natgateway_error_port_allocation_alerts = [{
+  name = "[NAT Gateway] ポート割り当てエラー監視"
 }]
 
 // ECS alerts
