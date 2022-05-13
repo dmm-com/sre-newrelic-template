@@ -1,12 +1,12 @@
-resource "newrelic_nrql_alert_condition" "cloudfront_4xx" {
+resource "newrelic_nrql_alert_condition" "cloudfront_4xx_error_rate" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.cloudfront_4xx_alerts)
-  name                         = var.cloudfront_4xx_alerts[count.index].name
+  count                        = length(var.cloudfront_4xx_error_rate_alerts)
+  name                         = var.cloudfront_4xx_error_rate_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -24,15 +24,15 @@ resource "newrelic_nrql_alert_condition" "cloudfront_4xx" {
   }
 }
 
-resource "newrelic_nrql_alert_condition" "cloudfront_5xx" {
+resource "newrelic_nrql_alert_condition" "cloudfront_5xx_error_rate" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.cloudfront_5xx_alerts)
-  name                         = var.cloudfront_5xx_alerts[count.index].name
+  count                        = length(var.cloudfront_5xx_error_rate_alerts)
+  name                         = var.cloudfront_5xx_error_rate_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
