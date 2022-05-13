@@ -271,6 +271,34 @@ variable "natgateway_error_port_allocation_alerts" {
   default = []
 }
 
+variable "ecs_cpu_utilization_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "ecs_memory_used_percent_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "ecs_task_running_percent_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "ecs_running_task_count_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
 variable "elb_http_code_elb_5xx_count_alerts" {
   type = list(object({
     name      = string

@@ -186,3 +186,17 @@ natgateway_packets_drop_count_alerts = [{
 natgateway_error_port_allocation_alerts = [{
   name = "[NAT Gateway] ポート割り当てエラー監視"
 }]
+
+// ECS alerts
+ecs_cpu_utilization_alerts = [{
+  name = "[ECS] CPU使用率監視"
+}]
+ecs_memory_used_percent_alerts = [{
+  name = "[ECS] メモリ使用率監視"
+}]
+ecs_task_running_percent_alerts = [{
+  name = "[ECS] タスク正常率監視"
+}]
+ecs_running_task_count_alerts = [{
+  name = "[ECS] タスク起動数監視"
+}]
