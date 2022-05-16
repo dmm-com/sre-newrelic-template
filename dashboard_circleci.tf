@@ -17,7 +17,7 @@ resource "newrelic_one_dashboard" "circleci" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM Log SELECT uniqueCount(workflow.id) WHERE type = 'workflow-completed' FACET project.name TIMESERIES 1 days since 30 days ago"
+        query      = "FROM Log SELECT uniqueCount(workflow.id) WHERE organization.name = '${var.circleci_organization_name}' and type = 'workflow-completed' FACET project.name TIMESERIES 1 days since 30 days ago"
       }
     }
 
@@ -30,7 +30,7 @@ resource "newrelic_one_dashboard" "circleci" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM Log SELECT uniqueCount(workflow.id) WHERE workflow.status = 'success' TIMESERIES 1 day FACET project.name SINCE 30 days ago"
+        query      = "FROM Log SELECT uniqueCount(workflow.id) WHERE organization.name = '${var.circleci_organization_name}' and workflow.status = 'success' TIMESERIES 1 day FACET project.name SINCE 30 days ago"
       }
     }
 
@@ -45,7 +45,7 @@ resource "newrelic_one_dashboard" "circleci" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM Log SELECT Count(job.id) facet project.name as 'Project' since 30 days ago"
+        query      = "FROM Log SELECT Count(job.id) WHERE organization.name = '${var.circleci_organization_name}' facet project.name as 'Project' since 30 days ago"
       }
     }
 
@@ -58,7 +58,7 @@ resource "newrelic_one_dashboard" "circleci" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM Log SELECT uniqueCount(workflow.id) AS 'Workflows Ran' WHERE type = 'workflow-completed' since 30 days ago"
+        query      = "FROM Log SELECT uniqueCount(workflow.id) AS 'Workflows Ran' WHERE organization.name = '${var.circleci_organization_name}' and type = 'workflow-completed' since 30 days ago"
       }
     }
 
@@ -71,7 +71,7 @@ resource "newrelic_one_dashboard" "circleci" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM Log SELECT count(job.id) as 'Jobs Ran' since 30 days ago"
+        query      = "FROM Log SELECT count(job.id) as 'Jobs Ran' WHERE organization.name = '${var.circleci_organization_name}' since 30 days ago"
       }
     }
 
@@ -84,7 +84,7 @@ resource "newrelic_one_dashboard" "circleci" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM Log SELECT uniqueCount(workflow.id) AS 'Deploys' WHERE workflow.status = 'success' SINCE this week COMPARE WITH 1 week ago"
+        query      = "FROM Log SELECT uniqueCount(workflow.id) AS 'Deploys' WHERE organization.name = '${var.circleci_organization_name}' and workflow.status = 'success' SINCE this week COMPARE WITH 1 week ago"
       }
     }
 
@@ -97,7 +97,7 @@ resource "newrelic_one_dashboard" "circleci" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM Log SELECT count(job.id) facet job.status TIMESERIES 1 days since 30 days ago"
+        query      = "FROM Log SELECT count(job.id) WHERE organization.name = '${var.circleci_organization_name}' facet job.status TIMESERIES 1 days since 30 days ago"
       }
     }
 
@@ -110,7 +110,7 @@ resource "newrelic_one_dashboard" "circleci" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM Log SELECT count(job.id) facet project.name TIMESERIES 1 days since 30 days ago"
+        query      = "FROM Log SELECT count(job.id) WHERE organization.name = '${var.circleci_organization_name}' facet project.name TIMESERIES 1 days since 30 days ago"
       }
     }
 
@@ -125,7 +125,7 @@ resource "newrelic_one_dashboard" "circleci" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM Log SELECT uniqueCount(workflow.id) WHERE type = 'workflow-completed' FACET workflow.status since 30 days ago"
+        query      = "FROM Log SELECT uniqueCount(workflow.id) WHERE organization.name = '${var.circleci_organization_name}' and type = 'workflow-completed' FACET workflow.status since 30 days ago"
       }
     }
 
@@ -140,7 +140,7 @@ resource "newrelic_one_dashboard" "circleci" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM Log SELECT count(job.id) as 'Jobs' facet job.status since 30 days ago"
+        query      = "FROM Log SELECT count(job.id) as 'Jobs' WHERE organization.name = '${var.circleci_organization_name}' facet job.status since 30 days ago"
       }
     }
 
@@ -155,7 +155,7 @@ resource "newrelic_one_dashboard" "circleci" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM Log SELECT count(cases(where job.status = 'success')) as 'Success', count(cases(where job.status='failed')) as 'Failed', percentage(count(job.id), WHERE job.status = 'success') as 'Health' Facet project.name as 'Project' since 30 days ago "
+        query      = "FROM Log SELECT count(cases(where organization.name = '${var.circleci_organization_name}' and job.status = 'success')) as 'Success', count(cases(where organization.name = '${var.circleci_organization_name}' and job.status='failed')) as 'Failed', percentage(count(job.id), WHERE organization.name = '${var.circleci_organization_name}' and job.status = 'success') as 'Health' Facet project.name as 'Project' since 30 days ago "
       }
     }
 
@@ -170,7 +170,7 @@ resource "newrelic_one_dashboard" "circleci" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM Log SELECT job.name as 'Job Name', job.started_at as 'Started Time', job.stopped_at as 'Stopped Time', timestamp WHERE job.started_at IS NOT NULL since 3 days ago limit 10"
+        query      = "FROM Log SELECT job.name as 'Job Name', job.started_at as 'Started Time', job.stopped_at as 'Stopped Time', timestamp WHERE organization.name = '${var.circleci_organization_name}' and job.started_at IS NOT NULL since 3 days ago limit 10"
       }
     }
 
@@ -185,7 +185,7 @@ resource "newrelic_one_dashboard" "circleci" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM Log SELECT project.name as 'Project', job.name as 'Job Name',  job.number as 'Job Number', workflow.url as 'Workflow URL',job.status as 'Status', timestamp where job.status ='failed' limit 10 since 30 days ago"
+        query      = "FROM Log SELECT project.name as 'Project', job.name as 'Job Name',  job.number as 'Job Number', workflow.url as 'Workflow URL',job.status as 'Status', timestamp where organization.name = '${var.circleci_organization_name}' and job.status ='failed' limit 10 since 30 days ago"
       }
     }
 
@@ -200,7 +200,7 @@ resource "newrelic_one_dashboard" "circleci" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM Log SELECT project.name as 'Project',workflow.name as 'workflow Name',  workflow.url as 'Workflow URL',workflow.status as 'status',timestamp where workflow.status ='failed' since 30 days ago limit 10"
+        query      = "FROM Log SELECT project.name as 'Project',workflow.name as 'workflow Name',  workflow.url as 'Workflow URL',workflow.status as 'status',timestamp where organization.name = '${var.circleci_organization_name}' and workflow.status ='failed' since 30 days ago limit 10"
       }
     }
   }

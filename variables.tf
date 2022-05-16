@@ -5,3 +5,7 @@ variable "nr_account_id" {
 variable "nr_license_key" {
   type = string
 }
+
+variable "circleci_organization_name" {
+  type = string
+}
