@@ -6,6 +6,7 @@ variable "nr_license_key" {
   type = string
 }
 
+// dashboard_circleci
 variable "circleci_organization_name" {
   type = string
 }
