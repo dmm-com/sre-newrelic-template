@@ -25,7 +25,7 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
         ```
 
         備考
-        - 日本円への変換は、1ドル120円換算としています。
+        - 日本円への変換は、1ドル${var.exchange_rate}円換算としています。
         - AWS料金は月初のUTC0時にリセットされます。
         - AWS料金は割引適用前料金のため、実際の請求金額と異なります。
       EOT
@@ -42,7 +42,7 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "SELECT round(latest(`provider.estimatedCharges.Maximum`) * 120) AS '料金（円）' FROM FinanceSample WHERE provider = 'BillingAccountCost' FACET providerAccountName SINCE 1 day ago"
+        query      = "SELECT round(latest(`provider.estimatedCharges.Maximum`) * ${var.exchange_rate}) AS '料金（円）' FROM FinanceSample WHERE provider = 'BillingAccountCost' FACET providerAccountName SINCE 1 day ago"
       }
     }
 
@@ -55,7 +55,7 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "SELECT round(latest(`provider.estimatedCharges.Maximum`) * 120) FROM FinanceSample WHERE provider = 'BillingAccountCost' FACET providerAccountName TIMESERIES AUTO SINCE 1 month ago"
+        query      = "SELECT round(latest(`provider.estimatedCharges.Maximum`) * ${var.exchange_rate}) FROM FinanceSample WHERE provider = 'BillingAccountCost' FACET providerAccountName TIMESERIES AUTO SINCE 1 month ago"
       }
     }
 
@@ -70,7 +70,7 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "SELECT round(latest(`provider.estimatedCharges.Maximum`) * 120) FROM FinanceSample WHERE provider = 'BillingServiceCost' FACET `provider.serviceName` SINCE 1 day ago LIMIT 100"
+        query      = "SELECT round(latest(`provider.estimatedCharges.Maximum`) * ${var.exchange_rate}) FROM FinanceSample WHERE provider = 'BillingServiceCost' FACET `provider.serviceName` SINCE 1 day ago LIMIT 100"
       }
     }
   }
@@ -113,7 +113,7 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM NrConsumption SELECT sum(GigabytesIngested) * 0.25 * 120 WHERE productLine = 'DataPlatform' TIMESERIES 1 day SINCE 3 months ago"
+        query      = "FROM NrConsumption SELECT sum(GigabytesIngested) * 0.25 * ${var.exchange_rate} WHERE productLine = 'DataPlatform' TIMESERIES 1 day SINCE 3 months ago"
       }
     }
 
