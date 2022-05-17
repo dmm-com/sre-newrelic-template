@@ -53,7 +53,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "SELECT percentile(largestContentfulPaint, 75) FROM PageViewTiming WHERE domain = 'www.dmm.co.jp' COMPARE WITH 1 week ago"
+        query      = "SELECT percentile(largestContentfulPaint, 75) FROM PageViewTiming WHERE domain = '${var.core_web_vitals_domain_name}' COMPARE WITH 1 week ago"
       }
     }
 
@@ -66,7 +66,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "SELECT percentile(firstInputDelay, 75) FROM PageViewTiming WHERE domain = 'www.dmm.co.jp' COMPARE WITH 1 week ago"
+        query      = "SELECT percentile(firstInputDelay, 75) FROM PageViewTiming WHERE domain = '${var.core_web_vitals_domain_name}' COMPARE WITH 1 week ago"
       }
     }
 
@@ -79,7 +79,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "SELECT percentile(cumulativeLayoutShift, 75) FROM PageViewTiming WHERE domain = 'www.dmm.co.jp' AND timingName = 'pageHide' COMPARE WITH 1 week ago"
+        query      = "SELECT percentile(cumulativeLayoutShift, 75) FROM PageViewTiming WHERE domain = '${var.core_web_vitals_domain_name}' AND timingName = 'pageHide' COMPARE WITH 1 week ago"
       }
     }
 
@@ -92,7 +92,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "SELECT percentile(largestContentfulPaint, 75) FROM PageViewTiming WHERE domain = 'www.dmm.co.jp' WHERE deviceType IN ('Mobile', 'Desktop') FACET deviceType COMPARE WITH 1 week ago"
+        query      = "SELECT percentile(largestContentfulPaint, 75) FROM PageViewTiming WHERE domain = '${var.core_web_vitals_domain_name}' WHERE deviceType IN ('Mobile', 'Desktop') FACET deviceType COMPARE WITH 1 week ago"
       }
     }
 
@@ -105,7 +105,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "SELECT percentile(firstInputDelay, 75) FROM PageViewTiming WHERE domain = 'www.dmm.co.jp' AND deviceType IN ('Mobile', 'Desktop') FACET deviceType COMPARE WITH 1 week ago"
+        query      = "SELECT percentile(firstInputDelay, 75) FROM PageViewTiming WHERE domain = '${var.core_web_vitals_domain_name}' AND deviceType IN ('Mobile', 'Desktop') FACET deviceType COMPARE WITH 1 week ago"
       }
     }
 
@@ -118,7 +118,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "SELECT percentile(cumulativeLayoutShift, 75) FROM PageViewTiming WHERE domain = 'www.dmm.co.jp' AND timingName = 'pageHide' AND deviceType IN ('Mobile', 'Desktop') FACET deviceType COMPARE WITH 1 week ago"
+        query      = "SELECT percentile(cumulativeLayoutShift, 75) FROM PageViewTiming WHERE domain = '${var.core_web_vitals_domain_name}' AND timingName = 'pageHide' AND deviceType IN ('Mobile', 'Desktop') FACET deviceType COMPARE WITH 1 week ago"
       }
     }
 
@@ -131,7 +131,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM PageViewTiming SELECT percentile(largestContentfulPaint, 75) WHERE domain = 'www.dmm.co.jp' AND deviceType != 'Unknown' FACET deviceType TIMESERIES AUTO"
+        query      = "FROM PageViewTiming SELECT percentile(largestContentfulPaint, 75) WHERE domain = '${var.core_web_vitals_domain_name}' AND deviceType != 'Unknown' FACET deviceType TIMESERIES AUTO"
       }
     }
 
@@ -144,7 +144,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM PageViewTiming SELECT percentile(firstInputDelay, 75) WHERE domain = 'www.dmm.co.jp' AND deviceType != 'Unknown' FACET deviceType TIMESERIES AUTO"
+        query      = "FROM PageViewTiming SELECT percentile(firstInputDelay, 75) WHERE domain = '${var.core_web_vitals_domain_name}' AND deviceType != 'Unknown' FACET deviceType TIMESERIES AUTO"
       }
     }
 
@@ -157,7 +157,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM PageViewTiming SELECT percentile(cumulativeLayoutShift, 75) WHERE domain = 'www.dmm.co.jp' AND deviceType != 'Unknown' FACET deviceType TIMESERIES AUTO"
+        query      = "FROM PageViewTiming SELECT percentile(cumulativeLayoutShift, 75) WHERE domain = '${var.core_web_vitals_domain_name}' AND deviceType != 'Unknown' FACET deviceType TIMESERIES AUTO"
       }
     }
 
@@ -170,7 +170,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM PageViewTiming SELECT percentage(uniqueCount(session), WHERE largestContentfulPaint >= 4) AS '' WHERE domain = 'www.dmm.co.jp' AND deviceType IN ('Mobile', 'Desktop') FACET deviceType"
+        query      = "FROM PageViewTiming SELECT percentage(uniqueCount(session), WHERE largestContentfulPaint >= 4) AS '' WHERE domain = '${var.core_web_vitals_domain_name}' AND deviceType IN ('Mobile', 'Desktop') FACET deviceType"
       }
     }
 
@@ -183,7 +183,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM PageViewTiming SELECT percentage(uniqueCount(session), WHERE firstInputDelay >= 300) AS '' WHERE domain = 'www.dmm.co.jp' AND deviceType IN ('Mobile', 'Desktop') FACET deviceType"
+        query      = "FROM PageViewTiming SELECT percentage(uniqueCount(session), WHERE firstInputDelay >= 300) AS '' WHERE domain = '${var.core_web_vitals_domain_name}' AND deviceType IN ('Mobile', 'Desktop') FACET deviceType"
       }
     }
 
@@ -196,7 +196,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM PageViewTiming SELECT percentage(uniqueCount(session), WHERE cumulativeLayoutShift >= 0.25) AS '' WHERE domain = 'www.dmm.co.jp' AND deviceType IN ('Mobile', 'Desktop') FACET deviceType"
+        query      = "FROM PageViewTiming SELECT percentage(uniqueCount(session), WHERE cumulativeLayoutShift >= 0.25) AS '' WHERE domain = '${var.core_web_vitals_domain_name}' AND deviceType IN ('Mobile', 'Desktop') FACET deviceType"
       }
     }
 
@@ -211,7 +211,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM PageViewTiming SELECT percentile(firstContentfulPaint, 75), percentile(largestContentfulPaint, 75), percentile(firstInputDelay, 75), max(firstInputDelay), filter(percentile(cumulativeLayoutShift, 75), WHERE timingName = 'firstContentfulPaint') AS 'Cumulative Layout Shift', percentile(pageHide, 75), percentile(windowLoad, 75) WHERE domain = 'www.dmm.co.jp' AND deviceType = 'Desktop' FACET browserTransactionName LIMIT 100"
+        query      = "FROM PageViewTiming SELECT percentile(firstContentfulPaint, 75), percentile(largestContentfulPaint, 75), percentile(firstInputDelay, 75), max(firstInputDelay), filter(percentile(cumulativeLayoutShift, 75), WHERE timingName = 'firstContentfulPaint') AS 'Cumulative Layout Shift', percentile(pageHide, 75), percentile(windowLoad, 75) WHERE domain = '${var.core_web_vitals_domain_name}' AND deviceType = 'Desktop' FACET browserTransactionName LIMIT 100"
       }
     }
 
@@ -226,7 +226,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM PageViewTiming SELECT percentile(firstContentfulPaint, 75), percentile(largestContentfulPaint, 75), percentile(firstInputDelay, 75), max(firstInputDelay), filter(percentile(cumulativeLayoutShift, 75), WHERE timingName = 'firstContentfulPaint') AS 'Cumulative Layout Shift', percentile(pageHide, 75), percentile(windowLoad, 75) WHERE domain = 'www.dmm.co.jp' AND deviceType = 'Mobile' FACET browserTransactionName LIMIT 100"
+        query      = "FROM PageViewTiming SELECT percentile(firstContentfulPaint, 75), percentile(largestContentfulPaint, 75), percentile(firstInputDelay, 75), max(firstInputDelay), filter(percentile(cumulativeLayoutShift, 75), WHERE timingName = 'firstContentfulPaint') AS 'Cumulative Layout Shift', percentile(pageHide, 75), percentile(windowLoad, 75) WHERE domain = '${var.core_web_vitals_domain_name}' AND deviceType = 'Mobile' FACET browserTransactionName LIMIT 100"
         }
     }
 
@@ -241,7 +241,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
       
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM (SELECT ceil(clamp_max(clamp_min(percentile(largestContentfulPaint, 75) / 0.75 - 2.3334, 1), 3)) AS 'LCP', ceil(clamp_max(clamp_min(percentile(firstInputDelay, 75) / 100, 1), 3)) AS 'FID', ceil(clamp_max(clamp_min(percentile(cumulativeLayoutShift, 75) / 0.075 - 0.33334, 1), 3)) AS 'CLS', filter(count(*), where eventType() = 'PageView') AS 'PV', filter(average(duration), WHERE eventType() = 'PageView') AS 'Time' FROM PageViewTiming, PageView WHERE domain = 'www.dmm.co.jp' FACET targetGroupedUrl LIMIT max) SELECT max(LCP) + max(FID) + max(CLS) AS 'Total', max(LCP) AS 'LCP', max(FID) AS 'FID', max(CLS) AS 'CLS', max(PV) AS 'PV', max(Time) AS 'Time(sec)' WHERE LCP > 1 OR FID > 1 OR CLS > 1 FACET targetGroupedUrl LIMIT 50"
+        query      = "FROM (SELECT ceil(clamp_max(clamp_min(percentile(largestContentfulPaint, 75) / 0.75 - 2.3334, 1), 3)) AS 'LCP', ceil(clamp_max(clamp_min(percentile(firstInputDelay, 75) / 100, 1), 3)) AS 'FID', ceil(clamp_max(clamp_min(percentile(cumulativeLayoutShift, 75) / 0.075 - 0.33334, 1), 3)) AS 'CLS', filter(count(*), where eventType() = 'PageView') AS 'PV', filter(average(duration), WHERE eventType() = 'PageView') AS 'Time' FROM PageViewTiming, PageView WHERE domain = '${var.core_web_vitals_domain_name}' FACET targetGroupedUrl LIMIT max) SELECT max(LCP) + max(FID) + max(CLS) AS 'Total', max(LCP) AS 'LCP', max(FID) AS 'FID', max(CLS) AS 'CLS', max(PV) AS 'PV', max(Time) AS 'Time(sec)' WHERE LCP > 1 OR FID > 1 OR CLS > 1 FACET targetGroupedUrl LIMIT 50"
         }
     }
   }
