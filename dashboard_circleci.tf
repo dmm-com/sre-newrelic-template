@@ -1,7 +1,7 @@
 // 内容：CircleCIインテグレーションダッシュボード
 //
 resource "newrelic_one_dashboard" "circleci" {
-  name = "[sample] CircleCI"
+  name = "CircleCI"
 
   permissions = "public_read_write"
 

@@ -1,7 +1,7 @@
 // 内容：AWSとNewRelicの料金ダッシュボード
 //
 resource "newrelic_one_dashboard" "aws_newrelic_charge" {
-  name = "[sample] 料金"
+  name = "料金"
 
   permissions = "public_read_write"
 

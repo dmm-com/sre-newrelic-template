@@ -1,7 +1,7 @@
 // 内容：Core Web Vitalsダッシュボード
 //
 resource "newrelic_one_dashboard" "core_web_vitals" {
-  name = "[sample] Core Web Vitals"
+  name = "Core Web Vitals"
 
   permissions = "public_read_write"
 
