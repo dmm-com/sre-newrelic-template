@@ -1,4 +1,4 @@
-// 内容：APMのサーバー側レスポンスタイム監視。（秒）
+// 内容：APMのサーバー側レスポンスタイム監視。90パーセンタイル。（秒）
 //
 resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
   policy_id      = newrelic_alert_policy.policy.id
@@ -16,7 +16,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(duration) FROM Transaction FACET appName EXTRAPOLATE"
+    query             = "SELECT percentile(duration, 90) FROM Transaction FACET appName EXTRAPOLATE"
   }
   critical {
     operator              = "above"
@@ -26,7 +26,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
   }
 }
 
-// 内容：APMのデータベース側レスポンスタイム監視。（秒）
+// 内容：APMのデータベース側レスポンスタイム監視。90パーセンタイル。（秒）
 //
 resource "newrelic_nrql_alert_condition" "apm_transaction_database_duration_average" {
   policy_id      = newrelic_alert_policy.policy.id
@@ -44,7 +44,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_database_duration_aver
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(databaseDuration) FROM Transaction FACET appName EXTRAPOLATE"
+    query             = "SELECT percentile(databaseDuration, 90) FROM Transaction FACET appName EXTRAPOLATE"
   }
   critical {
     operator              = "above"
