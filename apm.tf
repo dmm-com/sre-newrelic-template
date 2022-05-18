@@ -16,7 +16,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(duration) FROM Transaction WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET appName EXTRAPOLATE"
+    query             = "SELECT average(duration) FROM Transaction FACET appName EXTRAPOLATE"
   }
   critical {
     operator              = "above"
@@ -44,7 +44,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_database_duration_aver
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(databaseDuration) FROM Transaction WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET appName EXTRAPOLATE"
+    query             = "SELECT average(databaseDuration) FROM Transaction FACET appName EXTRAPOLATE"
   }
   critical {
     operator              = "above"
@@ -72,7 +72,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_external_duration_aver
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(externalDuration) FROM Transaction WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET appName EXTRAPOLATE"
+    query             = "SELECT average(externalDuration) FROM Transaction FACET appName EXTRAPOLATE"
   }
   critical {
     operator              = "above"
@@ -100,7 +100,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_http_response_code_5xx
   aggregation_delay  = "120"
 
   nrql {
-    query             = "FROM Transaction SELECT percentage(count(*), WHERE httpResponseCode LIKE '5%%') WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET appName, name EXTRAPOLATE"
+    query             = "FROM Transaction SELECT percentage(count(*), WHERE httpResponseCode LIKE '5%%') FACET appName, name EXTRAPOLATE"
   }
   critical {
     operator              = "above"
