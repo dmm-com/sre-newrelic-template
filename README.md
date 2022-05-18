@@ -5,6 +5,10 @@
 TerraformによるAWSへのNew Relic監視導入のためのテンプレートです。
 最低限の変更で、New Relicを用いたインフラ監視を始めることができます。
 
+## リリースノート
+
+リリースノートについては、[コンフルエンス](https://confl.arms.dmm.com/pages/viewpage.action?pageId=1090676546)を参照してください。
+
 ## 事前準備
 
 New RelicとAWSのアカウントがそれぞれ必要です。
