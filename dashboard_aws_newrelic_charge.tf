@@ -9,13 +9,13 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
     name = "AWS"
 
     widget_markdown {
-      title = ""
+      title  = ""
       column = 1
       height = 6
       row    = 1
       width  = 2
 
-      text   = <<-EOT
+      text = <<-EOT
         AWSアカウントIDと対応サービス
         ---
 

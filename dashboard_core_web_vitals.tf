@@ -9,13 +9,13 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
     name = "Top"
 
     widget_markdown {
-      title = ""
+      title  = ""
       column = 1
       height = 3
       row    = 1
       width  = 8
 
-      text   = <<-EOT
+      text = <<-EOT
         # Core Web Vitals
         Core Web Vitals とはGoogleがWebサイトの健全性を示す指標として重視するもので、以下の指標があります。
 
@@ -31,13 +31,13 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
     }
 
     widget_markdown {
-      title = ""
+      title  = ""
       column = 9
       height = 3
       row    = 1
       width  = 4
 
-      text   = <<-EOT
+      text = <<-EOT
         参考情報
         - https://web.dev/i18n/ja/vitals/
         - https://digiful.irep.co.jp/blog/48237963801
@@ -227,7 +227,7 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
       nrql_query {
         account_id = var.nr_account_id
         query      = "FROM PageViewTiming SELECT percentile(firstContentfulPaint, 75), percentile(largestContentfulPaint, 75), percentile(firstInputDelay, 75), max(firstInputDelay), filter(percentile(cumulativeLayoutShift, 75), WHERE timingName = 'firstContentfulPaint') AS 'Cumulative Layout Shift', percentile(pageHide, 75), percentile(windowLoad, 75) WHERE domain = '${var.core_web_vitals_domain_name}' AND deviceType = 'Mobile' FACET browserTransactionName LIMIT 100"
-        }
+      }
     }
 
     widget_table {
@@ -238,11 +238,11 @@ resource "newrelic_one_dashboard" "core_web_vitals" {
       width                    = 12
       linked_entity_guids      = []
       filter_current_dashboard = false
-      
+
       nrql_query {
         account_id = var.nr_account_id
         query      = "FROM (SELECT ceil(clamp_max(clamp_min(percentile(largestContentfulPaint, 75) / 0.75 - 2.3334, 1), 3)) AS 'LCP', ceil(clamp_max(clamp_min(percentile(firstInputDelay, 75) / 100, 1), 3)) AS 'FID', ceil(clamp_max(clamp_min(percentile(cumulativeLayoutShift, 75) / 0.075 - 0.33334, 1), 3)) AS 'CLS', filter(count(*), where eventType() = 'PageView') AS 'PV', filter(average(duration), WHERE eventType() = 'PageView') AS 'Time' FROM PageViewTiming, PageView WHERE domain = '${var.core_web_vitals_domain_name}' FACET targetGroupedUrl LIMIT max) SELECT max(LCP) + max(FID) + max(CLS) AS 'Total', max(LCP) AS 'LCP', max(FID) AS 'FID', max(CLS) AS 'CLS', max(PV) AS 'PV', max(Time) AS 'Time(sec)' WHERE LCP > 1 OR FID > 1 OR CLS > 1 FACET targetGroupedUrl LIMIT 50"
-        }
+      }
     }
   }
 }
