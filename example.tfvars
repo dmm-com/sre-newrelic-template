@@ -8,6 +8,9 @@ aws_secret_key = ""
 
 slack_mention  = ""
 
+// APM alerts
+apm_app_name_prefix  = ""
+
 // -------------------------------------------
 // Synthetics
 // -------------------------------------------
@@ -208,7 +211,7 @@ apm_transaction_duration_average_alerts = [{
 apm_transaction_database_duration_average_alerts = [{
   name = "[APM] データベース レスポンスタイム監視"
 }]
-apm_transaction_external_duration_average_alerts = [{
+apm_external_duration_average_alerts = [{
   name = "[APM] 外部サービス レスポンスタイム監視"
 }]
 apm_transaction_http_response_code_5xx_percentage_alerts = [{

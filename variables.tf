@@ -348,6 +348,10 @@ variable "elb_nlb_unhealthy_host_count_alerts" {
   default = []
 }
 
+variable "apm_app_name_prefix" {
+  type = string
+}
+
 variable "apm_transaction_duration_average_alerts" {
   type = list(object({
     name      = string
@@ -362,7 +366,7 @@ variable "apm_transaction_database_duration_average_alerts" {
   default = []
 }
 
-variable "apm_transaction_external_duration_average_alerts" {
+variable "apm_external_duration_average_alerts" {
   type = list(object({
     name      = string
   }))
