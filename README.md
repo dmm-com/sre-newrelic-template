@@ -57,3 +57,12 @@ $ terraform init
 $ terraform plan -var-file sre.tfvars
 $ terraform apply -var-file sre.tfvars
 ```
+
+※任意  
+初回の terraform apply 以降は NewRelic の画面上から変更を行うことを想定しているため、以下のコマンドを実行し、ダッシュボード作成について Terraform の管理下から外してください。
+
+```bash
+$ terraform state rm newrelic_one_dashboard.aws_newrelic_charge
+$ terraform state rm newrelic_one_dashboard.circleci
+$ terraform state rm newrelic_one_dashboard.core_web_vitals
+```
