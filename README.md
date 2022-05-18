@@ -21,15 +21,23 @@ Terraform による NewRelic ダッシュボード導入のためのテンプレ
 
 AWS と NewRelic の料金推移を可視化します。
 
+![dashboard_aws_newrelic_charge_aws](attached-file/dashboard_aws_newrelic_charge_aws.png)
+
+![dashboard_aws_newrelic_charge_newrelic](attached-file/dashboard_aws_newrelic_charge_newrelic.png)
+
 ### dashboard_core_web_vitals
 
 Core Web Vitals を可視化します。  
 Core Web Vitals については、https://web.dev/i18n/ja/vitals/ を参照してください。
 
+![dashboard_core_web_vitals](attached-file/dashboard_core_web_vitals.png)
+
 ### dashboard_circleci
 
 CircleCI の実行状況を可視化します。  
 詳細については、https://newrelic.com/instant-observability/circleci/39109d3d-b1d8-4366-8ca9-b8925005f727 を参照してください。
+
+![dashboard_circleci](attached-file/dashboard_circleci.png)
 
 ## 事前準備
 
