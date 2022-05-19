@@ -213,7 +213,14 @@ variable "rds_swap_usage_alerts" {
   default = []
 }
 
-variable "rds_network_receive_transmit_throughput_alerts" {
+variable "rds_network_receive_throughput_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "rds_network_transmit_throughput_alerts" {
   type = list(object({
     name      = string
   }))
