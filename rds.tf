@@ -288,3 +288,36 @@ resource "newrelic_nrql_alert_condition" "rds_swap_usage" {
     threshold_occurrences = "ALL"
   }
 }
+
+// 監視メトリクス：NetworkReceiveThroughput, NetworkTransmitThroughput (RDS/Aurora)
+// 内容：死活監視。データ送受信が止まったことを判定基準としている。
+//
+resource "newrelic_nrql_alert_condition" "rds_network_receive_transmit_throughput" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.rds_network_receive_transmit_throughput_alerts)
+  name                         = var.rds_network_receive_transmit_throughput_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(aws.rds.NetworkReceiveThroughput) + average(aws.rds.NetworkTransmitThroughput) FROM Metric WHERE collector.name = 'cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.rds.DBClusterIdentifier, aws.rds.DBInstanceIdentifier"
+  }
+  critical {
+    operator              = "below_or_equals"
+    threshold             = 0
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+
+  expiration_duration            = 180
+  open_violation_on_expiration   = true
+  close_violations_on_expiration = false
+}

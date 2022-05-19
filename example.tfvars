@@ -127,6 +127,9 @@ rds_free_storage_space_alerts = [{
 rds_swap_usage_alerts = [{
   name      = "[RDS] SWAP使用量監視"
 }]
+rds_network_receive_transmit_throughput_alerts = [{
+  name      = "[RDS/Aurora] 死活監視"
+}]
 
 // Elasticache alerts
 elasticache_cpu_utilization_alerts = [{

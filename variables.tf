@@ -213,6 +213,13 @@ variable "rds_swap_usage_alerts" {
   default = []
 }
 
+variable "rds_network_receive_transmit_throughput_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
 // Elasticache はタグが取れない可能性あり
 variable "elasticache_cpu_utilization_alerts" {
   type = list(object({
