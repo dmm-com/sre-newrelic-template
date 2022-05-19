@@ -212,7 +212,7 @@ apm_transaction_database_duration_average_alerts = [{
   name = "[APM] データベース レスポンスタイム監視"
 }]
 apm_external_duration_average_alerts = [{
-  name = "[APM] 外部サービス レスポンスタイム監視"
+  name = "[APM] 外部サービス レスポンスタイム監視（試験的）"
 }]
 apm_transaction_http_response_code_5xx_percentage_alerts = [{
   name = "[APM] 5xx エラー率監視"
