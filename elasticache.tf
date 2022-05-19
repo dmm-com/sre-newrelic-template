@@ -1,12 +1,15 @@
-resource "newrelic_nrql_alert_condition" "memcached_cpu" {
+// 監視メトリクス：CPUUtilization (Memcached/Redis)
+// 内容：ホスト全体の CPU 使用率の割合 (%)。
+//
+resource "newrelic_nrql_alert_condition" "elasticache_cpu_utilization" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_cpu_alerts)
-  name                         = var.elasticache_cpu_alerts[count.index].name
+  count                        = length(var.elasticache_cpu_utilization_alerts)
+  name                         = var.elasticache_cpu_utilization_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -24,15 +27,18 @@ resource "newrelic_nrql_alert_condition" "memcached_cpu" {
   }
 }
 
-resource "newrelic_nrql_alert_condition" "memcached_swap" {
+// 監視メトリクス：SwapUsage (Memcached/Redis)
+// 内容：ホストで使用されるスワップの量。
+//
+resource "newrelic_nrql_alert_condition" "elasticache_swap_usage" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_swap_alerts)
-  name                         = var.elasticache_swap_alerts[count.index].name
+  count                        = length(var.elasticache_swap_usage_alerts)
+  name                         = var.elasticache_swap_usage_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -50,15 +56,18 @@ resource "newrelic_nrql_alert_condition" "memcached_swap" {
   }
 }
 
-resource "newrelic_nrql_alert_condition" "memcached_memory" {
+// 監視メトリクス：FreeableMemory (Memcached/Redis)
+// 内容：ホストで使用可能な空きメモリの量。
+//
+resource "newrelic_nrql_alert_condition" "elasticache_freeable_memory" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
   value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_memory_alerts)
-  name                         = var.elasticache_memory_alerts[count.index].name
+  count                        = length(var.elasticache_freeable_memory_alerts)
+  name                         = var.elasticache_freeable_memory_alerts[count.index].name
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -70,7 +79,154 @@ resource "newrelic_nrql_alert_condition" "memcached_memory" {
   }
   critical {
     operator              = "below"
-    threshold             = 300
+    threshold             = 300000000
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+}
+
+// 監視メトリクス：Evictions (Memcached/Redis)
+// 内容1：新しく書き込むための領域を確保するためにキャッシュが排除した、期限切れではない項目の数。 (Memcached)
+// 内容2：maxmemory の制限のため排除されたキーの数。 (Redis)
+//
+resource "newrelic_nrql_alert_condition" "elasticache_evictions" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.elasticache_evictions_alerts)
+  name                         = var.elasticache_evictions_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(aws.elasticache.Evictions) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 10
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+}
+
+// 監視メトリクス：CurrConnections (Memcached/Redis)
+// 内容1：特定の時点でキャッシュに接続された接続回数。 (Memcached)
+// 内容2：リードレプリカからの接続を除く、クライアント接続の数。 (Redis)
+//
+resource "newrelic_nrql_alert_condition" "elasticache_currconnections" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.elasticache_currconnections_alerts)
+  name                         = var.elasticache_currconnections_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(aws.elasticache.CurrConnections) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 100
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+}
+
+// 監視メトリクス：EngineCPUUtilization (Redis)
+// 内容：Redis エンジンスレッドの CPU 使用率を提供します。
+//
+resource "newrelic_nrql_alert_condition" "elasticache_redis_engine_cpu_utilization" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.elasticache_redis_engine_cpu_utilization_alerts)
+  name                         = var.elasticache_redis_engine_cpu_utilization_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(aws.elasticache.EngineCPUUtilization) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 90
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+}
+
+// 監視メトリクス：ReplicationLag (Redis)
+// 内容：レプリカのプライマリノードからの変更適用の進行状況を秒で表します。Redis エンジンバージョン 5.0.6 以降では、ラグはミリ秒単位で測定できます。
+//
+resource "newrelic_nrql_alert_condition" "elasticache_redis_replication_lag" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.elasticache_redis_replication_lag_alerts)
+  name                         = var.elasticache_redis_replication_lag_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(aws.elasticache.ReplicationLag) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 10
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+}
+
+// 監視メトリクス：DatabaseMemoryUsagePercentage (Redis)
+// 内容：使用中のクラスターで使用中のメモリの割合。
+//
+resource "newrelic_nrql_alert_condition" "elasticache_redis_database_memory_usage_percentage" {
+  policy_id      = newrelic_alert_policy.policy.id
+  type           = "static"
+  value_function = "single_value"
+
+  description = "Attention <@${var.slack_mention}>"
+
+  count                        = length(var.elasticache_redis_database_memory_usage_percentage_alerts)
+  name                         = var.elasticache_redis_database_memory_usage_percentage_alerts[count.index].name
+  violation_time_limit_seconds = 3600
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query             = "SELECT average(aws.elasticache.DatabaseMemoryUsagePercentage) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.elasticache.CacheClusterId ,aws.elasticache.CacheNodeId"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 80
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
