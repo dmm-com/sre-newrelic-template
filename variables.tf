@@ -381,3 +381,35 @@ variable "elb_nlb_unhealthy_host_count_alerts" {
   }))
   default = []
 }
+
+variable "apm_app_name_prefix" {
+  type = string
+}
+
+variable "apm_transaction_duration_average_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "apm_transaction_database_duration_average_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "apm_external_duration_average_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "apm_transaction_http_response_code_5xx_percentage_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
