@@ -1,4 +1,4 @@
-// 内容：APMのサーバー側レスポンスタイム監視。90パーセンタイル。（秒）
+// 内容：APMのサーバー側レスポンスタイム監視。95パーセンタイル。（秒）
 //
 resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
   policy_id      = newrelic_alert_policy.policy.id
@@ -26,7 +26,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
   }
 }
 
-// 内容：APMのデータベース側レスポンスタイム監視。90パーセンタイル。（秒）
+// 内容：APMのデータベース側レスポンスタイム監視。95パーセンタイル。（秒）
 //
 resource "newrelic_nrql_alert_condition" "apm_transaction_database_duration_average" {
   policy_id      = newrelic_alert_policy.policy.id
