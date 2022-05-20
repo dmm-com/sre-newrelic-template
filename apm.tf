@@ -16,7 +16,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT percentile(duration, 90) FROM Transaction FACET appName EXTRAPOLATE"
+    query             = "SELECT percentile(duration, 95) FROM Transaction FACET appName EXTRAPOLATE"
   }
   critical {
     operator              = "above"
@@ -44,7 +44,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_database_duration_aver
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT percentile(databaseDuration, 90) FROM Transaction FACET appName EXTRAPOLATE"
+    query             = "SELECT percentile(databaseDuration, 95) FROM Transaction FACET appName EXTRAPOLATE"
   }
   critical {
     operator              = "above"
