@@ -143,29 +143,9 @@ variable "ec2_inodes_used_percent_alerts" {
   default = []
 }
 
-variable "rds_alive_alerts" {
-  type = list(object({
-    name      = string
-    tag_key   = string
-    tag_value = string
-  }))
-  default = []
-}
-
 variable "rds_replica_lag_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
-  }))
-  default = []
-}
-
-variable "rds_aurora_alive_alerts" {
-  type = list(object({
-    name      = string
-    tag_key   = string
-    tag_value = string
   }))
   default = []
 }
@@ -173,8 +153,62 @@ variable "rds_aurora_alive_alerts" {
 variable "rds_aurora_replica_lag_alerts" {
   type = list(object({
     name      = string
-    tag_key   = string
-    tag_value = string
+  }))
+  default = []
+}
+
+variable "rds_cpu_utilization_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "rds_freeable_memory_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "rds_free_local_storage_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "rds_database_connections_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "rds_blocked_transactions_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "rds_deadlocks_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "rds_free_storage_space_alerts" {
+  type = list(object({
+    name      = string
+  }))
+  default = []
+}
+
+variable "rds_swap_usage_alerts" {
+  type = list(object({
+    name      = string
   }))
   default = []
 }

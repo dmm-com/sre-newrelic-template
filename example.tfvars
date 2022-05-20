@@ -96,27 +96,36 @@ ec2_inodes_used_percent_alerts = [{
   name      = "[EC2] iノード使用率監視"
 }]
 
-// RDS alert
-rds_alive_alerts = [{
-  name      = "rds alive"
-  tag_key   = "prod"
-  tag_value = "customer"
-}]
+// RDS/Aurora alert
 rds_replica_lag_alerts = [{
-  name      = "rds replicalag"
-  tag_key   = "prod"
-  tag_value = "customer"
-}]
-// For Aurora
-rds_aurora_alive_alerts = [{
-  name      = "rds aurora alive"
-  tag_key   = "prod"
-  tag_value = "customer"
+  name      = "[RDS] レプリカ同期遅延監視"
 }]
 rds_aurora_replica_lag_alerts = [{
-  name      = "rds aurora replicalag"
-  tag_key   = "prod"
-  tag_value = "customer"
+  name      = "[Aurora] レプリカ同期遅延監視"
+}]
+rds_cpu_utilization_alerts = [{
+  name      = "[RDS/Aurora] CPU使用率監視"
+}]
+rds_freeable_memory_alerts = [{
+  name      = "[RDS/Aurora] メモリ空き容量監視"
+}]
+rds_free_local_storage_alerts = [{
+  name      = "[RDS/Aurora] ローカルストレージ空き容量監視"
+}]
+rds_database_connections_alerts = [{
+  name      = "[RDS/Aurora] データベース接続数監視"
+}]
+rds_blocked_transactions_alerts = [{
+  name      = "[Aurora] ブロックトランザクション数監視"
+}]
+rds_deadlocks_alerts = [{
+  name      = "[Aurora] デッドロック数監視"
+}]
+rds_free_storage_space_alerts = [{
+  name      = "[RDS] ストレージ空き容量監視"
+}]
+rds_swap_usage_alerts = [{
+  name      = "[RDS] SWAP使用量監視"
 }]
 
 // Elasticache alerts
