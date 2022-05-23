@@ -1,11 +1,10 @@
 resource "newrelic_nrql_alert_condition" "cloudfront_4xx_error_rate" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.cloudfront_4xx_error_rate_alerts)
-  name                         = var.cloudfront_4xx_error_rate_alerts[count.index].name
+  name                         = "[CloudFront] 4xx エラー率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -13,7 +12,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_4xx_error_rate" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "FROM Metric SELECT average(`aws.cloudfront.4xxErrorRate`) WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET `aws.cloudfront.DistributionId`"
+    query = "FROM Metric SELECT average(`aws.cloudfront.4xxErrorRate`) WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET `aws.cloudfront.DistributionId`"
   }
   critical {
     operator              = "above"
@@ -24,13 +23,12 @@ resource "newrelic_nrql_alert_condition" "cloudfront_4xx_error_rate" {
 }
 
 resource "newrelic_nrql_alert_condition" "cloudfront_5xx_error_rate" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.cloudfront_5xx_error_rate_alerts)
-  name                         = var.cloudfront_5xx_error_rate_alerts[count.index].name
+  name                         = "[CloudFront] 5xx エラー率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -38,7 +36,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_5xx_error_rate" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "FROM Metric SELECT average(`aws.cloudfront.5xxErrorRate`) WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET `aws.cloudfront.DistributionId`"
+    query = "FROM Metric SELECT average(`aws.cloudfront.5xxErrorRate`) WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET `aws.cloudfront.DistributionId`"
   }
   critical {
     operator              = "above"
@@ -49,13 +47,12 @@ resource "newrelic_nrql_alert_condition" "cloudfront_5xx_error_rate" {
 }
 
 resource "newrelic_nrql_alert_condition" "cloudfront_origin_latency" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.cloudfront_origin_latency_alerts)
-  name                         = var.cloudfront_origin_latency_alerts[count.index].name
+  name                         = "[CloudFront] オリジン遅延監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -63,7 +60,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_origin_latency" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "FROM Metric SELECT average(`aws.cloudfront.OriginLatency`) WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET `aws.cloudfront.DistributionId`"
+    query = "FROM Metric SELECT average(`aws.cloudfront.OriginLatency`) WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET `aws.cloudfront.DistributionId`"
   }
   critical {
     operator              = "above"

@@ -2,13 +2,12 @@
 // 内容：NAT ゲートウェイによって破棄されたパケットの数。
 //
 resource "newrelic_nrql_alert_condition" "natgateway_packets_drop_count" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.natgateway_packets_drop_count_alerts)
-  name                         = var.natgateway_packets_drop_count_alerts[count.index].name
+  name                         = "[NAT Gateway] パケットドロップ監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -16,7 +15,7 @@ resource "newrelic_nrql_alert_condition" "natgateway_packets_drop_count" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "FROM Metric SELECT sum(`aws.natgateway.PacketsDropCount`) WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET `aws.natgateway.NatGatewayId`"
+    query = "FROM Metric SELECT sum(`aws.natgateway.PacketsDropCount`) WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET `aws.natgateway.NatGatewayId`"
   }
   critical {
     operator              = "above"
@@ -30,13 +29,12 @@ resource "newrelic_nrql_alert_condition" "natgateway_packets_drop_count" {
 // 内容：NAT ゲートウェイが送信元ポートを割り当てられなかった回数。
 //
 resource "newrelic_nrql_alert_condition" "natgateway_error_port_allocation" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.natgateway_error_port_allocation_alerts)
-  name                         = var.natgateway_error_port_allocation_alerts[count.index].name
+  name                         = "[NAT Gateway] ポート割り当てエラー監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -44,7 +42,7 @@ resource "newrelic_nrql_alert_condition" "natgateway_error_port_allocation" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "FROM Metric SELECT sum(`aws.natgateway.ErrorPortAllocation`) WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET `aws.natgateway.NatGatewayId`"
+    query = "FROM Metric SELECT sum(`aws.natgateway.ErrorPortAllocation`) WHERE `aws.accountId` IN (${data.aws_caller_identity.self.account_id}) FACET `aws.natgateway.NatGatewayId`"
   }
   critical {
     operator              = "above"
