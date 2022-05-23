@@ -68,3 +68,39 @@ resource "newrelic_nrql_alert_condition" "synthetics_ping_alert" {
   violation_time_limit_seconds = 3600
   description                  = "Attention <@${var.slack_mention}>"
 }
+
+// 内容：Synthetics Simple Browserの内部設定情報取得
+//
+data "newrelic_synthetics_monitor" "synthetics_browser" {
+  count = length(var.newrelic_synthetics_browser)
+
+  name = var.newrelic_synthetics_browser[count.index].name
+}
+
+// 監視メトリクス：SyntheticRequest duration
+// 内容：この要求の合計時間 (ミリ秒単位)。
+//
+resource "newrelic_nrql_alert_condition" "synthetics_browser_alert" {
+  count = length(var.newrelic_synthetics_browser)
+
+  policy_id = newrelic_alert_policy.policy.id
+  name      = "[Synthetics Simple Browser] ${var.newrelic_synthetics_browser[count.index].uri} レスポンスタイム監視"
+  type      = "static"
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query = "SELECT average(duration) FROM SyntheticRequest WHERE location = 'AWS_AP_NORTHEAST_1' AND monitorId = '${data.newrelic_synthetics_monitor.synthetics_browser[count.index].id}'"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 1000
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+
+  violation_time_limit_seconds = 3600
+  description                  = "Attention <@${var.slack_mention}>"
+}
