@@ -2,8 +2,8 @@
 // 内容：割り当てられた EC2 コンピュートユニットのうち、現在インスタンス上で使用されているものの比率。
 //
 resource "newrelic_nrql_alert_condition" "ec2_cpu_utilization" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -15,7 +15,7 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_utilization" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.ec2.CPUUtilization) FROM Metric WHERE collector.name ='cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ec2.InstanceId, tags.Name"
+    query = "SELECT average(aws.ec2.CPUUtilization) FROM Metric WHERE collector.name ='cloudwatch-metric-streams' AND aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ec2.InstanceId, tags.Name"
   }
   critical {
     operator              = "above"
@@ -29,8 +29,8 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_utilization" {
 // 内容：インスタンスが過去 1 分間にインスタンスのステータスチェックとシステムステータスチェックの両方に合格したかどうかを報告します。
 //
 resource "newrelic_nrql_alert_condition" "ec2_status_check_failed" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -44,7 +44,7 @@ resource "newrelic_nrql_alert_condition" "ec2_status_check_failed" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.ec2.StatusCheckFailed) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ec2.InstanceId, tags.Name"
+    query = "SELECT average(aws.ec2.StatusCheckFailed) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ec2.InstanceId, tags.Name"
   }
   critical {
     operator              = "above"
@@ -58,8 +58,8 @@ resource "newrelic_nrql_alert_condition" "ec2_status_check_failed" {
 // 内容：現在の CPU 使用率の部分は、I/O 待機時間の使用状況のみで構成されます。
 //
 resource "newrelic_nrql_alert_condition" "ec2_cpu_iowait_percent" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -71,7 +71,7 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_iowait_percent" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(cpuIOWaitPercent) FROM SystemSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityKey, tags.Name"
+    query = "SELECT average(cpuIOWaitPercent) FROM SystemSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityKey, tags.Name"
   }
   critical {
     operator              = "above"
@@ -85,8 +85,8 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_iowait_percent" {
 // 内容：読み取りまたは書き込みディスク I/O 操作の待機に費やされた時間の割合。
 //
 resource "newrelic_nrql_alert_condition" "ec2_total_utilization_percent" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -98,7 +98,7 @@ resource "newrelic_nrql_alert_condition" "ec2_total_utilization_percent" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(totalUtilizationPercent) FROM StorageSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityKey, tags.Name"
+    query = "SELECT average(totalUtilizationPercent) FROM StorageSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityKey, tags.Name"
   }
   critical {
     operator              = "above"
@@ -118,8 +118,8 @@ resource "newrelic_nrql_alert_condition" "ec2_total_utilization_percent" {
 // 内容：過去 5 分間に、CPU 時間を待機し、準備完了しているシステム・プロセス、スレッド、またはタスクの平均数。
 //
 resource "newrelic_nrql_alert_condition" "ec2_load_average_five_minute" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -131,7 +131,7 @@ resource "newrelic_nrql_alert_condition" "ec2_load_average_five_minute" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(loadAverageFiveMinute) FROM SystemSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityKey, tags.Name"
+    query = "SELECT average(loadAverageFiveMinute) FROM SystemSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityKey, tags.Name"
   }
   critical {
     operator              = "above"
@@ -145,8 +145,8 @@ resource "newrelic_nrql_alert_condition" "ec2_load_average_five_minute" {
 // 内容：時刻同期のずれ。
 //
 resource "newrelic_nrql_alert_condition" "ec2_timesync" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -158,7 +158,7 @@ resource "newrelic_nrql_alert_condition" "ec2_timesync" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT abs(latest(timestamp-flex.time.endMs)) AS timeshift FROM flexStatusSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityKey, tags.Name"
+    query = "SELECT abs(latest(timestamp-flex.time.endMs)) AS timeshift FROM flexStatusSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityKey, tags.Name"
   }
   critical {
     operator              = "above"
@@ -172,8 +172,8 @@ resource "newrelic_nrql_alert_condition" "ec2_timesync" {
 // 内容：メモリ使用率。
 //
 resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -185,7 +185,7 @@ resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(memoryUsedPercent) FROM SystemSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityKey, tags.Name"
+    query = "SELECT average(memoryUsedPercent) FROM SystemSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityKey, tags.Name"
   }
   critical {
     operator              = "above"
@@ -199,8 +199,8 @@ resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
 // 内容：帯域使用率を算出。
 //
 resource "newrelic_nrql_alert_condition" "ec2_network_bandwidth_used_percent" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -214,7 +214,7 @@ resource "newrelic_nrql_alert_condition" "ec2_network_bandwidth_used_percent" {
 
   nrql {
     // 帯域上限は直接取れないので、変数として入力している (出力単位を % にするため計算を行っている)
-    query             = "SELECT (average(aws.ec2.NetworkIn)+average(aws.ec2.NetworkOut)) * 8e-6 / (${var.ec2_network_bandwidth_used_percent_alerts[count.index].metrics_interval_minutes} * 60) / ${var.ec2_network_bandwidth_used_percent_alerts[count.index].max_limit_bandwidth_mbps} * 100 FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ec2.instanceId, tags.Name"
+    query = "SELECT (average(aws.ec2.NetworkIn)+average(aws.ec2.NetworkOut)) * 8e-6 / (${var.ec2_network_bandwidth_used_percent_alerts[count.index].metrics_interval_minutes} * 60) / ${var.ec2_network_bandwidth_used_percent_alerts[count.index].max_limit_bandwidth_mbps} * 100 FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ec2.instanceId, tags.Name"
   }
   critical {
     operator              = "above"
@@ -228,8 +228,8 @@ resource "newrelic_nrql_alert_condition" "ec2_network_bandwidth_used_percent" {
 // 内容：累積ディスク使用率の割合。
 //
 resource "newrelic_nrql_alert_condition" "ec2_disk_used_percent" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -241,7 +241,7 @@ resource "newrelic_nrql_alert_condition" "ec2_disk_used_percent" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(diskUsedPercent) FROM StorageSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityKey, tags.Name"
+    query = "SELECT average(diskUsedPercent) FROM StorageSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityKey, tags.Name"
   }
   critical {
     operator              = "above"
@@ -255,8 +255,8 @@ resource "newrelic_nrql_alert_condition" "ec2_disk_used_percent" {
 // 内容：i ノード使用率の割合。
 //
 resource "newrelic_nrql_alert_condition" "ec2_inodes_used_percent" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -268,7 +268,7 @@ resource "newrelic_nrql_alert_condition" "ec2_inodes_used_percent" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(inodesUsedPercent) FROM StorageSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityKey, tags.Name"
+    query = "SELECT average(inodesUsedPercent) FROM StorageSample WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET entityKey, tags.Name"
   }
   critical {
     operator              = "above"

@@ -2,8 +2,8 @@
 // 内容：CPU使用率を算出。
 //
 resource "newrelic_nrql_alert_condition" "ecs_cpu_utilization" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -15,7 +15,7 @@ resource "newrelic_nrql_alert_condition" "ecs_cpu_utilization" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.ecs.containerinsights.CpuUtilized) / average(aws.ecs.containerinsights.CpuReserved) * 100 FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ecs.containerinsights.ClusterName, aws.ecs.containerinsights.ServiceName"
+    query = "SELECT average(aws.ecs.containerinsights.CpuUtilized) / average(aws.ecs.containerinsights.CpuReserved) * 100 FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ecs.containerinsights.ClusterName, aws.ecs.containerinsights.ServiceName"
   }
   critical {
     operator              = "above"
@@ -29,8 +29,8 @@ resource "newrelic_nrql_alert_condition" "ecs_cpu_utilization" {
 // 内容：メモリ使用率を算出。
 //
 resource "newrelic_nrql_alert_condition" "ecs_memory_used_percent" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -42,7 +42,7 @@ resource "newrelic_nrql_alert_condition" "ecs_memory_used_percent" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.ecs.containerinsights.MemoryUtilized) / average(aws.ecs.containerinsights.MemoryReserved) * 100 FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ecs.containerinsights.ClusterName, aws.ecs.containerinsights.ServiceName"
+    query = "SELECT average(aws.ecs.containerinsights.MemoryUtilized) / average(aws.ecs.containerinsights.MemoryReserved) * 100 FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ecs.containerinsights.ClusterName, aws.ecs.containerinsights.ServiceName"
   }
   critical {
     operator              = "above"
@@ -56,8 +56,8 @@ resource "newrelic_nrql_alert_condition" "ecs_memory_used_percent" {
 // 内容：タスク正常率を算出。
 //
 resource "newrelic_nrql_alert_condition" "ecs_task_running_percent" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -69,7 +69,7 @@ resource "newrelic_nrql_alert_condition" "ecs_task_running_percent" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.ecs.containerinsights.RunningTaskCount) / average(aws.ecs.containerinsights.DesiredTaskCount) * 100 FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ecs.containerinsights.ClusterName, aws.ecs.containerinsights.ServiceName"
+    query = "SELECT average(aws.ecs.containerinsights.RunningTaskCount) / average(aws.ecs.containerinsights.DesiredTaskCount) * 100 FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ecs.containerinsights.ClusterName, aws.ecs.containerinsights.ServiceName"
   }
   critical {
     operator              = "below"
@@ -83,8 +83,8 @@ resource "newrelic_nrql_alert_condition" "ecs_task_running_percent" {
 // 内容：現在、RUNNING 状態にあるタスクの数。
 //
 resource "newrelic_nrql_alert_condition" "ecs_running_task_count" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -96,7 +96,7 @@ resource "newrelic_nrql_alert_condition" "ecs_running_task_count" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT average(aws.ecs.containerinsights.RunningTaskCount) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ecs.containerinsights.ClusterName, aws.ecs.containerinsights.ServiceName"
+    query = "SELECT average(aws.ecs.containerinsights.RunningTaskCount) FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ecs.containerinsights.ClusterName, aws.ecs.containerinsights.ServiceName"
   }
   critical {
     operator              = "below"

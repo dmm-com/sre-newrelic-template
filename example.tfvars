@@ -6,10 +6,10 @@ aws_region     = "ap-northeast-1"
 aws_access_key = ""
 aws_secret_key = ""
 
-slack_mention  = ""
+slack_mention = ""
 
 // APM alerts
-apm_app_name_prefix  = ""
+apm_app_name_prefix = ""
 
 // -------------------------------------------
 // Synthetics

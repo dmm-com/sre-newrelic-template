@@ -1,8 +1,8 @@
 // 内容：APMのサーバー側レスポンスタイム監視。95パーセンタイル。（秒）
 //
 resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -14,7 +14,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT percentile(duration, 95) FROM Transaction FACET appName EXTRAPOLATE"
+    query = "SELECT percentile(duration, 95) FROM Transaction FACET appName EXTRAPOLATE"
   }
   critical {
     operator              = "above"
@@ -27,8 +27,8 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
 // 内容：APMのデータベース側レスポンスタイム監視。95パーセンタイル。（秒）
 //
 resource "newrelic_nrql_alert_condition" "apm_transaction_database_duration_average" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -40,7 +40,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_database_duration_aver
   aggregation_delay  = "120"
 
   nrql {
-    query             = "SELECT percentile(databaseDuration, 95) FROM Transaction FACET appName EXTRAPOLATE"
+    query = "SELECT percentile(databaseDuration, 95) FROM Transaction FACET appName EXTRAPOLATE"
   }
   critical {
     operator              = "above"
@@ -86,8 +86,8 @@ resource "newrelic_nrql_alert_condition" "apm_external_duration_average" {
 // 内容：APMの5xxエラー率監視。
 //
 resource "newrelic_nrql_alert_condition" "apm_transaction_http_response_code_5xx_percentage" {
-  policy_id      = newrelic_alert_policy.policy.id
-  type           = "static"
+  policy_id = newrelic_alert_policy.policy.id
+  type      = "static"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -99,7 +99,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_http_response_code_5xx
   aggregation_delay  = "120"
 
   nrql {
-    query             = "FROM Transaction SELECT percentage(count(*), WHERE httpResponseCode LIKE '5%%') FACET appName, name EXTRAPOLATE"
+    query = "FROM Transaction SELECT percentage(count(*), WHERE httpResponseCode LIKE '5%%') FACET appName, name EXTRAPOLATE"
   }
   critical {
     operator              = "above"
