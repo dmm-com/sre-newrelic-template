@@ -1,11 +1,12 @@
 resource "newrelic_synthetics_monitor" "ping" {
-  count     = length(var.newrelic_synthetics_ping)
-  locations = ["AWS_AP_NORTHEAST_1", "AWS_US_WEST_1", "AWS_US_EAST_1"]
-  frequency = 1
+  count = length(var.newrelic_synthetics_ping)
 
-  type                      = "SIMPLE"
-  name                      = var.newrelic_synthetics_ping[count.index].name
-  status                    = var.newrelic_synthetics_ping[count.index].status
+  name      = var.newrelic_synthetics_ping[count.index].name
+  type      = "SIMPLE"
+  frequency = 1
+  locations = ["AWS_AP_NORTHEAST_1", "AWS_US_WEST_1", "AWS_US_EAST_1"]
+  status    = var.newrelic_synthetics_ping[count.index].status
+
   uri                       = var.newrelic_synthetics_ping[count.index].uri
   validation_string         = var.newrelic_synthetics_ping[count.index].validation_string
   verify_ssl                = var.newrelic_synthetics_ping[count.index].verify_ssl
@@ -14,13 +15,14 @@ resource "newrelic_synthetics_monitor" "ping" {
 }
 
 resource "newrelic_synthetics_monitor" "syn_browser" {
-  count     = length(var.newrelic_synthetics_browser)
-  locations = ["AWS_AP_NORTHEAST_1", "AWS_US_WEST_1", "AWS_US_EAST_1"]
-  frequency = 1
+  count = length(var.newrelic_synthetics_browser)
 
-  type                = "BROWSER"
-  name                = var.newrelic_synthetics_browser[count.index].name
-  status              = var.newrelic_synthetics_browser[count.index].status
+  name      = var.newrelic_synthetics_browser[count.index].name
+  type      = "BROWSER"
+  frequency = 1
+  locations = ["AWS_AP_NORTHEAST_1", "AWS_US_WEST_1", "AWS_US_EAST_1"]
+  status    = var.newrelic_synthetics_browser[count.index].status
+
   uri                 = var.newrelic_synthetics_browser[count.index].uri
   validation_string   = var.newrelic_synthetics_browser[count.index].validation_string
   verify_ssl          = var.newrelic_synthetics_browser[count.index].verify_ssl
