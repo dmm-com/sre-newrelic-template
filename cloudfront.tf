@@ -1,6 +1,6 @@
 resource "newrelic_nrql_alert_condition" "cloudfront_4xx_error_rate" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[CloudFront] 4xx エラー率監視"
+  name      = "[CloudFront] 4xx エラー率監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -18,12 +18,12 @@ resource "newrelic_nrql_alert_condition" "cloudfront_4xx_error_rate" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 resource "newrelic_nrql_alert_condition" "cloudfront_5xx_error_rate" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[CloudFront] 5xx エラー率監視"
+  name      = "[CloudFront] 5xx エラー率監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -41,12 +41,12 @@ resource "newrelic_nrql_alert_condition" "cloudfront_5xx_error_rate" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 resource "newrelic_nrql_alert_condition" "cloudfront_origin_latency" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[CloudFront] オリジン遅延監視"
+  name      = "[CloudFront] オリジン遅延監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -64,5 +64,5 @@ resource "newrelic_nrql_alert_condition" "cloudfront_origin_latency" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }

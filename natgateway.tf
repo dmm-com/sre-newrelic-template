@@ -3,7 +3,7 @@
 //
 resource "newrelic_nrql_alert_condition" "natgateway_packets_drop_count" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[NAT Gateway] パケットドロップ監視"
+  name      = "[NAT Gateway] パケットドロップ監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -21,7 +21,7 @@ resource "newrelic_nrql_alert_condition" "natgateway_packets_drop_count" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：ErrorPortAllocation
@@ -29,7 +29,7 @@ resource "newrelic_nrql_alert_condition" "natgateway_packets_drop_count" {
 //
 resource "newrelic_nrql_alert_condition" "natgateway_error_port_allocation" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[NAT Gateway] ポート割り当てエラー監視"
+  name      = "[NAT Gateway] ポート割り当てエラー監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -47,5 +47,5 @@ resource "newrelic_nrql_alert_condition" "natgateway_error_port_allocation" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }

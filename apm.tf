@@ -2,7 +2,7 @@
 //
 resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[APM] サーバー レスポンスタイム監視"
+  name      = "[APM] サーバー レスポンスタイム監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -20,14 +20,14 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 内容：APMのデータベース側レスポンスタイム監視。95パーセンタイル。（秒）
 //
 resource "newrelic_nrql_alert_condition" "apm_transaction_database_duration_average" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[APM] データベース レスポンスタイム監視"
+  name      = "[APM] データベース レスポンスタイム監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -45,14 +45,14 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_database_duration_aver
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 内容：APMの外部サービス側レスポンスタイム監視。（秒）
 //
 resource "newrelic_nrql_alert_condition" "apm_external_duration_average" {
   policy_id          = newrelic_alert_policy.policy.id
-  name                         = "[APM] 外部サービス レスポンスタイム監視（試験的）"
+  name               = "[APM] 外部サービス レスポンスタイム監視（試験的）"
   type               = "baseline"
   baseline_direction = "upper_only"
 
@@ -77,14 +77,14 @@ resource "newrelic_nrql_alert_condition" "apm_external_duration_average" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 内容：APMの5xxエラー率監視。
 //
 resource "newrelic_nrql_alert_condition" "apm_transaction_http_response_code_5xx_percentage" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[APM] 5xx エラー率監視"
+  name      = "[APM] 5xx エラー率監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -102,5 +102,5 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_http_response_code_5xx
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }

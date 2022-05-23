@@ -3,7 +3,7 @@
 //
 resource "newrelic_nrql_alert_condition" "ec2_cpu_utilization" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[EC2] CPU使用率監視"
+  name      = "[EC2] CPU使用率監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -21,7 +21,7 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_utilization" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：StatusCheckFailed
@@ -29,7 +29,7 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_utilization" {
 //
 resource "newrelic_nrql_alert_condition" "ec2_status_check_failed" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[EC2] ステータス監視"
+  name      = "[EC2] ステータス監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -50,7 +50,7 @@ resource "newrelic_nrql_alert_condition" "ec2_status_check_failed" {
   open_violation_on_expiration = true
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 監視イベント：cpuIOWaitPercent
@@ -58,7 +58,7 @@ resource "newrelic_nrql_alert_condition" "ec2_status_check_failed" {
 //
 resource "newrelic_nrql_alert_condition" "ec2_cpu_iowait_percent" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[EC2] CPU I/O Wait監視"
+  name      = "[EC2] CPU I/O Wait監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -76,7 +76,7 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_iowait_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 監視イベント：totalUtilizationPercent
@@ -84,7 +84,7 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_iowait_percent" {
 //
 resource "newrelic_nrql_alert_condition" "ec2_total_utilization_percent" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[EC2] ディスクI/O Wait監視"
+  name      = "[EC2] ディスクI/O Wait監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -108,7 +108,7 @@ resource "newrelic_nrql_alert_condition" "ec2_total_utilization_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 監視イベント：loadAverageFiveMinute
@@ -116,7 +116,7 @@ resource "newrelic_nrql_alert_condition" "ec2_total_utilization_percent" {
 //
 resource "newrelic_nrql_alert_condition" "ec2_load_average_five_minute" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[EC2] ロードアベレージ監視"
+  name      = "[EC2] ロードアベレージ監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -134,7 +134,7 @@ resource "newrelic_nrql_alert_condition" "ec2_load_average_five_minute" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 監視イベント：timeshift
@@ -142,7 +142,7 @@ resource "newrelic_nrql_alert_condition" "ec2_load_average_five_minute" {
 //
 resource "newrelic_nrql_alert_condition" "ec2_timesync" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[EC2] 時刻同期監視"
+  name      = "[EC2] 時刻同期監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -160,7 +160,7 @@ resource "newrelic_nrql_alert_condition" "ec2_timesync" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 監視イベント：memoryUsedPercent
@@ -168,7 +168,7 @@ resource "newrelic_nrql_alert_condition" "ec2_timesync" {
 //
 resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[EC2] メモリ使用率監視"
+  name      = "[EC2] メモリ使用率監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -186,7 +186,7 @@ resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：NetworkIn, NetworkOut
@@ -194,10 +194,10 @@ resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
 //
 resource "newrelic_nrql_alert_condition" "ec2_network_bandwidth_used_percent" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[EC2] ネットワーク帯域使用率監視"
+  name      = "[EC2] ネットワーク帯域使用率監視"
   type      = "static"
 
-  count                        = length(var.ec2_network_bandwidth_used_percent_alerts)
+  count = length(var.ec2_network_bandwidth_used_percent_alerts)
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -215,7 +215,7 @@ resource "newrelic_nrql_alert_condition" "ec2_network_bandwidth_used_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 監視イベント：diskUsedPercent
@@ -223,7 +223,7 @@ resource "newrelic_nrql_alert_condition" "ec2_network_bandwidth_used_percent" {
 //
 resource "newrelic_nrql_alert_condition" "ec2_disk_used_percent" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[EC2] ディスク使用率監視"
+  name      = "[EC2] ディスク使用率監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -241,7 +241,7 @@ resource "newrelic_nrql_alert_condition" "ec2_disk_used_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 監視イベント：inodesUsedPercent
@@ -249,7 +249,7 @@ resource "newrelic_nrql_alert_condition" "ec2_disk_used_percent" {
 //
 resource "newrelic_nrql_alert_condition" "ec2_inodes_used_percent" {
   policy_id = newrelic_alert_policy.policy.id
-  name                         = "[EC2] iノード使用率監視"
+  name      = "[EC2] iノード使用率監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -267,5 +267,5 @@ resource "newrelic_nrql_alert_condition" "ec2_inodes_used_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <@${var.slack_mention}>"
 }
