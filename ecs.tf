@@ -3,12 +3,8 @@
 //
 resource "newrelic_nrql_alert_condition" "ecs_cpu_utilization" {
   policy_id = newrelic_alert_policy.policy.id
+  name      = "[ECS] CPU使用率監視"
   type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
-  name                         = "[ECS] CPU使用率監視"
-  violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -23,6 +19,9 @@ resource "newrelic_nrql_alert_condition" "ecs_cpu_utilization" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：MemoryUtilized, MemoryReserved
@@ -30,12 +29,8 @@ resource "newrelic_nrql_alert_condition" "ecs_cpu_utilization" {
 //
 resource "newrelic_nrql_alert_condition" "ecs_memory_used_percent" {
   policy_id = newrelic_alert_policy.policy.id
+  name      = "[ECS] メモリ使用率監視"
   type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
-  name                         = "[ECS] メモリ使用率監視"
-  violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -50,6 +45,9 @@ resource "newrelic_nrql_alert_condition" "ecs_memory_used_percent" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：RunningTaskCount, DesiredTaskCount
@@ -57,12 +55,8 @@ resource "newrelic_nrql_alert_condition" "ecs_memory_used_percent" {
 //
 resource "newrelic_nrql_alert_condition" "ecs_task_running_percent" {
   policy_id = newrelic_alert_policy.policy.id
+  name      = "[ECS] タスク正常率監視"
   type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
-  name                         = "[ECS] タスク正常率監視"
-  violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -77,6 +71,9 @@ resource "newrelic_nrql_alert_condition" "ecs_task_running_percent" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description                  = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：RunningTaskCount
@@ -84,12 +81,8 @@ resource "newrelic_nrql_alert_condition" "ecs_task_running_percent" {
 //
 resource "newrelic_nrql_alert_condition" "ecs_running_task_count" {
   policy_id = newrelic_alert_policy.policy.id
+  name      = "[ECS] タスク起動数監視"
   type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
-  name                         = "[ECS] タスク起動数監視"
-  violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -104,4 +97,7 @@ resource "newrelic_nrql_alert_condition" "ecs_running_task_count" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description                  = "Attention <@${var.slack_mention}>"
 }
