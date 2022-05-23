@@ -32,3 +32,39 @@ resource "newrelic_synthetics_monitor" "synthetics_browser" {
   verify_ssl          = var.newrelic_synthetics_browser[count.index].verify_ssl
   bypass_head_request = var.newrelic_synthetics_browser[count.index].bypass_head_request
 }
+
+// 内容：Synthetics Pingの内部設定情報取得
+//
+data "newrelic_synthetics_monitor" "synthetics_ping" {
+  count = length(var.newrelic_synthetics_ping)
+
+  name = var.newrelic_synthetics_ping[count.index].name
+}
+
+// 監視メトリクス：SyntheticRequest duration
+// 内容：この要求の合計時間 (ミリ秒単位)。
+//
+resource "newrelic_nrql_alert_condition" "synthetics_ping_alert" {
+  count = length(var.newrelic_synthetics_ping)
+
+  policy_id = newrelic_alert_policy.policy.id
+  name      = "[Synthetics Ping] ${var.newrelic_synthetics_ping[count.index].uri} レスポンスタイム監視"
+  type      = "static"
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query = "SELECT average(duration) FROM SyntheticRequest WHERE location = 'AWS_AP_NORTHEAST_1' AND monitorId = '${data.newrelic_synthetics_monitor.synthetics_ping[count.index].id}'"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 1000
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+
+  violation_time_limit_seconds = 3600
+  description                  = "Attention <@${var.slack_mention}>"
+}
