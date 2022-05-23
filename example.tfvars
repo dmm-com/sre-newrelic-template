@@ -62,7 +62,7 @@ alert_slack_channel = {
 }
 
 // Slack
-slack_mention = ""
+slack_mention = "user"
 
 // EC2 alerts
 ec2_network_bandwidth_used_percent_alerts = [{
@@ -71,4 +71,4 @@ ec2_network_bandwidth_used_percent_alerts = [{
 }]
 
 // APM alerts
-apm_app_name_prefix = ""
+apm_app_name_prefix = "[prod]%"
