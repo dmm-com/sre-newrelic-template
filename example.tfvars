@@ -6,11 +6,6 @@ aws_region     = "ap-northeast-1"
 aws_access_key = ""
 aws_secret_key = ""
 
-slack_mention = ""
-
-// APM alerts
-apm_app_name_prefix = ""
-
 // -------------------------------------------
 // Synthetics
 // -------------------------------------------
@@ -59,6 +54,7 @@ newrelic_synthetics_browser = [
 // -------------------------------------------
 alert_policy_name = "prodAlert"
 
+// Channel
 alert_slack_channel = {
   name    = "prodAlertSlack"
   url     = "" // slack hook url
@@ -66,7 +62,13 @@ alert_slack_channel = {
 }
 
 // EC2 alerts
+slack_mention = ""
+
+// EC2 alerts
 ec2_network_bandwidth_used_percent_alerts = [{
   max_limit_bandwidth_mbps = 1000 // 監視対象インスタンスの帯域上限 この場合は 1000mbps
   metrics_interval_minutes = 1    // 拡張メトリクス監視(1分間隔)を使用する場合は 1, それ以外の場合は5分間隔なので 5
 }]
+
+// APM alerts
+apm_app_name_prefix = ""
