@@ -13,7 +13,7 @@ newrelic_synthetics_ping = [
   {
     name                      = "[DMM] TopPage"
     status                    = "ENABLED"
-    uri                       = "https://dmm.com/"
+    uri                       = "https://www.dmm.com/"
     validation_string         = "" // レスポンスが正しいかチェックする時用のバリデーション文字列
     verify_ssl                = true
     bypass_head_request       = false // pingチェックのときデフォルトのHEADリクエストをスキップし、代わりにGETリクエストを使用する
@@ -22,7 +22,7 @@ newrelic_synthetics_ping = [
   {
     name                      = "[FANZA] TopPage"
     status                    = "ENABLED"
-    uri                       = "https://dmm.co.jp/"
+    uri                       = "https://www.dmm.co.jp/"
     validation_string         = "動画"
     verify_ssl                = true
     bypass_head_request       = false
