@@ -4,7 +4,6 @@
 resource "newrelic_nrql_alert_condition" "ecs_cpu_utilization" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -33,7 +32,6 @@ resource "newrelic_nrql_alert_condition" "ecs_cpu_utilization" {
 resource "newrelic_nrql_alert_condition" "ecs_memory_used_percent" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -62,7 +60,6 @@ resource "newrelic_nrql_alert_condition" "ecs_memory_used_percent" {
 resource "newrelic_nrql_alert_condition" "ecs_task_running_percent" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -91,7 +88,6 @@ resource "newrelic_nrql_alert_condition" "ecs_task_running_percent" {
 resource "newrelic_nrql_alert_condition" "ecs_running_task_count" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 

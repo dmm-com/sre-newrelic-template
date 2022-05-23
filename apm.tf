@@ -3,7 +3,6 @@
 resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -31,7 +30,6 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
 resource "newrelic_nrql_alert_condition" "apm_transaction_database_duration_average" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -93,7 +91,6 @@ resource "newrelic_nrql_alert_condition" "apm_external_duration_average" {
 resource "newrelic_nrql_alert_condition" "apm_transaction_http_response_code_5xx_percentage" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 

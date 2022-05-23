@@ -4,7 +4,6 @@
 resource "newrelic_nrql_alert_condition" "elb_http_code_elb_5xx_count" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -33,7 +32,6 @@ resource "newrelic_nrql_alert_condition" "elb_http_code_elb_5xx_count" {
 resource "newrelic_nrql_alert_condition" "elb_rejected_connection_count" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -62,7 +60,6 @@ resource "newrelic_nrql_alert_condition" "elb_rejected_connection_count" {
 resource "newrelic_nrql_alert_condition" "elb_http_code_target_5xx_count" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -91,7 +88,6 @@ resource "newrelic_nrql_alert_condition" "elb_http_code_target_5xx_count" {
 resource "newrelic_nrql_alert_condition" "elb_target_connection_error_count" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -120,7 +116,6 @@ resource "newrelic_nrql_alert_condition" "elb_target_connection_error_count" {
 resource "newrelic_nrql_alert_condition" "elb_alb_unhealthy_host_count" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -149,7 +144,6 @@ resource "newrelic_nrql_alert_condition" "elb_alb_unhealthy_host_count" {
 resource "newrelic_nrql_alert_condition" "elb_port_allocation_error_count" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -178,7 +172,6 @@ resource "newrelic_nrql_alert_condition" "elb_port_allocation_error_count" {
 resource "newrelic_nrql_alert_condition" "elb_nlb_unhealthy_host_count" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 

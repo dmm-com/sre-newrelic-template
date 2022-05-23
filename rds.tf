@@ -4,7 +4,6 @@
 resource "newrelic_nrql_alert_condition" "rds_replica_lag" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -33,7 +32,6 @@ resource "newrelic_nrql_alert_condition" "rds_replica_lag" {
 resource "newrelic_nrql_alert_condition" "rds_aurora_replica_lag" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -62,7 +60,6 @@ resource "newrelic_nrql_alert_condition" "rds_aurora_replica_lag" {
 resource "newrelic_nrql_alert_condition" "rds_cpu_utilization" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -91,7 +88,6 @@ resource "newrelic_nrql_alert_condition" "rds_cpu_utilization" {
 resource "newrelic_nrql_alert_condition" "rds_freeable_memory" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -121,7 +117,6 @@ resource "newrelic_nrql_alert_condition" "rds_freeable_memory" {
 resource "newrelic_nrql_alert_condition" "rds_free_local_storage" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -150,7 +145,6 @@ resource "newrelic_nrql_alert_condition" "rds_free_local_storage" {
 resource "newrelic_nrql_alert_condition" "rds_database_connections" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -179,7 +173,6 @@ resource "newrelic_nrql_alert_condition" "rds_database_connections" {
 resource "newrelic_nrql_alert_condition" "rds_blocked_transactions" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -208,7 +201,6 @@ resource "newrelic_nrql_alert_condition" "rds_blocked_transactions" {
 resource "newrelic_nrql_alert_condition" "rds_deadlocks" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -237,7 +229,6 @@ resource "newrelic_nrql_alert_condition" "rds_deadlocks" {
 resource "newrelic_nrql_alert_condition" "rds_free_storage_space" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -266,7 +257,6 @@ resource "newrelic_nrql_alert_condition" "rds_free_storage_space" {
 resource "newrelic_nrql_alert_condition" "rds_swap_usage" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 

@@ -4,7 +4,6 @@
 resource "newrelic_nrql_alert_condition" "ec2_cpu_utilization" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -33,7 +32,6 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_utilization" {
 resource "newrelic_nrql_alert_condition" "ec2_status_check_failed" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -64,7 +62,6 @@ resource "newrelic_nrql_alert_condition" "ec2_status_check_failed" {
 resource "newrelic_nrql_alert_condition" "ec2_cpu_iowait_percent" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -93,7 +90,6 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_iowait_percent" {
 resource "newrelic_nrql_alert_condition" "ec2_total_utilization_percent" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -128,7 +124,6 @@ resource "newrelic_nrql_alert_condition" "ec2_total_utilization_percent" {
 resource "newrelic_nrql_alert_condition" "ec2_load_average_five_minute" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -157,7 +152,6 @@ resource "newrelic_nrql_alert_condition" "ec2_load_average_five_minute" {
 resource "newrelic_nrql_alert_condition" "ec2_timesync" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -186,7 +180,6 @@ resource "newrelic_nrql_alert_condition" "ec2_timesync" {
 resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -215,7 +208,6 @@ resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
 resource "newrelic_nrql_alert_condition" "ec2_network_bandwidth_used_percent" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -245,7 +237,6 @@ resource "newrelic_nrql_alert_condition" "ec2_network_bandwidth_used_percent" {
 resource "newrelic_nrql_alert_condition" "ec2_disk_used_percent" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -274,7 +265,6 @@ resource "newrelic_nrql_alert_condition" "ec2_disk_used_percent" {
 resource "newrelic_nrql_alert_condition" "ec2_inodes_used_percent" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 

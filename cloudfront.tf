@@ -1,7 +1,6 @@
 resource "newrelic_nrql_alert_condition" "cloudfront_4xx_error_rate" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -27,7 +26,6 @@ resource "newrelic_nrql_alert_condition" "cloudfront_4xx_error_rate" {
 resource "newrelic_nrql_alert_condition" "cloudfront_5xx_error_rate" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -53,7 +51,6 @@ resource "newrelic_nrql_alert_condition" "cloudfront_5xx_error_rate" {
 resource "newrelic_nrql_alert_condition" "cloudfront_origin_latency" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
