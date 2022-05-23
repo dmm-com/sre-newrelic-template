@@ -11,7 +11,7 @@ aws_secret_key = ""
 // -------------------------------------------
 newrelic_synthetics_ping = [
   {
-    name                      = "[DMM] TopPage"
+    name                      = "[DMM] TopPage (ping)"
     status                    = "ENABLED"
     uri                       = "https://www.dmm.com/"
     validation_string         = "" // レスポンスが正しいかチェックする時用のバリデーション文字列
@@ -20,7 +20,7 @@ newrelic_synthetics_ping = [
     treat_redirect_as_failure = false
   },
   {
-    name                      = "[FANZA] TopPage"
+    name                      = "[FANZA] TopPage (ping)"
     status                    = "ENABLED"
     uri                       = "https://www.dmm.co.jp/"
     validation_string         = "動画"
