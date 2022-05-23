@@ -32,19 +32,19 @@ newrelic_synthetics_ping = [
 
 newrelic_synthetics_browser = [
   {
-    name                = "TopPage"
+    name                = "[DMM] TopPage (browser)"
     status              = "ENABLED"
-    uri                 = "https://www.dmm.com"
-    validation_string   = "Welcome to DMM.com!"
+    uri                 = "https://www.dmm.com/"
+    validation_string   = "電子書籍"
     verify_ssl          = true
     bypass_head_request = false
   },
   {
-    name                = "fugasynbrowser"
+    name                = "[FANZA] TopPage (browser)"
     status              = "ENABLED"
-    uri                 = "http://fugafuga.com"
-    validation_string   = "test"
-    verify_ssl          = false
+    uri                 = "https://www.dmm.co.jp/"
+    validation_string   = "動画"
+    verify_ssl          = true
     bypass_head_request = false
   }
 ]
