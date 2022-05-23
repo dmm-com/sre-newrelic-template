@@ -1,3 +1,5 @@
+// 内容：SyntheticsのPing監視
+//
 resource "newrelic_synthetics_monitor" "synthetics_ping" {
   count = length(var.newrelic_synthetics_ping)
 
@@ -14,6 +16,8 @@ resource "newrelic_synthetics_monitor" "synthetics_ping" {
   treat_redirect_as_failure = var.newrelic_synthetics_ping[count.index].treat_redirect_as_failure
 }
 
+// 内容：SyntheticsのSimple Browser監視
+//
 resource "newrelic_synthetics_monitor" "synthetics_browser" {
   count = length(var.newrelic_synthetics_browser)
 
