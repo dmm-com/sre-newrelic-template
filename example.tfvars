@@ -61,7 +61,7 @@ alert_slack_channel = {
   channel = "" // Team Channel用
 }
 
-// EC2 alerts
+// Slack
 slack_mention = ""
 
 // EC2 alerts
