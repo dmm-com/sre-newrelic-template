@@ -1,4 +1,4 @@
-resource "newrelic_synthetics_monitor" "ping" {
+resource "newrelic_synthetics_monitor" "synthetics_ping" {
   count = length(var.newrelic_synthetics_ping)
 
   name      = var.newrelic_synthetics_ping[count.index].name
@@ -14,7 +14,7 @@ resource "newrelic_synthetics_monitor" "ping" {
   treat_redirect_as_failure = var.newrelic_synthetics_ping[count.index].treat_redirect_as_failure
 }
 
-resource "newrelic_synthetics_monitor" "syn_browser" {
+resource "newrelic_synthetics_monitor" "synthetics_browser" {
   count = length(var.newrelic_synthetics_browser)
 
   name      = var.newrelic_synthetics_browser[count.index].name
