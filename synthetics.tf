@@ -48,7 +48,7 @@ resource "newrelic_nrql_alert_condition" "synthetics_ping_alert" {
   count = length(var.newrelic_synthetics_ping)
 
   policy_id = newrelic_alert_policy.policy.id
-  name      = "[Synthetics Ping] ${var.newrelic_synthetics_ping[count.index].uri} レスポンスタイム監視"
+  name      = "[Synthetics Ping] \"${var.newrelic_synthetics_ping[count.index].uri}\" レスポンスタイム監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -84,7 +84,7 @@ resource "newrelic_nrql_alert_condition" "synthetics_browser_alert" {
   count = length(var.newrelic_synthetics_browser)
 
   policy_id = newrelic_alert_policy.policy.id
-  name      = "[Synthetics Simple Browser] ${var.newrelic_synthetics_browser[count.index].uri} レスポンスタイム監視"
+  name      = "[Synthetics Simple Browser] \"${var.newrelic_synthetics_browser[count.index].uri}\" レスポンスタイム監視"
   type      = "static"
 
   aggregation_window = "60"
