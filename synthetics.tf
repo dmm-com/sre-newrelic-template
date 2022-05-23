@@ -39,6 +39,10 @@ data "newrelic_synthetics_monitor" "synthetics_ping" {
   count = length(var.newrelic_synthetics_ping)
 
   name = var.newrelic_synthetics_ping[count.index].name
+
+  depends_on = [
+    newrelic_synthetics_monitor.synthetics_ping
+  ]
 }
 
 // 監視メトリクス：SyntheticRequest duration
@@ -75,6 +79,10 @@ data "newrelic_synthetics_monitor" "synthetics_browser" {
   count = length(var.newrelic_synthetics_browser)
 
   name = var.newrelic_synthetics_browser[count.index].name
+
+  depends_on = [
+    newrelic_synthetics_monitor.synthetics_browser
+  ]
 }
 
 // 監視メトリクス：SyntheticRequest duration
