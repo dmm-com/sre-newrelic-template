@@ -17,14 +17,14 @@ newrelic_synthetics_ping = [
     validation_string         = "" // レスポンスが正しいかチェックする時用のバリデーション文字列
     verify_ssl                = true
     bypass_head_request       = false // pingチェックのときデフォルトのHEADリクエストをスキップし、代わりにGETリクエストを使用する
-    treat_redirect_as_failure = true
+    treat_redirect_as_failure = false
   },
   {
     name                      = "[FANZA] TopPage"
     status                    = "ENABLED"
     uri                       = "https://dmm.co.jp/"
-    validation_string         = "test"
-    verify_ssl                = false
+    validation_string         = "動画"
+    verify_ssl                = true
     bypass_head_request       = false
     treat_redirect_as_failure = false
   }
