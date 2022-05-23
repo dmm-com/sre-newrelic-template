@@ -4,8 +4,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_4xx_error_rate" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.cloudfront_4xx_error_rate_alerts)
-  name                         = var.cloudfront_4xx_error_rate_alerts[count.index].name
+  name                         = "[CloudFront] 4xx エラー率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -29,8 +28,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_5xx_error_rate" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.cloudfront_5xx_error_rate_alerts)
-  name                         = var.cloudfront_5xx_error_rate_alerts[count.index].name
+  name                         = "[CloudFront] 5xx エラー率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -54,8 +52,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_origin_latency" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.cloudfront_origin_latency_alerts)
-  name                         = var.cloudfront_origin_latency_alerts[count.index].name
+  name                         = "[CloudFront] オリジン遅延監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"

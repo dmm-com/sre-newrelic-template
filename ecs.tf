@@ -7,8 +7,7 @@ resource "newrelic_nrql_alert_condition" "ecs_cpu_utilization" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.ecs_cpu_utilization_alerts)
-  name                         = var.ecs_cpu_utilization_alerts[count.index].name
+  name                         = "[ECS] CPU使用率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -35,8 +34,7 @@ resource "newrelic_nrql_alert_condition" "ecs_memory_used_percent" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.ecs_memory_used_percent_alerts)
-  name                         = var.ecs_memory_used_percent_alerts[count.index].name
+  name                         = "[ECS] メモリ使用率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -63,8 +61,7 @@ resource "newrelic_nrql_alert_condition" "ecs_task_running_percent" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.ecs_task_running_percent_alerts)
-  name                         = var.ecs_task_running_percent_alerts[count.index].name
+  name                         = "[ECS] タスク正常率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -91,8 +88,7 @@ resource "newrelic_nrql_alert_condition" "ecs_running_task_count" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.ecs_running_task_count_alerts)
-  name                         = var.ecs_running_task_count_alerts[count.index].name
+  name                         = "[ECS] タスク起動数監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"

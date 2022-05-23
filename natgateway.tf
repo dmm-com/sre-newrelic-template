@@ -7,8 +7,7 @@ resource "newrelic_nrql_alert_condition" "natgateway_packets_drop_count" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.natgateway_packets_drop_count_alerts)
-  name                         = var.natgateway_packets_drop_count_alerts[count.index].name
+  name                         = "[NAT Gateway] パケットドロップ監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -35,8 +34,7 @@ resource "newrelic_nrql_alert_condition" "natgateway_error_port_allocation" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.natgateway_error_port_allocation_alerts)
-  name                         = var.natgateway_error_port_allocation_alerts[count.index].name
+  name                         = "[NAT Gateway] ポート割り当てエラー監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"

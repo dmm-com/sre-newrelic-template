@@ -7,8 +7,7 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_utilization" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.ec2_cpu_utilization_alerts)
-  name                         = var.ec2_cpu_utilization_alerts[count.index].name
+  name                         = "[EC2] CPU使用率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -35,8 +34,7 @@ resource "newrelic_nrql_alert_condition" "ec2_status_check_failed" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.ec2_status_check_failed_alerts)
-  name                         = var.ec2_status_check_failed_alerts[count.index].name
+  name                         = "[EC2] ステータス監視"
   violation_time_limit_seconds = 3600
   expiration_duration          = 300
   open_violation_on_expiration = true
@@ -65,8 +63,7 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_iowait_percent" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.ec2_cpu_iowait_percent_alerts)
-  name                         = var.ec2_cpu_iowait_percent_alerts[count.index].name
+  name                         = "[EC2] CPU I/O Wait監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -93,8 +90,7 @@ resource "newrelic_nrql_alert_condition" "ec2_total_utilization_percent" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.ec2_total_utilization_percent_alerts)
-  name                         = var.ec2_total_utilization_percent_alerts[count.index].name
+  name                         = "[EC2] ディスクI/O Wait監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -127,8 +123,7 @@ resource "newrelic_nrql_alert_condition" "ec2_load_average_five_minute" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.ec2_load_average_five_minute_alerts)
-  name                         = var.ec2_load_average_five_minute_alerts[count.index].name
+  name                         = "[EC2] ロードアベレージ監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -155,8 +150,7 @@ resource "newrelic_nrql_alert_condition" "ec2_timesync" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.ec2_timesync_alerts)
-  name                         = var.ec2_timesync_alerts[count.index].name
+  name                         = "[EC2] 時刻同期監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -183,8 +177,7 @@ resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.ec2_memory_used_percent_alerts)
-  name                         = var.ec2_memory_used_percent_alerts[count.index].name
+  name                         = "[EC2] メモリ使用率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -212,7 +205,7 @@ resource "newrelic_nrql_alert_condition" "ec2_network_bandwidth_used_percent" {
   description = "Attention <@${var.slack_mention}>"
 
   count                        = length(var.ec2_network_bandwidth_used_percent_alerts)
-  name                         = var.ec2_network_bandwidth_used_percent_alerts[count.index].name
+  name                         = "[EC2] ネットワーク帯域使用率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -240,8 +233,7 @@ resource "newrelic_nrql_alert_condition" "ec2_disk_used_percent" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.ec2_disk_used_percent_alerts)
-  name                         = var.ec2_disk_used_percent_alerts[count.index].name
+  name                         = "[EC2] ディスク使用率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -268,8 +260,7 @@ resource "newrelic_nrql_alert_condition" "ec2_inodes_used_percent" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.ec2_inodes_used_percent_alerts)
-  name                         = var.ec2_inodes_used_percent_alerts[count.index].name
+  name                         = "[EC2] iノード使用率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"

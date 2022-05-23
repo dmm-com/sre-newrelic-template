@@ -7,8 +7,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_cpu_utilization" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_cpu_utilization_alerts)
-  name                         = var.elasticache_cpu_utilization_alerts[count.index].name
+  name                         = "[ElastiCache] CPU使用率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -35,8 +34,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_swap_usage" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_swap_usage_alerts)
-  name                         = var.elasticache_swap_usage_alerts[count.index].name
+  name                         = "[ElastiCache] SWAP使用量監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -63,8 +61,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_freeable_memory" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_freeable_memory_alerts)
-  name                         = var.elasticache_freeable_memory_alerts[count.index].name
+  name                         = "[ElastiCache] 空きメモリ監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -92,8 +89,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_evictions" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_evictions_alerts)
-  name                         = var.elasticache_evictions_alerts[count.index].name
+  name                         = "[ElastiCache] 排除キー監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -121,8 +117,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_currconnections" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_currconnections_alerts)
-  name                         = var.elasticache_currconnections_alerts[count.index].name
+  name                         = "[ElastiCache] クライアント接続数監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -149,8 +144,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_engine_cpu_utilizati
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_redis_engine_cpu_utilization_alerts)
-  name                         = var.elasticache_redis_engine_cpu_utilization_alerts[count.index].name
+  name                         = "[ElastiCache] RedisスレッドCPU使用率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -177,8 +171,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_replication_lag" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_redis_replication_lag_alerts)
-  name                         = var.elasticache_redis_replication_lag_alerts[count.index].name
+  name                         = "[ElastiCache] Redisレプリケーションラグ監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -205,8 +198,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_database_memory_usag
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.elasticache_redis_database_memory_usage_percentage_alerts)
-  name                         = var.elasticache_redis_database_memory_usage_percentage_alerts[count.index].name
+  name                         = "[ElastiCache] Redisメモリ使用率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"

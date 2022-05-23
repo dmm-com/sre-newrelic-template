@@ -6,8 +6,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.apm_transaction_duration_average_alerts)
-  name                         = var.apm_transaction_duration_average_alerts[count.index].name
+  name                         = "[APM] サーバー レスポンスタイム監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -33,8 +32,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_database_duration_aver
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.apm_transaction_database_duration_average_alerts)
-  name                         = var.apm_transaction_database_duration_average_alerts[count.index].name
+  name                         = "[APM] データベース レスポンスタイム監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -61,8 +59,7 @@ resource "newrelic_nrql_alert_condition" "apm_external_duration_average" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.apm_external_duration_average_alerts)
-  name                         = var.apm_external_duration_average_alerts[count.index].name
+  name                         = "[APM] 外部サービス レスポンスタイム監視（試験的）"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -94,8 +91,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_http_response_code_5xx
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.apm_transaction_http_response_code_5xx_percentage_alerts)
-  name                         = var.apm_transaction_http_response_code_5xx_percentage_alerts[count.index].name
+  name                         = "[APM] 5xx エラー率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"

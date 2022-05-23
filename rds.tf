@@ -7,8 +7,7 @@ resource "newrelic_nrql_alert_condition" "rds_replica_lag" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.rds_replica_lag_alerts)
-  name                         = var.rds_replica_lag_alerts[count.index].name
+  name                         = "[RDS] レプリカ同期遅延監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -35,8 +34,7 @@ resource "newrelic_nrql_alert_condition" "rds_aurora_replica_lag" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.rds_aurora_replica_lag_alerts)
-  name                         = var.rds_aurora_replica_lag_alerts[count.index].name
+  name                         = "[Aurora] レプリカ同期遅延監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -63,8 +61,7 @@ resource "newrelic_nrql_alert_condition" "rds_cpu_utilization" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.rds_cpu_utilization_alerts)
-  name                         = var.rds_cpu_utilization_alerts[count.index].name
+  name                         = "[RDS/Aurora] CPU使用率監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -91,8 +88,7 @@ resource "newrelic_nrql_alert_condition" "rds_freeable_memory" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.rds_freeable_memory_alerts)
-  name                         = var.rds_freeable_memory_alerts[count.index].name
+  name                         = "[RDS/Aurora] メモリ空き容量監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -120,8 +116,7 @@ resource "newrelic_nrql_alert_condition" "rds_free_local_storage" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.rds_free_local_storage_alerts)
-  name                         = var.rds_free_local_storage_alerts[count.index].name
+  name                         = "[RDS/Aurora] ローカルストレージ空き容量監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -148,8 +143,7 @@ resource "newrelic_nrql_alert_condition" "rds_database_connections" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.rds_database_connections_alerts)
-  name                         = var.rds_database_connections_alerts[count.index].name
+  name                         = "[RDS/Aurora] データベース接続数監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -176,8 +170,7 @@ resource "newrelic_nrql_alert_condition" "rds_blocked_transactions" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.rds_blocked_transactions_alerts)
-  name                         = var.rds_blocked_transactions_alerts[count.index].name
+  name                         = "[Aurora] ブロックトランザクション数監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -204,8 +197,7 @@ resource "newrelic_nrql_alert_condition" "rds_deadlocks" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.rds_deadlocks_alerts)
-  name                         = var.rds_deadlocks_alerts[count.index].name
+  name                         = "[Aurora] デッドロック数監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -232,8 +224,7 @@ resource "newrelic_nrql_alert_condition" "rds_free_storage_space" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.rds_free_storage_space_alerts)
-  name                         = var.rds_free_storage_space_alerts[count.index].name
+  name                         = "[RDS] ストレージ空き容量監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
@@ -260,8 +251,7 @@ resource "newrelic_nrql_alert_condition" "rds_swap_usage" {
 
   description = "Attention <@${var.slack_mention}>"
 
-  count                        = length(var.rds_swap_usage_alerts)
-  name                         = var.rds_swap_usage_alerts[count.index].name
+  name                         = "[RDS] SWAP使用量監視"
   violation_time_limit_seconds = 3600
 
   aggregation_window = "60"
