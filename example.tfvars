@@ -25,9 +25,9 @@ newrelic_synthetics_ping = [
     treat_redirect_as_failure = true
   },
   {
-    name                      = "hugaping"
+    name                      = "[FANZA] TopPage"
     status                    = "ENABLED"
-    uri                       = "http://fugafuga.com"
+    uri                       = "https://dmm.co.jp/"
     validation_string         = "test"
     verify_ssl                = false
     bypass_head_request       = false
