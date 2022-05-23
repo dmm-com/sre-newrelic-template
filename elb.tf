@@ -3,12 +3,8 @@
 //
 resource "newrelic_nrql_alert_condition" "elb_http_code_elb_5xx_count" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[ALB] LB 5xx エラー数監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -23,6 +19,9 @@ resource "newrelic_nrql_alert_condition" "elb_http_code_elb_5xx_count" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：RejectedConnectionCount (ALB)
@@ -30,12 +29,8 @@ resource "newrelic_nrql_alert_condition" "elb_http_code_elb_5xx_count" {
 //
 resource "newrelic_nrql_alert_condition" "elb_rejected_connection_count" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[ALB] LB リクエスト拒否数監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -50,6 +45,9 @@ resource "newrelic_nrql_alert_condition" "elb_rejected_connection_count" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：HTTPCode_Target_5XX_Count (ALB)
@@ -57,12 +55,8 @@ resource "newrelic_nrql_alert_condition" "elb_rejected_connection_count" {
 //
 resource "newrelic_nrql_alert_condition" "elb_http_code_target_5xx_count" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[ALB] Target 5xx エラー数監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -77,6 +71,9 @@ resource "newrelic_nrql_alert_condition" "elb_http_code_target_5xx_count" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：TargetConnectionErrorCount (ALB)
@@ -84,12 +81,8 @@ resource "newrelic_nrql_alert_condition" "elb_http_code_target_5xx_count" {
 //
 resource "newrelic_nrql_alert_condition" "elb_target_connection_error_count" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[ALB] Target 接続確立エラー数監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -104,6 +97,9 @@ resource "newrelic_nrql_alert_condition" "elb_target_connection_error_count" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：UnHealthyHostCount (ALB)
@@ -111,12 +107,8 @@ resource "newrelic_nrql_alert_condition" "elb_target_connection_error_count" {
 //
 resource "newrelic_nrql_alert_condition" "elb_alb_unhealthy_host_count" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[ALB] Target 異常数監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -131,6 +123,9 @@ resource "newrelic_nrql_alert_condition" "elb_alb_unhealthy_host_count" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：PortAllocationErrorCount (NLB)
@@ -138,12 +133,8 @@ resource "newrelic_nrql_alert_condition" "elb_alb_unhealthy_host_count" {
 //
 resource "newrelic_nrql_alert_condition" "elb_port_allocation_error_count" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[NLB] ポート割り当てエラー数監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -158,6 +149,9 @@ resource "newrelic_nrql_alert_condition" "elb_port_allocation_error_count" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：UnHealthyHostCount (NLB)
@@ -165,12 +159,8 @@ resource "newrelic_nrql_alert_condition" "elb_port_allocation_error_count" {
 //
 resource "newrelic_nrql_alert_condition" "elb_nlb_unhealthy_host_count" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[NLB] Target 異常数監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -185,4 +175,7 @@ resource "newrelic_nrql_alert_condition" "elb_nlb_unhealthy_host_count" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }

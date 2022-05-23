@@ -3,12 +3,8 @@
 //
 resource "newrelic_nrql_alert_condition" "rds_replica_lag" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[RDS] レプリカ同期遅延監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -23,6 +19,9 @@ resource "newrelic_nrql_alert_condition" "rds_replica_lag" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：AuroraReplicaLag (Aurora)
@@ -30,12 +29,8 @@ resource "newrelic_nrql_alert_condition" "rds_replica_lag" {
 //
 resource "newrelic_nrql_alert_condition" "rds_aurora_replica_lag" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[Aurora] レプリカ同期遅延監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -50,6 +45,9 @@ resource "newrelic_nrql_alert_condition" "rds_aurora_replica_lag" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：CPUUtilization (RDS/Aurora)
@@ -57,12 +55,8 @@ resource "newrelic_nrql_alert_condition" "rds_aurora_replica_lag" {
 //
 resource "newrelic_nrql_alert_condition" "rds_cpu_utilization" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[RDS/Aurora] CPU使用率監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -77,6 +71,9 @@ resource "newrelic_nrql_alert_condition" "rds_cpu_utilization" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：FreeableMemory (RDS/Aurora)
@@ -84,12 +81,8 @@ resource "newrelic_nrql_alert_condition" "rds_cpu_utilization" {
 //
 resource "newrelic_nrql_alert_condition" "rds_freeable_memory" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[RDS/Aurora] メモリ空き容量監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -104,6 +97,9 @@ resource "newrelic_nrql_alert_condition" "rds_freeable_memory" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：FreeLocalStorage (RDS/Aurora)
@@ -112,12 +108,8 @@ resource "newrelic_nrql_alert_condition" "rds_freeable_memory" {
 //
 resource "newrelic_nrql_alert_condition" "rds_free_local_storage" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[RDS/Aurora] ローカルストレージ空き容量監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -132,6 +124,9 @@ resource "newrelic_nrql_alert_condition" "rds_free_local_storage" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：DatabaseConnections (RDS/Aurora)
@@ -139,12 +134,8 @@ resource "newrelic_nrql_alert_condition" "rds_free_local_storage" {
 //
 resource "newrelic_nrql_alert_condition" "rds_database_connections" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[RDS/Aurora] データベース接続数監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -159,6 +150,9 @@ resource "newrelic_nrql_alert_condition" "rds_database_connections" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：BlockedTransactions (Aurora)
@@ -166,12 +160,8 @@ resource "newrelic_nrql_alert_condition" "rds_database_connections" {
 //
 resource "newrelic_nrql_alert_condition" "rds_blocked_transactions" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[Aurora] ブロックトランザクション数監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -186,6 +176,9 @@ resource "newrelic_nrql_alert_condition" "rds_blocked_transactions" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：Deadlocks (Aurora)
@@ -193,12 +186,8 @@ resource "newrelic_nrql_alert_condition" "rds_blocked_transactions" {
 //
 resource "newrelic_nrql_alert_condition" "rds_deadlocks" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[Aurora] デッドロック数監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -213,6 +202,9 @@ resource "newrelic_nrql_alert_condition" "rds_deadlocks" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：FreeStorageSpace (RDS)
@@ -220,12 +212,8 @@ resource "newrelic_nrql_alert_condition" "rds_deadlocks" {
 //
 resource "newrelic_nrql_alert_condition" "rds_free_storage_space" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[RDS] ストレージ空き容量監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -240,6 +228,9 @@ resource "newrelic_nrql_alert_condition" "rds_free_storage_space" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：SwapUsage (RDS)
@@ -247,12 +238,8 @@ resource "newrelic_nrql_alert_condition" "rds_free_storage_space" {
 //
 resource "newrelic_nrql_alert_condition" "rds_swap_usage" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[RDS] SWAP使用量監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -267,4 +254,7 @@ resource "newrelic_nrql_alert_condition" "rds_swap_usage" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }

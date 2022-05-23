@@ -3,12 +3,8 @@
 //
 resource "newrelic_nrql_alert_condition" "elasticache_cpu_utilization" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[ElastiCache] CPU使用率監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -23,6 +19,9 @@ resource "newrelic_nrql_alert_condition" "elasticache_cpu_utilization" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：SwapUsage (Memcached/Redis)
@@ -30,12 +29,8 @@ resource "newrelic_nrql_alert_condition" "elasticache_cpu_utilization" {
 //
 resource "newrelic_nrql_alert_condition" "elasticache_swap_usage" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[ElastiCache] SWAP使用量監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -50,6 +45,9 @@ resource "newrelic_nrql_alert_condition" "elasticache_swap_usage" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：FreeableMemory (Memcached/Redis)
@@ -57,12 +55,8 @@ resource "newrelic_nrql_alert_condition" "elasticache_swap_usage" {
 //
 resource "newrelic_nrql_alert_condition" "elasticache_freeable_memory" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[ElastiCache] 空きメモリ監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -77,6 +71,9 @@ resource "newrelic_nrql_alert_condition" "elasticache_freeable_memory" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：Evictions (Memcached/Redis)
@@ -85,12 +82,8 @@ resource "newrelic_nrql_alert_condition" "elasticache_freeable_memory" {
 //
 resource "newrelic_nrql_alert_condition" "elasticache_evictions" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[ElastiCache] 排除キー監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -105,6 +98,9 @@ resource "newrelic_nrql_alert_condition" "elasticache_evictions" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：CurrConnections (Memcached/Redis)
@@ -113,12 +109,8 @@ resource "newrelic_nrql_alert_condition" "elasticache_evictions" {
 //
 resource "newrelic_nrql_alert_condition" "elasticache_currconnections" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[ElastiCache] クライアント接続数監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -133,6 +125,9 @@ resource "newrelic_nrql_alert_condition" "elasticache_currconnections" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：EngineCPUUtilization (Redis)
@@ -140,12 +135,8 @@ resource "newrelic_nrql_alert_condition" "elasticache_currconnections" {
 //
 resource "newrelic_nrql_alert_condition" "elasticache_redis_engine_cpu_utilization" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[ElastiCache] RedisスレッドCPU使用率監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -160,6 +151,9 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_engine_cpu_utilizati
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：ReplicationLag (Redis)
@@ -167,12 +161,8 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_engine_cpu_utilizati
 //
 resource "newrelic_nrql_alert_condition" "elasticache_redis_replication_lag" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[ElastiCache] Redisレプリケーションラグ監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -187,6 +177,9 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_replication_lag" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 // 監視メトリクス：DatabaseMemoryUsagePercentage (Redis)
@@ -194,12 +187,8 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_replication_lag" {
 //
 resource "newrelic_nrql_alert_condition" "elasticache_redis_database_memory_usage_percentage" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[ElastiCache] Redisメモリ使用率監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -214,4 +203,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_database_memory_usag
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }

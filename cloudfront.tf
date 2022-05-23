@@ -1,11 +1,7 @@
 resource "newrelic_nrql_alert_condition" "cloudfront_4xx_error_rate" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[CloudFront] 4xx エラー率監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -20,16 +16,15 @@ resource "newrelic_nrql_alert_condition" "cloudfront_4xx_error_rate" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 resource "newrelic_nrql_alert_condition" "cloudfront_5xx_error_rate" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[CloudFront] 5xx エラー率監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -44,16 +39,15 @@ resource "newrelic_nrql_alert_condition" "cloudfront_5xx_error_rate" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
 
 resource "newrelic_nrql_alert_condition" "cloudfront_origin_latency" {
   policy_id = newrelic_alert_policy.policy.id
-  type      = "static"
-
-  description = "Attention <@${var.slack_mention}>"
-
   name                         = "[CloudFront] オリジン遅延監視"
-  violation_time_limit_seconds = 3600
+  type      = "static"
 
   aggregation_window = "60"
   aggregation_method = "event_flow"
@@ -68,4 +62,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_origin_latency" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  violation_time_limit_seconds = 3600
+  description = "Attention <@${var.slack_mention}>"
 }
