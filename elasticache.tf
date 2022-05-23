@@ -4,7 +4,6 @@
 resource "newrelic_nrql_alert_condition" "elasticache_cpu_utilization" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -33,7 +32,6 @@ resource "newrelic_nrql_alert_condition" "elasticache_cpu_utilization" {
 resource "newrelic_nrql_alert_condition" "elasticache_swap_usage" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -62,7 +60,6 @@ resource "newrelic_nrql_alert_condition" "elasticache_swap_usage" {
 resource "newrelic_nrql_alert_condition" "elasticache_freeable_memory" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -92,7 +89,6 @@ resource "newrelic_nrql_alert_condition" "elasticache_freeable_memory" {
 resource "newrelic_nrql_alert_condition" "elasticache_evictions" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -122,7 +118,6 @@ resource "newrelic_nrql_alert_condition" "elasticache_evictions" {
 resource "newrelic_nrql_alert_condition" "elasticache_currconnections" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -151,7 +146,6 @@ resource "newrelic_nrql_alert_condition" "elasticache_currconnections" {
 resource "newrelic_nrql_alert_condition" "elasticache_redis_engine_cpu_utilization" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -180,7 +174,6 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_engine_cpu_utilizati
 resource "newrelic_nrql_alert_condition" "elasticache_redis_replication_lag" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -209,7 +202,6 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_replication_lag" {
 resource "newrelic_nrql_alert_condition" "elasticache_redis_database_memory_usage_percentage" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 

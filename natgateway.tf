@@ -4,7 +4,6 @@
 resource "newrelic_nrql_alert_condition" "natgateway_packets_drop_count" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
@@ -33,7 +32,6 @@ resource "newrelic_nrql_alert_condition" "natgateway_packets_drop_count" {
 resource "newrelic_nrql_alert_condition" "natgateway_error_port_allocation" {
   policy_id      = newrelic_alert_policy.policy.id
   type           = "static"
-  value_function = "single_value"
 
   description = "Attention <@${var.slack_mention}>"
 
