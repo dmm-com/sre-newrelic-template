@@ -16,7 +16,7 @@ apm_app_name_prefix = ""
 // -------------------------------------------
 newrelic_synthetics_ping = [
   {
-    name                      = "TopPage"
+    name                      = "[DMM] TopPage"
     status                    = "ENABLED"
     uri                       = "https://dmm.com/"
     validation_string         = "" // レスポンスが正しいかチェックする時用のバリデーション文字列
