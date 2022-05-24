@@ -45,7 +45,7 @@ data "newrelic_synthetics_monitor" "synthetics_ping" {
   ]
 }
 
-// 監視メトリクス：SyntheticRequest duration
+// 監視メトリクス：SyntheticCheck duration
 // 内容：この要求の合計時間 (ミリ秒単位)。
 //
 resource "newrelic_nrql_alert_condition" "synthetics_ping_alert" {
@@ -60,7 +60,7 @@ resource "newrelic_nrql_alert_condition" "synthetics_ping_alert" {
   aggregation_delay  = "120"
 
   nrql {
-    query = "SELECT average(duration) FROM SyntheticRequest WHERE location = 'AWS_AP_NORTHEAST_1' AND monitorId = '${data.newrelic_synthetics_monitor.synthetics_ping[count.index].id}'"
+    query = "SELECT average(duration) FROM SyntheticCheck WHERE location = 'AWS_AP_NORTHEAST_1' AND monitorId = '${data.newrelic_synthetics_monitor.synthetics_ping[count.index].id}'"
   }
   critical {
     operator              = "above"
