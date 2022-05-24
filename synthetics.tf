@@ -113,3 +113,29 @@ resource "newrelic_nrql_alert_condition" "synthetics_browser_alert" {
   violation_time_limit_seconds = 3600
   description                  = "Attention <@${var.slack_mention}>"
 }
+
+// 内容：FAILEDの発生を監視。
+//
+// 確認：PingとSimple Browserで分けた方が良いか検討する。
+resource "newrelic_nrql_alert_condition" "synthetics_failed_count" {
+  policy_id = newrelic_alert_policy.policy.id
+  name      = "[Synthetics] FAILED監視"
+  type      = "static"
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query = "SELECT count(result) FROM SyntheticCheck WHERE result = 'FAILED' FACET monitorName"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 0
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+
+  violation_time_limit_seconds = 3600
+  description                  = "Attention <@${var.slack_mention}>"
+}
