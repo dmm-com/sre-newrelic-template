@@ -101,7 +101,7 @@ resource "newrelic_nrql_alert_condition" "synthetics_browser_alert" {
   aggregation_delay  = "120"
 
   nrql {
-    query = "SELECT average(duration) FROM SyntheticRequest WHERE location = 'AWS_AP_NORTHEAST_1' AND monitorId = '${data.newrelic_synthetics_monitor.synthetics_browser[count.index].id}'"
+    query = "SELECT average(duration) FROM SyntheticCheck WHERE location = 'AWS_AP_NORTHEAST_1' AND monitorId = '${data.newrelic_synthetics_monitor.synthetics_browser[count.index].id}'"
   }
   critical {
     operator              = "above"
