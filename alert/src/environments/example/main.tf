@@ -15,14 +15,12 @@ terraform {
 
 provider "newrelic" {
   region     = "US"
-  account_id = var.nr_account_id
-  api_key    = var.nr_api_key
+  account_id = local.nr_account_id
+  api_key    = local.nr_api_key
 }
 
 provider "aws" {
-  region     = var.aws_region
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key
+  region = local.aws_region
 }
 
 data "aws_caller_identity" "self" {}
