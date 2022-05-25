@@ -1,6 +1,6 @@
 locals {
-  nr_account_id  = 2871447                            // 数値型
-  nr_license_key = "NRAK-Y3YWK07MVDX1EUQSYAB1WTHVBSE" // Type:USERのAPIキー
+  nr_account_id  =  // 数値型
+  nr_license_key = "" // Type:USERのAPIキー
 
   // aws_newrelic_charge
   exchange_rate = "120"
