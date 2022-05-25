@@ -116,7 +116,6 @@ resource "newrelic_nrql_alert_condition" "synthetics_browser_alert" {
 
 // 内容：FAILEDの発生を監視。
 //
-// 確認：PingとSimple Browserで分けた方が良いか検討する。
 resource "newrelic_nrql_alert_condition" "synthetics_failed_count" {
   policy_id = newrelic_alert_policy.policy.id
   name      = "[Synthetics] FAILED監視"
