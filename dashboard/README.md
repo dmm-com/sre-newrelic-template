@@ -13,35 +13,35 @@ Terraform による NewRelic ダッシュボード導入のためのテンプレ
 
 本テンプレートで作成可能なダッシュボードは以下の通りです。
 
-* dashboard_aws_newrelic_charge
-* dashboard_core_web_vitals
-* dashboard_circleci
+* aws_newrelic_charge
+* core_web_vitals
+* circleci
 
-### dashboard_aws_newrelic_charge
+### aws_newrelic_charge
 
 AWS と NewRelic の料金推移を可視化します。
 
-![dashboard_aws_newrelic_charge_aws](attached-file/dashboard_aws_newrelic_charge_aws.png)
+![aws_newrelic_charge_aws](attached-file/dashboard_aws_newrelic_charge_aws.png)
 
-![dashboard_aws_newrelic_charge_newrelic](attached-file/dashboard_aws_newrelic_charge_newrelic.png)
+![aws_newrelic_charge_newrelic](attached-file/dashboard_aws_newrelic_charge_newrelic.png)
 
-### dashboard_core_web_vitals
+### core_web_vitals
 
 Core Web Vitals を可視化します。  
 Core Web Vitals については、https://web.dev/i18n/ja/vitals/ を参照してください。
 
-![dashboard_core_web_vitals](attached-file/dashboard_core_web_vitals.png)
+![core_web_vitals](attached-file/dashboard_core_web_vitals.png)
 
-### dashboard_circleci
+### circleci
 
 CircleCI の実行状況を可視化します。  
 詳細については、https://newrelic.com/instant-observability/circleci/39109d3d-b1d8-4366-8ca9-b8925005f727 を参照してください。
 
-![dashboard_circleci](attached-file/dashboard_circleci.png)
+![circleci](attached-file/dashboard_circleci.png)
 
 ## 事前準備
 
-### dashboard_aws_newrelic_charge
+### aws_newrelic_charge
 
 AWS の料金をクエリするには、AWS polling integrations の設定を行い、Billing を有効にしてください。
 
@@ -49,26 +49,40 @@ https://docs.newrelic.com/jp/docs/infrastructure/amazon-integrations/connect/con
 
 NewRelic の料金をクエリするための事前準備はありません。
 
-### dashboard_core_web_vitals
+### core_web_vitals
 
 Browser が設定されており、`FROM PageViewTiming SELECT count(*)` でクエリ結果が正常に出力されることを確認してください。
 
 https://docs.newrelic.com/jp/docs/browser/browser-monitoring/getting-started/introduction-browser-monitoring/
 
-### dashboard_circleci
+### circleci
 
 CircleCI の Webhooks 設定を行います。  
 設定方法については、https://docs.newrelic.com/docs/logs/forward-logs/circleci-logs/ を参照してください。
 
 ## 使い方
 
-example.tfvars を元に tfvars ファイルを新規作成し、各項目を入力後に以下のコマンドを実行してください。
+以下は手作業で terraform を実行する際の手順です。
 
-```bash
-$ terraform init
-$ terraform plan -var-file sre.tfvars
-$ terraform apply -var-file sre.tfvars
-```
+1. ディレクトリを移動します。
+    ```bash
+    $ cd dashboard/src/environments/*****
+    ```
+2. `locals.tf` 内の変数を設定します。
+    ```
+    nr_account_id  ･･･ Dashboard を作成する NewRelic アカウント ID
+    nr_license_key ･･･ Type が USERの API キー
+
+    exchange_rate               ･･･ ドル円の為替レート
+    core_web_vitals_domain_name ･･･ Core Web Vitals の出力対象とするドメイン名
+    circleci_organization_name  ･･･ CircleCI のオーガニゼーション名
+    ```
+3. terraform を実行します。
+    ```bash
+    $ terraform init
+    $ terraform plan
+    $ terraform apply
+    ```
 
 ※任意  
 初回の terraform apply 以降は NewRelic の画面上から変更を行うことを想定しているため、以下のコマンドを実行し、ダッシュボード作成について Terraform の管理下から外してください。
