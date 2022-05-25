@@ -10,5 +10,4 @@ locals {
 
   // circleci
   circleci_organization_name = ""
-
 }
