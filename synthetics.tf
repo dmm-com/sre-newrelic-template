@@ -88,7 +88,6 @@ data "newrelic_synthetics_monitor" "synthetics_browser" {
 // 監視メトリクス：SyntheticRequest duration
 // 内容：この要求の合計時間 (ミリ秒単位)。
 //
-// 確認：Simple Browserのdurationだと数秒以上になってしまうが、監視した方が良いものなのか確認する。SyntheticCheck、SyntheticRequestどっち？
 resource "newrelic_nrql_alert_condition" "synthetics_browser_alert" {
   count = length(var.newrelic_synthetics_browser)
 
