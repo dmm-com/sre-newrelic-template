@@ -85,7 +85,7 @@ data "newrelic_synthetics_monitor" "synthetics_browser" {
   ]
 }
 
-// 監視メトリクス：SyntheticRequest duration
+// 監視メトリクス：SyntheticCheck duration
 // 内容：この要求の合計時間 (ミリ秒単位)。
 //
 resource "newrelic_nrql_alert_condition" "synthetics_browser_alert" {
