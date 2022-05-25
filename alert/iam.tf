@@ -41,12 +41,12 @@ resource "aws_iam_policy" "policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "billing" {
-  role      = aws_iam_role.newrelic.name
+  role       = aws_iam_role.newrelic.name
   policy_arn = aws_iam_policy.policy.arn
 }
 
 resource "aws_iam_role_policy_attachment" "newrelic" {
-  role      = aws_iam_role.newrelic.name
+  role       = aws_iam_role.newrelic.name
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
 
