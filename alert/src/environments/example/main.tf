@@ -24,3 +24,9 @@ provider "aws" {
 }
 
 data "aws_caller_identity" "self" {}
+
+module "newrelic-iam" {
+  source = "../../modules/newrelic-iam"
+
+  nr_external_id = local.nr_external_id
+}
