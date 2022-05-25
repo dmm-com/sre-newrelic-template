@@ -105,7 +105,7 @@ resource "newrelic_nrql_alert_condition" "synthetics_browser_alert" {
   }
   critical {
     operator              = "above"
-    threshold             = 1000
+    threshold             = 3000
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
