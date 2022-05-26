@@ -12,4 +12,6 @@ locals {
     channel = "" // Team Channel用
   }
   slack_mention = ""
+
+  apm_app_name_prefix = ""
 }
