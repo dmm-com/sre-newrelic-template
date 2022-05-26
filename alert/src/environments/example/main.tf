@@ -42,3 +42,11 @@ module "alert_policy" {
   }
   slack_mention       = local.slack_mention
 }
+
+module "alert_apm" {
+  source = "../../modules/apm"
+
+  policy_id           = module.alert_policy.newrelic_alert_policy_policy_id
+  apm_app_name_prefix = "[prod]%"
+  slack_mention       = local.slack_mention
+}
