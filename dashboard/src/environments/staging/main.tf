@@ -15,7 +15,7 @@ provider "newrelic" {
   api_key    = local.nr_license_key
 }
 
-module "aws_newrelic_charge" {
+module "dashboard_aws_newrelic_charge" {
   source = "../../modules/aws_newrelic_charge"
 
   nr_account_id  = local.nr_account_id
@@ -24,7 +24,7 @@ module "aws_newrelic_charge" {
   exchange_rate = local.exchange_rate
 }
 
-module "core_web_vitals" {
+module "dashboard_core_web_vitals" {
   source = "../../modules/core_web_vitals"
 
   nr_account_id  = local.nr_account_id
@@ -33,7 +33,7 @@ module "core_web_vitals" {
   core_web_vitals_domain_name = local.core_web_vitals_domain_name
 }
 
-module "circleci" {
+module "dashboard_circleci" {
   source = "../../modules/circleci"
 
   nr_account_id  = local.nr_account_id
