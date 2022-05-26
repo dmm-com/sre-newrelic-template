@@ -1,8 +1,10 @@
+data "aws_caller_identity" "self" {}
+
 // 監視メトリクス：HTTPCode_ELB_5XX_Count (ALB)
 // 内容：ロードバランサーから送信される HTTP 5XX サーバーエラーコードの数。
 //
 resource "newrelic_nrql_alert_condition" "elb_http_code_elb_5xx_count" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[ALB] LB 5xx エラー数監視"
   type      = "static"
 
@@ -28,7 +30,7 @@ resource "newrelic_nrql_alert_condition" "elb_http_code_elb_5xx_count" {
 // 内容：ロードバランサーが接続の最大数に達したため、拒否された接続の数。
 //
 resource "newrelic_nrql_alert_condition" "elb_rejected_connection_count" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[ALB] LB リクエスト拒否数監視"
   type      = "static"
 
@@ -54,7 +56,7 @@ resource "newrelic_nrql_alert_condition" "elb_rejected_connection_count" {
 // 内容：ターゲットによって生成された HTTP 5XX 応答コードの数。
 //
 resource "newrelic_nrql_alert_condition" "elb_http_code_target_5xx_count" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[ALB] Target 5xx エラー数監視"
   type      = "static"
 
@@ -80,7 +82,7 @@ resource "newrelic_nrql_alert_condition" "elb_http_code_target_5xx_count" {
 // 内容：ロードバランサーとターゲット間で正常に確立されなかった接続数。
 //
 resource "newrelic_nrql_alert_condition" "elb_target_connection_error_count" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[ALB] Target 接続確立エラー数監視"
   type      = "static"
 
@@ -106,7 +108,7 @@ resource "newrelic_nrql_alert_condition" "elb_target_connection_error_count" {
 // 内容：異常と見なされるターゲットの数。
 //
 resource "newrelic_nrql_alert_condition" "elb_alb_unhealthy_host_count" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[ALB] Target 異常数監視"
   type      = "static"
 
@@ -132,7 +134,7 @@ resource "newrelic_nrql_alert_condition" "elb_alb_unhealthy_host_count" {
 // 内容：クライアント IP 変換操作中の一時ポート割り当てエラーの総数。
 //
 resource "newrelic_nrql_alert_condition" "elb_port_allocation_error_count" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[NLB] ポート割り当てエラー数監視"
   type      = "static"
 
@@ -158,7 +160,7 @@ resource "newrelic_nrql_alert_condition" "elb_port_allocation_error_count" {
 // 内容：異常と見なされるターゲットの数。
 //
 resource "newrelic_nrql_alert_condition" "elb_nlb_unhealthy_host_count" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[NLB] Target 異常数監視"
   type      = "static"
 
