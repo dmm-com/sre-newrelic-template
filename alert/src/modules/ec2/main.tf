@@ -1,8 +1,10 @@
+data "aws_caller_identity" "self" {}
+
 // 監視メトリクス：CPUUtilization
 // 内容：割り当てられた EC2 コンピュートユニットのうち、現在インスタンス上で使用されているものの比率。
 //
 resource "newrelic_nrql_alert_condition" "ec2_cpu_utilization" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[EC2] CPU使用率監視"
   type      = "static"
 
@@ -28,7 +30,7 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_utilization" {
 // 内容：インスタンスが過去 1 分間にインスタンスのステータスチェックとシステムステータスチェックの両方に合格したかどうかを報告します。
 //
 resource "newrelic_nrql_alert_condition" "ec2_status_check_failed" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[EC2] ステータス監視"
   type      = "static"
 
@@ -57,7 +59,7 @@ resource "newrelic_nrql_alert_condition" "ec2_status_check_failed" {
 // 内容：現在の CPU 使用率の部分は、I/O 待機時間の使用状況のみで構成されます。
 //
 resource "newrelic_nrql_alert_condition" "ec2_cpu_iowait_percent" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[EC2] CPU I/O Wait監視"
   type      = "static"
 
@@ -83,7 +85,7 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_iowait_percent" {
 // 内容：読み取りまたは書き込みディスク I/O 操作の待機に費やされた時間の割合。
 //
 resource "newrelic_nrql_alert_condition" "ec2_total_utilization_percent" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[EC2] ディスクI/O Wait監視"
   type      = "static"
 
@@ -115,7 +117,7 @@ resource "newrelic_nrql_alert_condition" "ec2_total_utilization_percent" {
 // 内容：過去 5 分間に、CPU 時間を待機し、準備完了しているシステム・プロセス、スレッド、またはタスクの平均数。
 //
 resource "newrelic_nrql_alert_condition" "ec2_load_average_five_minute" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[EC2] ロードアベレージ監視"
   type      = "static"
 
@@ -141,7 +143,7 @@ resource "newrelic_nrql_alert_condition" "ec2_load_average_five_minute" {
 // 内容：時刻同期のずれ。
 //
 resource "newrelic_nrql_alert_condition" "ec2_timesync" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[EC2] 時刻同期監視"
   type      = "static"
 
@@ -167,7 +169,7 @@ resource "newrelic_nrql_alert_condition" "ec2_timesync" {
 // 内容：メモリ使用率。
 //
 resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[EC2] メモリ使用率監視"
   type      = "static"
 
@@ -193,7 +195,7 @@ resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
 // 内容：累積ディスク使用率の割合。
 //
 resource "newrelic_nrql_alert_condition" "ec2_disk_used_percent" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[EC2] ディスク使用率監視"
   type      = "static"
 
@@ -219,7 +221,7 @@ resource "newrelic_nrql_alert_condition" "ec2_disk_used_percent" {
 // 内容：i ノード使用率の割合。
 //
 resource "newrelic_nrql_alert_condition" "ec2_inodes_used_percent" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[EC2] iノード使用率監視"
   type      = "static"
 

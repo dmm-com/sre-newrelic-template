@@ -90,3 +90,10 @@ module "alert_rds" {
   policy_id     = module.alert_policy.newrelic_alert_policy_policy_id
   slack_mention = local.slack_mention
 }
+
+module "alert_ec2" {
+  source = "../../modules/ec2"
+
+  policy_id     = module.alert_policy.newrelic_alert_policy_policy_id
+  slack_mention = local.slack_mention
+}
