@@ -62,3 +62,10 @@ module "alert_ecs" {
   policy_id     = module.alert_policy.newrelic_alert_policy_policy_id
   slack_mention = local.slack_mention
 }
+
+module "alert_elasticache" {
+  source = "../../modules/elasticache"
+
+  policy_id     = module.alert_policy.newrelic_alert_policy_policy_id
+  slack_mention = local.slack_mention
+}
