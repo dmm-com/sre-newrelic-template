@@ -83,3 +83,10 @@ module "alert_natgateway" {
   policy_id     = module.alert_policy.newrelic_alert_policy_policy_id
   slack_mention = local.slack_mention
 }
+
+module "alert_rds" {
+  source = "../../modules/rds"
+
+  policy_id     = module.alert_policy.newrelic_alert_policy_policy_id
+  slack_mention = local.slack_mention
+}
