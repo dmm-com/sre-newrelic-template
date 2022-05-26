@@ -76,3 +76,10 @@ module "alert_elb" {
   policy_id     = module.alert_policy.newrelic_alert_policy_policy_id
   slack_mention = local.slack_mention
 }
+
+module "alert_natgateway" {
+  source = "../../modules/natgateway"
+
+  policy_id     = module.alert_policy.newrelic_alert_policy_policy_id
+  slack_mention = local.slack_mention
+}
