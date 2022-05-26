@@ -23,8 +23,6 @@ provider "aws" {
   region = local.aws_region
 }
 
-data "aws_caller_identity" "self" {}
-
 module "newrelic-iam" {
   source = "../../modules/newrelic-iam"
 
