@@ -189,35 +189,6 @@ resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
   description                  = "Attention <@${var.slack_mention}>"
 }
 
-// 監視メトリクス：NetworkIn, NetworkOut
-// 内容：帯域使用率を算出。
-//
-resource "newrelic_nrql_alert_condition" "ec2_network_bandwidth_used_percent" {
-  policy_id = newrelic_alert_policy.policy.id
-  name      = "[EC2] ネットワーク帯域使用率監視"
-  type      = "static"
-
-  count = length(var.ec2_network_bandwidth_used_percent_alerts)
-
-  aggregation_window = "60"
-  aggregation_method = "event_flow"
-  aggregation_delay  = "120"
-
-  nrql {
-    // 帯域上限は直接取れないので、変数として入力している (出力単位を % にするため計算を行っている)
-    query = "SELECT (average(aws.ec2.NetworkIn)+average(aws.ec2.NetworkOut)) * 8e-6 / (${var.ec2_network_bandwidth_used_percent_alerts[count.index].metrics_interval_minutes} * 60) / ${var.ec2_network_bandwidth_used_percent_alerts[count.index].max_limit_bandwidth_mbps} * 100 FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ec2.instanceId, tags.Name"
-  }
-  critical {
-    operator              = "above"
-    threshold             = 90 // %
-    threshold_duration    = 60
-    threshold_occurrences = "ALL"
-  }
-
-  violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
-}
-
 // 監視イベント：diskUsedPercent
 // 内容：累積ディスク使用率の割合。
 //
