@@ -50,3 +50,10 @@ module "alert_apm" {
   apm_app_name_prefix = "[prod]%"
   slack_mention       = local.slack_mention
 }
+
+module "alert_cloudfront" {
+  source = "../../modules/cloudfront"
+
+  policy_id           = module.alert_policy.newrelic_alert_policy_policy_id
+  slack_mention       = local.slack_mention
+}
