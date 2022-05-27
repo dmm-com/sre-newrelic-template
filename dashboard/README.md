@@ -46,6 +46,9 @@ NewRelic アカウントが未取得の場合は、作成申請を行ってく�
 https://confl.arms.dmm.com/pages/viewpage.action?pageId=947665682  
 Q. アカウントの開設／閉鎖をするにはどうしたら良いですか
 
+なお、aws configure で `example` というプロファイル名の AWS 認証情報が作成済みであるものとします。  
+※`example` は例です。
+
 ### aws_newrelic_charge
 
 AWS の料金をクエリするには、AWS polling integrations の設定を行い、Billing を有効にしてください。
@@ -84,9 +87,17 @@ CircleCI の Webhooks 設定を行います。
     core_web_vitals_domain_name ･･･ Core Web Vitals の出力対象とするドメイン名
     circleci_organization_name  ･･･ CircleCI のオーガニゼーション名
     ```
-3. terraform を実行します。
+3. `backend.cfg` 内の変数を設定します。
+    ```
+    bucket ･･･ <AWS アカウント ID> を S3 バケットを作成する数字 12 桁の AWS アカウント ID に書き換える
+    ```
+4. AWS 認証情報の読み込み
     ```bash
-    $ terraform init
+    $ export AWS_PROFILE=example
+    ```
+5. terraform を実行します。
+    ```bash
+    $ terraform init -backend-config="backend.cfg"
     $ terraform plan
     $ terraform apply
     ```

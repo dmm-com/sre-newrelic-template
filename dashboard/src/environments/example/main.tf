@@ -7,6 +7,8 @@ terraform {
       version = "~> 2.45.0"
     }
   }
+
+  backend "s3" {}
 }
 
 provider "newrelic" {
