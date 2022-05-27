@@ -59,16 +59,26 @@ Q. アカウントの開設／閉鎖をするにはどうしたら良いです�
 
 terraform 実行用の IAM ユーザーが存在することを確認してください。  
 通常であれば、AWS アカウント発行時に既に TerraformUser というユーザーが作成されています。  
-存在しない場合は、別名でも構わないので作成してください。
+存在しない場合は、任意のユーザー名で「グループ」に `Infrastructures` を指定して作成してください。
 
+### Slack チャンネル
 
-また、別に以下の準備が必要となります。
+Slack にアラート通知を行うため、Slack チャンネルの作成と Slack の NewRelic インテグレーションの設定を行います。  
+Slack の NewRelic インテグレーション設定については、以下のドキュメントを参照してください。  
+https://docs.newrelic.com/jp/docs/alerts-applied-intelligence/new-relic-alerts/alert-notifications/notification-channels-control-where-send-alerts/#slack
 
-- [Amazon CloudWatch Metric Stream と NewRelic の連携](https://newrelic.com/jp/blog/how-to-relic/aws-cloudwatch-metric-streams)
-- [アラートを送る Slack の NewRelic の準備](https://docs.newrelic.com/jp/docs/alerts-applied-intelligence/new-relic-alerts/alert-notifications/notification-channels-control-where-send-alerts/#slack)
-- [EC2 の監視を行う場合、NewRelic infrastructure agent を EC2 インスタンスに導入](https://docs.newrelic.com/jp/docs/infrastructure/infrastructure-monitoring/get-started/get-started-infrastructure-monitoring/#install)
-  - 一部の監視に、[独自のメトリクスを追加するflex](https://docs.newrelic.com/jp/docs/integrations/host-integrations/host-integrations-list/flex-integration-tool-build-your-own-integration/)を使用しているため、  
-  `/etc/newrelic-infra/integrations.d/flex-dummy.yml` にリポジトリのflex-dummy にコピー
+### Amazon CloudWatch Metric Streams と NewRelic の統合
+
+以下のドキュメントを参照し、AWS インテグレーションの設定を行います。  
+https://newrelic.com/jp/blog/how-to-relic/aws-cloudwatch-metric-streams
+
+### NewRelic Infrastructure エージェント
+
+EC2 の監視を行う場合、以下のドキュメントを参照し EC2 インスタンスに NewRelic Infrastructure エージェントを導入します。  
+https://docs.newrelic.com/jp/docs/infrastructure/infrastructure-monitoring/get-started/get-started-infrastructure-monitoring/#install
+
+なお、一部の監視に [New Relic Flex](https://docs.newrelic.com/jp/docs/integrations/host-integrations/host-integrations-list/flex-integration-tool-build-your-own-integration/) を使用しています。  
+Flex を有効にするために EC2 インスタンスの `/etc/newrelic-infra/integrations.d` 配下に [flex-dummy.yml](src/modules/ec2/flex-dummy.yml) をコピーしてください。
 
 ## 使い方
 
