@@ -1,9 +1,9 @@
 locals {
   alert_policy_name = "" // アラートポリシー名
   alert_slack_channel = {
-    name    = ""
+    name    = "" // NewRelicチャンネル設定名
     url     = "" // Slack Incoming Webhook URL
-    channel = "" // チャンネル名
+    channel = "" // Slackチャンネル名
   }
   slack_mention = "" // Slack通知時のメンション先
 
