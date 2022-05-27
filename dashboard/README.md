@@ -46,7 +46,6 @@ NewRelic アカウントが未取得の場合は、作成申請を行ってく�
 https://confl.arms.dmm.com/pages/viewpage.action?pageId=947665682  
 Q. アカウントの開設／閉鎖をするにはどうしたら良いですか
 
-
 ### aws_newrelic_charge
 
 AWS の料金をクエリするには、AWS polling integrations の設定を行い、Billing を有効にしてください。
