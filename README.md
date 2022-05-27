@@ -13,55 +13,56 @@
 ## 事前準備
 
 tfstate の管理には S3 を使用しています。  
-terraform を実行する前に任意の環境で以下のコマンドを実行し S3 バケットの作成を行ってください。
+terraform を実行する前に任意の環境で以下のコマンドを実行し S3 バケットの作成を行います。
 
-なお、コマンドの実行を行う前に AWS_PROFILE あるいは aws configure の設定が行われていることを確認してください。
+なお、aws configure で `example` というプロファイル名の AWS 認証情報が作成済みであるものとします。  
+※`example` は例です。
 
-**変数定義**
-```bash
-$ AWS_ACCOUNT_ID=`aws sts get-caller-identity --query 'Account' --output text`; echo $AWS_ACCOUNT_ID
-$ BUCKET_NAME="${AWS_ACCOUNT_ID}-newrelic-tfstate"; echo $BUCKET_NAME
-```
-
-**バケット作成**
-```bash
-$ aws s3api create-bucket \
-  --create-bucket-configuration LocationConstraint=ap-northeast-1 \
-  --bucket ${BUCKET_NAME}
-```
-
-**パブリックアクセスブロック**
-```bash
-$ aws s3api put-public-access-block \
-  --bucket ${BUCKET_NAME} \
-  --public-access-block-configuration \
-  '{
-  "BlockPublicAcls": true,
-  "IgnorePublicAcls": true,
-  "BlockPublicPolicy": true,
-  "RestrictPublicBuckets": true
-  }'
-```
-
-**バージョニング有効化**
-```bash
-$ aws s3api put-bucket-versioning \
-  --bucket ${BUCKET_NAME} \
-  --versioning-configuration Status=Enabled
-```
-
-**暗号化**
-```bash
-$ aws s3api put-bucket-encryption \
-  --bucket ${BUCKET_NAME} \
-  --server-side-encryption-configuration \
-  '{
-    "Rules": [
-      {
-        "ApplyServerSideEncryptionByDefault": {
-          "SSEAlgorithm": "AES256"
-        }
-      }
-    ]
-  }'
-```
+1. AWS 認証情報の読み込み
+    ```bash
+    $ export AWS_PROFILE=example
+    ```
+2. 変数定義
+    ```bash
+    $ AWS_ACCOUNT_ID=`aws sts get-caller-identity --query 'Account' --output text`; echo $AWS_ACCOUNT_ID
+    $ BUCKET_NAME="${AWS_ACCOUNT_ID}-newrelic-tfstate"; echo $BUCKET_NAME
+    ```
+3. バケット作成
+    ```bash
+    $ aws s3api create-bucket \
+      --create-bucket-configuration LocationConstraint=ap-northeast-1 \
+      --bucket ${BUCKET_NAME}
+    ```
+4. ブリックアクセスブロック
+    ```bash
+    $ aws s3api put-public-access-block \
+      --bucket ${BUCKET_NAME} \
+      --public-access-block-configuration \
+      '{
+      "BlockPublicAcls": true,
+      "IgnorePublicAcls": true,
+      "BlockPublicPolicy": true,
+      "RestrictPublicBuckets": true
+      }'
+    ```
+5. バージョニング有効化
+    ```bash
+    $ aws s3api put-bucket-versioning \
+      --bucket ${BUCKET_NAME} \
+      --versioning-configuration Status=Enabled
+    ```
+6. 暗号化
+    ```bash
+    $ aws s3api put-bucket-encryption \
+      --bucket ${BUCKET_NAME} \
+      --server-side-encryption-configuration \
+      '{
+        "Rules": [
+          {
+            "ApplyServerSideEncryptionByDefault": {
+              "SSEAlgorithm": "AES256"
+            }
+          }
+        ]
+      }'
+    ```
