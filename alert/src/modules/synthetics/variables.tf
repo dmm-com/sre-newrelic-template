@@ -26,7 +26,6 @@ variable "newrelic_synthetics_browser" {
     uri                 = string
     validation_string   = string
     verify_ssl          = bool
-    bypass_head_request = bool
   }))
   default = []
 }

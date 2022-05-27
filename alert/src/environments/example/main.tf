@@ -132,7 +132,6 @@ module "alert_synthetics_browser" {
       uri                       = local.newrelic_synthetics_browser[count.index].uri
       validation_string         = local.newrelic_synthetics_browser[count.index].validation_string
       verify_ssl                = local.newrelic_synthetics_browser[count.index].verify_ssl
-      bypass_head_request       = local.newrelic_synthetics_browser[count.index].bypass_head_request
     }
   ]
 }

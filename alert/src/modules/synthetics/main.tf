@@ -30,7 +30,6 @@ resource "newrelic_synthetics_monitor" "synthetics_browser" {
   uri                 = var.newrelic_synthetics_browser[count.index].uri
   validation_string   = var.newrelic_synthetics_browser[count.index].validation_string
   verify_ssl          = var.newrelic_synthetics_browser[count.index].verify_ssl
-  bypass_head_request = var.newrelic_synthetics_browser[count.index].bypass_head_request
 }
 
 // 内容：Synthetics Pingの内部設定情報取得

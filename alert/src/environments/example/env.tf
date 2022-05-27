@@ -37,7 +37,6 @@ locals {
       uri                 = "https://www.dmm.com/"
       validation_string   = "電子書籍"
       verify_ssl          = true
-      bypass_head_request = false
     },
     {
       name                = "[FANZA] TopPage (browser)"
@@ -45,7 +44,6 @@ locals {
       uri                 = "https://www.dmm.co.jp/"
       validation_string   = "動画"
       verify_ssl          = true
-      bypass_head_request = false
     }
   ]
 }
