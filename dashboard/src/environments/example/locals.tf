@@ -1,5 +1,5 @@
 locals {
-  nr_account_id  =  // 数値型
+  nr_account_id  =  // NewRelicアカウントID, 数値型
   nr_license_key = "" // Type:USERのAPIキー
 
   // aws_newrelic_charge
