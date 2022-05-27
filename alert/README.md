@@ -98,7 +98,7 @@ terraform 実行用の IAM ユーザーが存在することを確認してく�
     ```
     alert_policy_name           ･･･ アラートポリシー名
     alert_slack_channel.name    ･･･ NewRelic チャンネル設定名
-    alert_slack_channel.url     ･･･ Slack Incoming Webhook URL
+    alert_slack_channel.url     ･･･ Slack Webhook URL
     alert_slack_channel.channel ･･･ Slack チャンネル名
     slack_mention               ･･･ Slack 通知時のメンション先
     apm_app_name_prefix         ･･･ NewRelic APM の監視対象とする appName の接頭辞
