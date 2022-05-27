@@ -27,9 +27,9 @@ resource "newrelic_synthetics_monitor" "synthetics_browser" {
   locations = ["AWS_AP_NORTHEAST_1", "AWS_US_WEST_1", "AWS_US_EAST_1"]
   status    = var.newrelic_synthetics_browser[count.index].status
 
-  uri                 = var.newrelic_synthetics_browser[count.index].uri
-  validation_string   = var.newrelic_synthetics_browser[count.index].validation_string
-  verify_ssl          = var.newrelic_synthetics_browser[count.index].verify_ssl
+  uri               = var.newrelic_synthetics_browser[count.index].uri
+  validation_string = var.newrelic_synthetics_browser[count.index].validation_string
+  verify_ssl        = var.newrelic_synthetics_browser[count.index].verify_ssl
 }
 
 // 内容：Synthetics Pingの内部設定情報取得

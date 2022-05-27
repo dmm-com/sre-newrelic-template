@@ -127,11 +127,11 @@ module "alert_synthetics_browser" {
   count = length(local.newrelic_synthetics_browser)
   newrelic_synthetics_browser = [
     {
-      name                      = local.newrelic_synthetics_browser[count.index].name
-      status                    = local.newrelic_synthetics_browser[count.index].status
-      uri                       = local.newrelic_synthetics_browser[count.index].uri
-      validation_string         = local.newrelic_synthetics_browser[count.index].validation_string
-      verify_ssl                = local.newrelic_synthetics_browser[count.index].verify_ssl
+      name              = local.newrelic_synthetics_browser[count.index].name
+      status            = local.newrelic_synthetics_browser[count.index].status
+      uri               = local.newrelic_synthetics_browser[count.index].uri
+      validation_string = local.newrelic_synthetics_browser[count.index].validation_string
+      verify_ssl        = local.newrelic_synthetics_browser[count.index].verify_ssl
     }
   ]
 }

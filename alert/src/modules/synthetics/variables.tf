@@ -21,11 +21,11 @@ variable "newrelic_synthetics_ping" {
 
 variable "newrelic_synthetics_browser" {
   type = list(object({
-    name                = string
-    status              = string
-    uri                 = string
-    validation_string   = string
-    verify_ssl          = bool
+    name              = string
+    status            = string
+    uri               = string
+    validation_string = string
+    verify_ssl        = bool
   }))
   default = []
 }
