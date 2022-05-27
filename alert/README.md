@@ -92,20 +92,8 @@ NewRelicとAWSのアカウントがそれぞれ必要です。
     $ terraform apply
     ```
 
-### 注意点
+## 注意点
 
-AWSのタグは、NewRelicに反映されるまでかなり時間がかかります。30分程度待ってから動作確認することをおすすめします。
-
-### 同一のAWSアカウント内に、複数のサブシステムがあり、監視を切り分けたい場合
-
-EC2 などではタグでの切り分けが可能です。
-Elasticache などではタグの指定ができませんが、これは現状の検証ではタグが使えなかったためです。
-
-## コードの書き換えを行いたい場合
-
-このテンプレートを作る上で、いくつか得られた知見についてメモしておきます。
-
-- CloudWatch Metric Stream は、AWS 側でどんなメトリクスが取れるかを見る方が良い
-  - NewRelic 側からは、Cloud Watch Metric Stream とそれ以外が混在しているため、見分けがつきにくい
-  - 例えば [EC2](https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/viewing_metrics_with_cloudwatch.html), [RDS](https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/monitoring-cloudwatch.html), [Elastcache(memcached)](https://docs.aws.amazon.com/ja_jp/AmazonElastiCache/latest/mem-ug/CacheMetrics.html) であればドキュメントに記載がある
-    - 特にデータの単位は NewRelic 側からは分からないので、適宜AWS側で調べたほうが早い
+* AWS のタグは、NewRelic に反映されるまでタイムラグがあります。30分程度待ってから確認することをおすすめします。
+* 同一の AWS アカウント内に複数のサブシステムがあり監視を切り分けたい場合、EC2 などではタグによるフィルターが可能です。  
+  ただし、CloudFront や ElastiCache などではタグ情報が NewRelic に送られないため、タグによるフィルターを行うことが出来ません。
