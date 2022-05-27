@@ -87,10 +87,11 @@ CircleCI の Webhooks 設定を行います。
     ```
 
 ※任意  
-初回の terraform apply 以降は NewRelic の画面上から変更を行うことを想定しているため、以下のコマンドを実行し、ダッシュボード作成について Terraform の管理下から外してください。
+初回の terraform apply 以降は NewRelic の画面上からダッシュボードの設定変更を行うことを想定しています。  
+以下のコマンドを実行し、ダッシュボードのリソースを Terraform の管理下から削除してください。
 
 ```bash
-$ terraform state rm newrelic_one_dashboard.aws_newrelic_charge
-$ terraform state rm newrelic_one_dashboard.circleci
-$ terraform state rm newrelic_one_dashboard.core_web_vitals
+$ terraform state rm module.dashboard_aws_newrelic_charge.newrelic_one_dashboard.aws_newrelic_charge
+$ terraform state rm module.dashboard_core_web_vitals.newrelic_one_dashboard.core_web_vitals
+$ terraform state rm module.dashboard_circleci.newrelic_one_dashboard.circleci
 ```
