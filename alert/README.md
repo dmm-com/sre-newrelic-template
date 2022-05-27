@@ -47,7 +47,21 @@ Terraform による NewRelic への AWS 監視導入のためのテンプレー�
 
 ## 事前準備
 
-NewRelicとAWSのアカウントがそれぞれ必要です。
+### 各種アカウント
+
+AWS アカウントは既に発行済みとします。  
+NewRelic アカウントが未取得の場合は、作成申請を行ってください。  
+
+https://confl.arms.dmm.com/pages/viewpage.action?pageId=947665682  
+Q. アカウントの開設／閉鎖をするにはどうしたら良いですか
+
+### AWS 認証情報
+
+terraform 実行用の IAM ユーザーが存在することを確認してください。  
+通常であれば、AWS アカウント発行時に既に TerraformUser というユーザーが作成されています。  
+存在しない場合は、別名でも構わないので作成してください。
+
+
 また、別に以下の準備が必要となります。
 
 - [Amazon CloudWatch Metric Stream と NewRelic の連携](https://newrelic.com/jp/blog/how-to-relic/aws-cloudwatch-metric-streams)
@@ -62,11 +76,19 @@ NewRelicとAWSのアカウントがそれぞれ必要です。
 
 ※`example` にはサンプル設定が入っています。
 
-1. ディレクトリを移動します。複数環境（STG/PROD）で設定を分ける場合は、それぞれのディレクトリ（staging, production）を使用してください。
+1. AWS 認証情報ファイルの作成を行います。（作成例）
+    ```bash
+    $ aws configure --profile example
+    AWS Access Key ID [None]: ********
+    AWS Secret Access Key [None]: ************************
+    Default region name [None]: ap-northeast-1
+    Default output format [None]: json
+    ```
+2. ディレクトリを移動します。複数環境（STG/PROD）で設定を分ける場合は、それぞれのディレクトリ（staging, production）を使用してください。
     ```bash
     $ cd alert/src/environments/*****
     ```
-2. `locals.tf` および `env.tf` 内の変数を設定します。
+3. `locals.tf` および `env.tf` 内の変数を設定します。
   * locals.tf
     ```
     nr_account_id ･･･ Alert を作成する NewRelic アカウント ID
@@ -81,11 +103,11 @@ NewRelicとAWSのアカウントがそれぞれ必要です。
     slack_mention               ･･･ Slack 通知時のメンション先
     apm_app_name_prefix         ･･･ NewRelic APM の監視対象とする appName の接頭辞
     ```
-3. AWS 認証情報を読み込みます。
+4. AWS 認証情報を読み込みます。
     ```bash
-    export AWS_PROFILE=example
+    $ export AWS_PROFILE=example
     ```
-4. terraform を実行します。
+5. terraform を実行します。
     ```bash
     $ terraform init
     $ terraform plan
