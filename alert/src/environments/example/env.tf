@@ -1,11 +1,11 @@
 locals {
-  alert_policy_name = ""
+  alert_policy_name = "" // アラートポリシー名
   alert_slack_channel = {
     name    = ""
-    url     = "" // slack hook url
-    channel = "" // Team Channel用
+    url     = "" // Slack Incoming Webhook URL
+    channel = "" // チャンネル名
   }
-  slack_mention = ""
+  slack_mention = "" // Slack通知時のメンション先
 
-  apm_app_name_prefix = ""
+  apm_app_name_prefix = "" // NewRelic APMの監視対象とするappNameの接頭辞
 }
