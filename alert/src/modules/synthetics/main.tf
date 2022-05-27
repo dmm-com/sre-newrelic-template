@@ -114,9 +114,11 @@ resource "newrelic_nrql_alert_condition" "synthetics_browser_alert" {
 
 // 内容：FAILEDの発生を監視。
 //
-resource "newrelic_nrql_alert_condition" "synthetics_failed_count" {
+resource "newrelic_nrql_alert_condition" "synthetics_ping_failed_count" {
+  count = length(var.newrelic_synthetics_ping)
+
   policy_id = var.policy_id
-  name      = "[Synthetics] FAILED監視"
+  name      = "[Synthetics Ping] \"${var.newrelic_synthetics_ping[count.index].uri}\" FAILED監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -124,7 +126,34 @@ resource "newrelic_nrql_alert_condition" "synthetics_failed_count" {
   aggregation_delay  = "120"
 
   nrql {
-    query = "SELECT count(result) FROM SyntheticCheck WHERE result = 'FAILED' FACET monitorName"
+    query = "SELECT count(result) FROM SyntheticCheck WHERE result = 'FAILED' AND monitorId = '${data.newrelic_synthetics_monitor.synthetics_ping[count.index].id}' FACET monitorName"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 0
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+
+  violation_time_limit_seconds = 3600
+  description                  = "Attention <@${var.slack_mention}>"
+}
+
+// 内容：FAILEDの発生を監視。
+//
+resource "newrelic_nrql_alert_condition" "synthetics_browser_failed_count" {
+  count = length(var.newrelic_synthetics_browser)
+
+  policy_id = var.policy_id
+  name      = "[Synthetics Simple Browser] \"${var.newrelic_synthetics_browser[count.index].uri}\" FAILED監視"
+  type      = "static"
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query = "SELECT count(result) FROM SyntheticCheck WHERE result = 'FAILED' AND monitorId = '${data.newrelic_synthetics_monitor.synthetics_browser[count.index].id}' FACET monitorName"
   }
   critical {
     operator              = "above"
