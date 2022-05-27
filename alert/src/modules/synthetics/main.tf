@@ -51,7 +51,7 @@ data "newrelic_synthetics_monitor" "synthetics_ping" {
 resource "newrelic_nrql_alert_condition" "synthetics_ping_alert" {
   count = length(var.newrelic_synthetics_ping)
 
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[Synthetics Ping] \"${var.newrelic_synthetics_ping[count.index].uri}\" レスポンスタイム監視"
   type      = "static"
 
@@ -91,7 +91,7 @@ data "newrelic_synthetics_monitor" "synthetics_browser" {
 resource "newrelic_nrql_alert_condition" "synthetics_browser_alert" {
   count = length(var.newrelic_synthetics_browser)
 
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[Synthetics Simple Browser] \"${var.newrelic_synthetics_browser[count.index].uri}\" レスポンスタイム監視"
   type      = "static"
 
@@ -116,7 +116,7 @@ resource "newrelic_nrql_alert_condition" "synthetics_browser_alert" {
 // 内容：FAILEDの発生を監視。
 //
 resource "newrelic_nrql_alert_condition" "synthetics_failed_count" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[Synthetics] FAILED監視"
   type      = "static"
 
