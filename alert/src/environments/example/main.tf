@@ -26,7 +26,7 @@ provider "aws" {
 module "newrelic-iam" {
   source = "../../modules/newrelic-iam"
 
-  nr_external_id = local.nr_external_id
+  nr_external_id = local.nr_account_id
 }
 
 module "alert_policy" {
