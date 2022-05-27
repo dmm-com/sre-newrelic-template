@@ -58,16 +58,39 @@ NewRelicとAWSのアカウントがそれぞれ必要です。
 
 ## 使い方
 
-example.tfvars を元に監視対象や、必要な認証情報を記載したtfvarsファイルを作成し、
+以下は手作業で terraform を実行する際の手順です。
 
-```bash
-terraform init
-terraform plan -var-file prod.tfvars
-terraform apply -var-file prod.tfvars
-```
+※`example` にはサンプル設定が入っています。
 
-とすると使用できます。  
-複数のAWSアカウントを使用したい場合は、tfvars を分けることで対応してください。
+1. ディレクトリを移動します。複数環境（STG/PROD）で設定を分ける場合は、それぞれのディレクトリ（staging, production）を使用してください。
+    ```bash
+    $ cd alert/src/environments/*****
+    ```
+2. `locals.tf` および `env.tf` 内の変数を設定します。
+  * locals.tf
+    ```
+    nr_account_id ･･･ Alert を作成する NewRelic アカウント ID
+    nr_api_key    ･･･ Type が USERの API キー
+    ```
+  * env.tf
+    ```
+    alert_policy_name           ･･･ アラートポリシー名
+    alert_slack_channel.name    ･･･ NewRelic チャンネル設定名
+    alert_slack_channel.url     ･･･ Slack Incoming Webhook URL
+    alert_slack_channel.channel ･･･ Slack チャンネル名
+    slack_mention               ･･･ Slack 通知時のメンション先
+    apm_app_name_prefix         ･･･ NewRelic APM の監視対象とする appName の接頭辞
+    ```
+3. AWS 認証情報を読み込みます。
+    ```bash
+    export AWS_PROFILE=example
+    ```
+4. terraform を実行します。
+    ```bash
+    $ terraform init
+    $ terraform plan
+    $ terraform apply
+    ```
 
 ### 注意点
 
