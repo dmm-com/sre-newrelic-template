@@ -66,7 +66,7 @@ CircleCI の Webhooks 設定を行います。
 
 ※`example` にはサンプル設定が入っています。
 
-1. ディレクトリを移動します。STG/PRODで設定を分ける場合は、それぞれのディレクトリ（staging, production）を使用してください。
+1. ディレクトリを移動します。複数環境（STG/PROD）で設定を分ける場合は、それぞれのディレクトリ（staging, production）を使用してください。
     ```bash
     $ cd dashboard/src/environments/*****
     ```
