@@ -81,19 +81,8 @@ CircleCI の Webhooks 設定を行います。
     ```bash
     $ cd dashboard/src/environments/*****
     ```
-2. `locals.tf` 内の変数を設定します。
-    ```
-    nr_account_id  ･･･ Dashboard を作成する NewRelic アカウント ID
-    nr_license_key ･･･ Type が USERの API キー
-
-    exchange_rate               ･･･ ドル円の為替レート
-    core_web_vitals_domain_name ･･･ Core Web Vitals の出力対象とするドメイン名
-    circleci_organization_name  ･･･ CircleCI のオーガニゼーション名
-    ```
-3. `backend.cfg` 内の変数を設定します。
-    ```
-    bucket ･･･ <AWS アカウント ID> を S3 バケットを作成する数字 12 桁の AWS アカウント ID に書き換える
-    ```
+2. `locals.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
+3. `backend.cfg` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
 4. AWS 認証情報の読み込み
     ```bash
     $ export AWS_PROFILE=terraform
