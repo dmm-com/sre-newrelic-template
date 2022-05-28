@@ -74,7 +74,7 @@ CircleCI の Webhooks 設定を行います。
 
 以下は手作業で terraform を実行する際の手順です。
 
-※`example` にはサンプル設定が入っています。
+※`dashboard/src/environments/example` にはサンプル設定が入っています。
 
 1. ディレクトリを移動します。複数環境（STG/PROD）で設定を分ける場合は、それぞれのディレクトリ（staging, production）を使用してください。
     ```bash
