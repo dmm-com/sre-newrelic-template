@@ -15,12 +15,12 @@
 tfstate の管理には S3 を使用しています。  
 terraform を実行する前に任意の環境で以下のコマンドを実行し S3 バケットの作成を行います。
 
-なお、aws configure で `example` というプロファイル名の AWS 認証情報が作成済みであるものとします。  
-※`example` は例です。
+なお、aws configure で `terraform` というプロファイル名の AWS 認証情報が作成済みであるものとします。  
+※`terraform` は例です。
 
 1. AWS 認証情報の読み込み
     ```bash
-    $ export AWS_PROFILE=example
+    $ export AWS_PROFILE=terraform
     ```
 2. 変数定義
     ```bash
