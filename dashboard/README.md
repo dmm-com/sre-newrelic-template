@@ -46,8 +46,10 @@ NewRelic アカウントが未取得の場合は、作成申請を行ってく�
 https://confl.arms.dmm.com/pages/viewpage.action?pageId=947665682  
 Q. アカウントの開設／閉鎖をするにはどうしたら良いですか
 
-なお、aws configure で `example` というプロファイル名の AWS 認証情報が作成済みであるものとします。  
-※`example` は例です。
+なお、aws configure で `terraform` というプロファイル名の AWS 認証情報が作成済みであるものとします。  
+※`terraform` は例です。
+
+プロファイルが未作成の場合は、【[AWS 認証情報ファイルの作成を行います。](../alert/README.md#使い方)】を参考にプロファイルを作成してください。
 
 ### aws_newrelic_charge
 
@@ -93,7 +95,7 @@ CircleCI の Webhooks 設定を行います。
     ```
 4. AWS 認証情報の読み込み
     ```bash
-    $ export AWS_PROFILE=example
+    $ export AWS_PROFILE=terraform
     ```
 5. terraform を実行します。
     ```bash
