@@ -87,11 +87,11 @@ Flex を有効にするために EC2 インスタンスの `/etc/newrelic-infra/
 
 以下は手作業で terraform を実行する際の手順です。
 
-※`example` にはサンプル設定が入っています。
+※`alert/src/environments/example` にはサンプル設定が入っています。
 
 1. AWS 認証情報ファイルの作成を行います。（作成例）
     ```bash
-    $ aws configure --profile example
+    $ aws configure --profile terraform
     AWS Access Key ID [None]: ********
     AWS Secret Access Key [None]: ************************
     Default region name [None]: ap-northeast-1
@@ -118,7 +118,7 @@ Flex を有効にするために EC2 インスタンスの `/etc/newrelic-infra/
     ```
 4. AWS 認証情報を読み込みます。
     ```bash
-    $ export AWS_PROFILE=example
+    $ export AWS_PROFILE=terraform
     ```
 5. terraform を実行します。
     ```bash
