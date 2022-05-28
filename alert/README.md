@@ -101,21 +101,7 @@ Flex を有効にするために EC2 インスタンスの `/etc/newrelic-infra/
     ```bash
     $ cd alert/src/environments/*****
     ```
-3. `locals.tf` および `env.tf` 内の変数を設定します。
-  * locals.tf
-    ```
-    nr_account_id ･･･ Alert を作成する NewRelic アカウント ID
-    nr_api_key    ･･･ Type が USERの API キー
-    ```
-  * env.tf
-    ```
-    alert_policy_name           ･･･ アラートポリシー名
-    alert_slack_channel.name    ･･･ NewRelic チャンネル設定名
-    alert_slack_channel.url     ･･･ Slack Webhook URL
-    alert_slack_channel.channel ･･･ Slack チャンネル名
-    slack_mention               ･･･ Slack 通知時のメンション先
-    apm_app_name_prefix         ･･･ NewRelic APM の監視対象とする appName の接頭辞
-    ```
+3. `locals.tf` および `env.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
 4. AWS 認証情報を読み込みます。
     ```bash
     $ export AWS_PROFILE=terraform
