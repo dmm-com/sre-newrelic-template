@@ -181,13 +181,14 @@ Flex を有効にするために EC2 インスタンスの `/etc/newrelic-infra/
     $ cd alert/src/environments/*****
     ```
 3. `locals.tf` および `env.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
-4. AWS 認証情報を読み込みます。
+4. `backend.cfg` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
+5. AWS 認証情報を読み込みます。
     ```bash
     $ export AWS_PROFILE=terraform
     ```
-5. terraform を実行します。
+6. terraform を実行します。
     ```bash
-    $ terraform init
+    $ terraform init -backend-config="backend.cfg"
     $ terraform plan
     $ terraform apply
     ```
