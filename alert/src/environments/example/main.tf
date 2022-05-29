@@ -11,6 +11,8 @@ terraform {
       version = "~> 4.14.0"
     }
   }
+
+  backend "s3" {}
 }
 
 provider "newrelic" {
