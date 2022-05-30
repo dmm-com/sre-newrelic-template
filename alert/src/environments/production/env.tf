@@ -15,18 +15,18 @@ locals {
       status                    = "" // 設定の有効／無効
       uri                       = "" // 監視対象URL
       validation_string         = "" // 応答で検証する文字列
-      verify_ssl                =  // SSL証明書検証の有無
-      bypass_head_request       =  // HEAD リクエストをスキップしGETリクエストするかどうか
-      treat_redirect_as_failure =  // リダイレクトされた場合に監視を失敗とするかどうか
+      verify_ssl                = true // SSL証明書検証の有無
+      bypass_head_request       = false // HEAD リクエストをスキップしGETリクエストするかどうか
+      treat_redirect_as_failure = false // リダイレクトされた場合に監視を失敗とするかどうか
     },
     {
       name                      = ""
       status                    = ""
       uri                       = ""
       validation_string         = ""
-      verify_ssl                = 
-      bypass_head_request       = 
-      treat_redirect_as_failure = 
+      verify_ssl                = true
+      bypass_head_request       = false
+      treat_redirect_as_failure = false
     }
   ]
 
@@ -36,14 +36,14 @@ locals {
       status            = ""
       uri               = ""
       validation_string = ""
-      verify_ssl        = 
+      verify_ssl        = true
     },
     {
       name              = ""
       status            = ""
       uri               = ""
       validation_string = ""
-      verify_ssl        = 
+      verify_ssl        = true
     }
   ]
 }
