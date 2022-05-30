@@ -78,7 +78,7 @@ jobs:
 workflows:
   version: 2
 
-  plan_staging:
+  apply_staging:
     jobs:
       - plan_staging:
           context: stg-newrelic-template
@@ -86,15 +86,6 @@ workflows:
             branches:
               ignore:
                 - main
-
-  apply_staging:
-    jobs:
-      - plan_staging:
-          context: stg-newrelic-template
-          filters:
-            branches:
-              only:
-                - develop
 
       - approve:
           requires:
