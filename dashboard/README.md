@@ -73,7 +73,8 @@ CircleCI の Webhooks 設定を行います。
 
 ## 使い方
 
-以下は手作業で terraform を実行する際の手順です。
+以下は手作業で terraform を実行する際の手順です。  
+※現状、dashboard について CI/CD に対応していません。
 
 ※`dashboard/src/environments/example` にはサンプル設定が入っています。
 
