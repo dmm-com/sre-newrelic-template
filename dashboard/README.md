@@ -46,6 +46,11 @@ NewRelic アカウントが未取得の場合は、作成申請を行ってく�
 https://confl.arms.dmm.com/pages/viewpage.action?pageId=947665682  
 Q. アカウントの開設／閉鎖をするにはどうしたら良いですか
 
+なお、aws configure で `terraform` というプロファイル名の AWS 認証情報が作成済みであるものとします。  
+※`terraform` は例です。
+
+terraform 実行用の IAM ユーザーが存在しない場合は、【[AWS 認証情報](../alert/README.md#AWS-認証情報)】を参考に IAM ユーザーを作成してください。  
+また、プロファイルが未作成の場合は、【[AWS 認証情報ファイルの作成を行います。](../alert/README.md#使い方)】を参考にプロファイルを作成してください。
 
 ### aws_newrelic_charge
 
@@ -70,24 +75,21 @@ CircleCI の Webhooks 設定を行います。
 
 以下は手作業で terraform を実行する際の手順です。
 
-※`example` にはサンプル設定が入っています。
+※`dashboard/src/environments/example` にはサンプル設定が入っています。
 
 1. ディレクトリを移動します。複数環境（STG/PROD）で設定を分ける場合は、それぞれのディレクトリ（staging, production）を使用してください。
     ```bash
     $ cd dashboard/src/environments/*****
     ```
-2. `locals.tf` 内の変数を設定します。
-    ```
-    nr_account_id  ･･･ Dashboard を作成する NewRelic アカウント ID
-    nr_license_key ･･･ Type が USERの API キー
-
-    exchange_rate               ･･･ ドル円の為替レート
-    core_web_vitals_domain_name ･･･ Core Web Vitals の出力対象とするドメイン名
-    circleci_organization_name  ･･･ CircleCI のオーガニゼーション名
-    ```
-3. terraform を実行します。
+2. `locals.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
+3. `backend.cfg` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
+4. AWS 認証情報の読み込み
     ```bash
-    $ terraform init
+    $ export AWS_PROFILE=terraform
+    ```
+5. terraform を実行します。
+    ```bash
+    $ terraform init -backend-config="backend.cfg"
     $ terraform plan
     $ terraform apply
     ```
