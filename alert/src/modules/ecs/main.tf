@@ -1,8 +1,10 @@
+data "aws_caller_identity" "self" {}
+
 // 監視メトリクス：CpuUtilized, CpuReserved
 // 内容：CPU使用率を算出。
 //
 resource "newrelic_nrql_alert_condition" "ecs_cpu_utilization" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[ECS] CPU使用率監視"
   type      = "static"
 
@@ -28,7 +30,7 @@ resource "newrelic_nrql_alert_condition" "ecs_cpu_utilization" {
 // 内容：メモリ使用率を算出。
 //
 resource "newrelic_nrql_alert_condition" "ecs_memory_used_percent" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[ECS] メモリ使用率監視"
   type      = "static"
 
@@ -54,7 +56,7 @@ resource "newrelic_nrql_alert_condition" "ecs_memory_used_percent" {
 // 内容：タスク正常率を算出。
 //
 resource "newrelic_nrql_alert_condition" "ecs_task_running_percent" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[ECS] タスク正常率監視"
   type      = "static"
 
@@ -80,7 +82,7 @@ resource "newrelic_nrql_alert_condition" "ecs_task_running_percent" {
 // 内容：現在、RUNNING 状態にあるタスクの数。
 //
 resource "newrelic_nrql_alert_condition" "ecs_running_task_count" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[ECS] タスク起動数監視"
   type      = "static"
 

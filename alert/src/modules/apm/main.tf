@@ -1,7 +1,7 @@
 // 内容：APMのサーバー側レスポンスタイム監視。95パーセンタイル。（秒）
 //
 resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[APM] サーバー レスポンスタイム監視"
   type      = "static"
 
@@ -26,7 +26,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_duration_average" {
 // 内容：APMのデータベース側レスポンスタイム監視。95パーセンタイル。（秒）
 //
 resource "newrelic_nrql_alert_condition" "apm_transaction_database_duration_average" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[APM] データベース レスポンスタイム監視"
   type      = "static"
 
@@ -51,7 +51,7 @@ resource "newrelic_nrql_alert_condition" "apm_transaction_database_duration_aver
 // 内容：APMの外部サービス側レスポンスタイム監視。（秒）
 //
 resource "newrelic_nrql_alert_condition" "apm_external_duration_average" {
-  policy_id          = newrelic_alert_policy.policy.id
+  policy_id          = var.policy_id
   name               = "[APM] 外部サービス レスポンスタイム監視（試験的）"
   type               = "baseline"
   baseline_direction = "upper_only"
@@ -83,7 +83,7 @@ resource "newrelic_nrql_alert_condition" "apm_external_duration_average" {
 // 内容：APMの5xxエラー率監視。
 //
 resource "newrelic_nrql_alert_condition" "apm_transaction_http_response_code_5xx_percentage" {
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[APM] 5xx エラー率監視"
   type      = "static"
 

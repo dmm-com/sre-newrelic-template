@@ -27,10 +27,9 @@ resource "newrelic_synthetics_monitor" "synthetics_browser" {
   locations = ["AWS_AP_NORTHEAST_1", "AWS_US_WEST_1", "AWS_US_EAST_1"]
   status    = var.newrelic_synthetics_browser[count.index].status
 
-  uri                 = var.newrelic_synthetics_browser[count.index].uri
-  validation_string   = var.newrelic_synthetics_browser[count.index].validation_string
-  verify_ssl          = var.newrelic_synthetics_browser[count.index].verify_ssl
-  bypass_head_request = var.newrelic_synthetics_browser[count.index].bypass_head_request
+  uri               = var.newrelic_synthetics_browser[count.index].uri
+  validation_string = var.newrelic_synthetics_browser[count.index].validation_string
+  verify_ssl        = var.newrelic_synthetics_browser[count.index].verify_ssl
 }
 
 // 内容：Synthetics Pingの内部設定情報取得
@@ -51,7 +50,7 @@ data "newrelic_synthetics_monitor" "synthetics_ping" {
 resource "newrelic_nrql_alert_condition" "synthetics_ping_alert" {
   count = length(var.newrelic_synthetics_ping)
 
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[Synthetics Ping] \"${var.newrelic_synthetics_ping[count.index].uri}\" レスポンスタイム監視"
   type      = "static"
 
@@ -91,7 +90,7 @@ data "newrelic_synthetics_monitor" "synthetics_browser" {
 resource "newrelic_nrql_alert_condition" "synthetics_browser_alert" {
   count = length(var.newrelic_synthetics_browser)
 
-  policy_id = newrelic_alert_policy.policy.id
+  policy_id = var.policy_id
   name      = "[Synthetics Simple Browser] \"${var.newrelic_synthetics_browser[count.index].uri}\" レスポンスタイム監視"
   type      = "static"
 
@@ -115,9 +114,11 @@ resource "newrelic_nrql_alert_condition" "synthetics_browser_alert" {
 
 // 内容：FAILEDの発生を監視。
 //
-resource "newrelic_nrql_alert_condition" "synthetics_failed_count" {
-  policy_id = newrelic_alert_policy.policy.id
-  name      = "[Synthetics] FAILED監視"
+resource "newrelic_nrql_alert_condition" "synthetics_ping_failed_count" {
+  count = length(var.newrelic_synthetics_ping)
+
+  policy_id = var.policy_id
+  name      = "[Synthetics Ping] \"${var.newrelic_synthetics_ping[count.index].uri}\" FAILED監視"
   type      = "static"
 
   aggregation_window = "60"
@@ -125,7 +126,34 @@ resource "newrelic_nrql_alert_condition" "synthetics_failed_count" {
   aggregation_delay  = "120"
 
   nrql {
-    query = "SELECT count(result) FROM SyntheticCheck WHERE result = 'FAILED' FACET monitorName"
+    query = "SELECT count(result) FROM SyntheticCheck WHERE result = 'FAILED' AND monitorId = '${data.newrelic_synthetics_monitor.synthetics_ping[count.index].id}' FACET monitorName"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 0
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+
+  violation_time_limit_seconds = 3600
+  description                  = "Attention <@${var.slack_mention}>"
+}
+
+// 内容：FAILEDの発生を監視。
+//
+resource "newrelic_nrql_alert_condition" "synthetics_browser_failed_count" {
+  count = length(var.newrelic_synthetics_browser)
+
+  policy_id = var.policy_id
+  name      = "[Synthetics Simple Browser] \"${var.newrelic_synthetics_browser[count.index].uri}\" FAILED監視"
+  type      = "static"
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query = "SELECT count(result) FROM SyntheticCheck WHERE result = 'FAILED' AND monitorId = '${data.newrelic_synthetics_monitor.synthetics_browser[count.index].id}' FACET monitorName"
   }
   critical {
     operator              = "above"
