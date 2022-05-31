@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.0.6"
+  required_version = "~> 1.1.0"
 
   required_providers {
     newrelic = {
@@ -17,8 +17,8 @@ terraform {
 
 provider "newrelic" {
   region     = "US"
-  account_id = local.nr_account_id
-  api_key    = local.nr_api_key
+  account_id = var.nr_account_id
+  api_key    = var.nr_api_key
 }
 
 provider "aws" {
@@ -28,7 +28,7 @@ provider "aws" {
 module "newrelic-iam" {
   source = "../../modules/newrelic-iam"
 
-  nr_external_id = local.nr_account_id
+  nr_external_id = var.nr_account_id
 }
 
 module "alert_policy" {

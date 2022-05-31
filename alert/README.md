@@ -164,6 +164,8 @@ Flex を有効にするために EC2 インスタンスの `/etc/newrelic-infra/
 
 ## 使い方
 
+### 手作業
+
 以下は手作業で terraform を実行する際の手順です。
 
 ※`alert/src/environments/example` にはサンプル設定が入っています。
@@ -192,6 +194,26 @@ Flex を有効にするために EC2 インスタンスの `/etc/newrelic-infra/
     $ terraform plan
     $ terraform apply
     ```
+
+### CircleCI
+
+alert テンプレートについては、CircleCI での terraform 実行に対応しています。  
+実行の前に以下の内容で Contexts の設定が必要となります。
+
+1. CircleCI の Organization Settings で Contexts を作成します。
+    | Contexts 名 | 説明 |
+    | ---- | ---- |
+    | stg-newrelic-template | ステージング環境用の Contexts |
+    | prd-newrelic-template | 本番環境用の Contexts |
+2. 作成した Contexts に以下の環境変数を作成します。
+    | 環境変数名 | 説明 |
+    | ---- | ---- |
+    | AWS_ACCESS_KEY_ID | 操作対象とする AWS アカウントの AWS アクセスキー ID |
+    | AWS_SECRET_ACCESS_KEY | 操作対象とする AWS アカウントの AWS シークレットアクセスキー |
+    | NEWRELIC_ACCOUNT_ID | 操作対象とする NewRelic のアカウント ID |
+    | NEWRELIC_API_KEY | 操作対象とする NewRelic の API キー（Type:USER） |
+
+コード内の各種設定内容については、【[手作業](../alert/README.md#手作業)】を参照してください。
 
 ## 注意点
 

@@ -1,0 +1,146 @@
+version: 2
+
+anchors:
+  - &defaults
+    docker:
+      - image: hashicorp/terraform:1.1.9
+    environment:
+      AWS_DEFAULT_REGION: ap-northeast-1
+
+  - &staging
+    <<: *defaults
+    environment:
+      TERRAFORM_TARGET_DIR: staging
+
+  - &production
+    <<: *defaults
+    environment:
+      TERRAFORM_TARGET_DIR: production
+
+  - &plan
+    steps:
+      - checkout
+      - run:
+          name: fmt
+          command: terraform fmt -recursive ./alert/src
+      - run:
+          name: init
+          command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform init -backend-config="backend.cfg"
+      - run:
+          name: plan
+          command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform plan -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
+
+  - &apply
+    steps:
+      - checkout
+      - run:
+          name: init
+          command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform init -backend-config="backend.cfg"
+      - run:
+          name: apply
+          command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform apply -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
+
+  - &destroy
+    steps:
+      - checkout
+      - run:
+          name: init
+          command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform init -backend-config="backend.cfg"
+      - run:
+          name: destroy
+          command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform destroy -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
+
+jobs:
+  plan_staging:
+    <<: *staging
+    <<: *plan
+
+  plan_production:
+    <<: *production
+    <<: *plan
+
+  apply_staging:
+    <<: *staging
+    <<: *apply
+
+  apply_production:
+    <<: *production
+    <<: *apply
+
+  destroy_staging:
+    <<: *staging
+    <<: *destroy
+
+  destroy_production:
+    <<: *production
+    <<: *destroy
+
+workflows:
+  version: 2
+
+  apply_staging:
+    jobs:
+      - plan_staging:
+          context: stg-newrelic-template
+          filters:
+            branches:
+              ignore:
+                - main
+
+      - approve:
+          requires:
+            - plan_staging
+          type: approval
+
+      - apply_staging:
+          context: stg-newrelic-template
+          requires:
+            - approve
+
+#  destroy_staging:
+#    jobs:
+#      - approve:
+#          type: approval
+#
+#      - destroy_staging:
+#          context: stg-newrelic-template
+#          requires:
+#            - approve
+
+  plan_production:
+    jobs:
+      - plan_production:
+          context: prd-newrelic-template
+          filters:
+            branches:
+              ignore:
+                - main
+
+  apply_production:
+    jobs:
+      - plan_production:
+          context: prd-newrelic-template
+          filters:
+            branches:
+              only:
+                - main
+
+      - approve:
+          requires:
+            - plan_production
+          type: approval
+
+      - apply_production:
+          context: prd-newrelic-template
+          requires:
+            - approve
+
+#  destroy_production:
+#    jobs:
+#      - approve:
+#          type: approval
+#
+#      - destroy_production:
+#          context: prd-newrelic-template
+#          requires:
+#            - approve
