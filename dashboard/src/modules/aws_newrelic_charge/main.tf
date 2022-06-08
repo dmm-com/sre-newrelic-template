@@ -16,14 +16,6 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
       width  = 2
 
       text = <<-EOT
-        AWSアカウントIDと対応サービス
-        ---
-
-        ```
-        405130845841 [dj-stg-aws] : ステージング環境
-        102755423074 [dj-prod-p-aws] : 本番環境
-        ```
-
         備考
         - 日本円への変換は、1ドル${var.exchange_rate}円換算としています。
         - AWS料金は月初のUTC0時にリセットされます。
