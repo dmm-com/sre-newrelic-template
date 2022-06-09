@@ -84,7 +84,7 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
     }
 
     widget_stacked_bar {
-      title  = "1日あたりのデータ使用量（GB）"
+      title  = "月あたりのデータ使用量（GB）"
       column = 7
       height = 3
       row    = 1
