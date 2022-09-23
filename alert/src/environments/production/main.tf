@@ -25,12 +25,6 @@ provider "aws" {
   region = local.aws_region
 }
 
-module "newrelic-iam" {
-  source = "../../modules/newrelic-iam"
-
-  nr_external_id = var.nr_account_id
-}
-
 module "alert_policy" {
   source = "../../modules/alert-policy"
 
