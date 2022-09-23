@@ -19,4 +19,5 @@ module "metricstream" {
   source = "../../modules/metricstream"
 
   nr_external_id = local.nr_account_id
+  nr_license_key = local.nr_license_key
 }
