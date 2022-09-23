@@ -41,17 +41,6 @@ CircleCI の実行状況を可視化します。
 
 ## 事前準備
 
-NewRelic アカウントが未取得の場合は、作成申請を行ってください。  
-
-https://confl.arms.dmm.com/pages/viewpage.action?pageId=947665682  
-Q. アカウントの開設／閉鎖をするにはどうしたら良いですか
-
-なお、aws configure で `terraform` というプロファイル名の AWS 認証情報が作成済みであるものとします。  
-※`terraform` は例です。
-
-terraform 実行用の IAM ユーザーが存在しない場合は、【[AWS 認証情報](../alert/README.md#AWS-認証情報)】を参考に IAM ユーザーを作成してください。  
-また、プロファイルが未作成の場合は、【[AWS 認証情報ファイルの作成を行います。](../alert/README.md#使い方)】を参考にプロファイルを作成してください。
-
 ### aws_newrelic_charge
 
 AWS の料金をクエリするには、AWS polling integrations の設定を行い、Billing を有効にしてください。

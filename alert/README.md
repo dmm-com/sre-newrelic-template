@@ -29,23 +29,6 @@ Terraform による NewRelic への AWS 監視導入のためのテンプレー�
 
 ## 事前準備
 
-### 各種アカウント
-
-AWS アカウントは既に発行済みとします。  
-NewRelic アカウントが未取得の場合は、作成申請を行ってください。  
-
-https://confl.arms.dmm.com/pages/viewpage.action?pageId=947665682  
-Q. アカウントの開設／閉鎖をするにはどうしたら良いですか
-
-### AWS 認証情報
-
-terraform 実行用の IAM ユーザーが存在することを確認してください。  
-通常であれば、AWS アカウント発行時に既に TerraformUser というユーザーが作成されています。  
-存在しない場合は、以下の内容で IAM ユーザーを作成してください。
-* ユーザー名：任意のユーザー名
-* AWS 認証情報タイプ：アクセスキー - プログラムによるアクセス
-* グループ：Infrastructures
-
 ### Slack チャンネル
 
 Slack にアラート通知を行うため、Slack チャンネルの作成と Slack の NewRelic インテグレーションの設定を行います。  
@@ -73,25 +56,17 @@ Flex を有効にするために EC2 インスタンスの `/etc/newrelic-infra/
 
 ※`alert/src/environments/example` にはサンプル設定が入っています。
 
-1. AWS 認証情報ファイルの作成を行います。（作成例）
-    ```bash
-    $ aws configure --profile terraform
-    AWS Access Key ID [None]: ********
-    AWS Secret Access Key [None]: ************************
-    Default region name [None]: ap-northeast-1
-    Default output format [None]: json
-    ```
-2. ディレクトリを移動します。複数環境（STG/PROD）で設定を分ける場合は、それぞれのディレクトリ（staging, production）を使用してください。
+1. ディレクトリを移動します。複数環境（STG/PROD）で設定を分ける場合は、それぞれのディレクトリ（staging, production）を使用してください。
     ```bash
     $ cd alert/src/environments/*****
     ```
-3. `locals.tf` および `env.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
-4. `backend.cfg` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
-5. AWS 認証情報を読み込みます。
+2. `locals.tf` および `env.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
+3. `backend.cfg` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
+4. AWS 認証情報を読み込みます。
     ```bash
     $ export AWS_PROFILE=terraform
     ```
-6. terraform を実行します。
+5. terraform を実行します。
     ```bash
     $ terraform init -backend-config="backend.cfg"
     $ terraform plan
