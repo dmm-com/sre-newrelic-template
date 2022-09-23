@@ -7,6 +7,7 @@
 
 - Alert
 - Dashboard
+- AWS ･･･ NewRelic に関係する AWS リソースの作成を行います
 
 各テンプレートの説明については、各テンプレート内の README.md を参照してください。
 
