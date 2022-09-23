@@ -9,7 +9,7 @@ Terraform による NewRelic への AWS 監視導入のためのテンプレー�
 
 リリースノートについては、[コンフルエンス](https://confl.arms.dmm.com/pages/viewpage.action?pageId=1090676546)を参照してください。
 
-## アラートの説明
+## アラートの種類
 
 本テンプレートで作成可能なアラートは以下の通りです。
 
