@@ -53,7 +53,3 @@ resource "aws_iam_role_policy_attachment" "newrelic" {
   role       = aws_iam_role.newrelic.name
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
-
-output "role_arn" {
-  value = aws_iam_role.newrelic.arn
-}
