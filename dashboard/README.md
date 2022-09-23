@@ -9,7 +9,7 @@ Terraform による NewRelic ダッシュボード導入のためのテンプレ
 
 リリースノートについては、[コンフルエンス](https://confl.arms.dmm.com/pages/viewpage.action?pageId=1100764234)を参照してください。
 
-## ダッシュボードの説明
+## ダッシュボードの種類
 
 本テンプレートで作成可能なダッシュボードは以下の通りです。
 
@@ -17,27 +17,7 @@ Terraform による NewRelic ダッシュボード導入のためのテンプレ
 * core_web_vitals
 * circleci
 
-### aws_newrelic_charge
-
-AWS と NewRelic の料金推移を可視化します。
-
-![aws_newrelic_charge_aws](attached-file/dashboard_aws_newrelic_charge_aws.png)
-
-![aws_newrelic_charge_newrelic](attached-file/dashboard_aws_newrelic_charge_newrelic.png)
-
-### core_web_vitals
-
-Core Web Vitals を可視化します。  
-Core Web Vitals については、https://web.dev/i18n/ja/vitals/ を参照してください。
-
-![core_web_vitals](attached-file/dashboard_core_web_vitals.png)
-
-### circleci
-
-CircleCI の実行状況を可視化します。  
-詳細については、https://newrelic.com/instant-observability/circleci/39109d3d-b1d8-4366-8ca9-b8925005f727 を参照してください。
-
-![circleci](attached-file/dashboard_circleci.png)
+各ダッシュボードの内容については、各モジュールの README.md を参照してください。
 
 ## 事前準備
 
