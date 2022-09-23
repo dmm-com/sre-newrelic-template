@@ -5,8 +5,8 @@
 このリポジトリは、Terraform 実行により NewRelic の各種設定を行うためのテンプレート集です。  
 本リポジトリ内のテンプレートを使用することで、以下の NewRelic 設定を行うことが出来ます。
 
-- Alert
-- Dashboard
+- Alert ･･･ NewRelic Alert の設定を行います
+- Dashboard ･･･ NewRelic Dashboard の作成を行います
 
 各テンプレートの説明については、各テンプレート内の README.md を参照してください。
 
