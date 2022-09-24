@@ -14,7 +14,7 @@ terraform {
 provider "newrelic" {
   region     = "US"
   account_id = local.nr_account_id
-  api_key    = local.nr_license_key
+  api_key    = local.nr_api_key
 }
 
 module "dashboard_aws_newrelic_charge" {
