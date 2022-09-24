@@ -53,7 +53,7 @@ CircleCI の Webhooks 設定を行います。
     ```
 2. `locals.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
 3. `backend.cfg` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
-4. AWS 認証情報の読み込み
+4. AWS 認証情報を読み込みます。
     ```bash
     $ export AWS_PROFILE=terraform
     ```
