@@ -5,12 +5,6 @@ data "aws_iam_account_alias" "current" {}
 # NewRelic AWS インテグレーション用の IAM ロール作成
 # https://docs.newrelic.com/docs/infrastructure/amazon-integrations/connect/connect-aws-new-relic-infrastructure-monitoring/
 #
-resource "aws_iam_role" "newrelic_integration" {
-  name               = "NewRelicInfrastructure-Integrations"
-  description        = "NewRelic AWS Integration"
-  assume_role_policy = data.aws_iam_policy_document.newrelic_integration_assume_policy.json
-}
-
 data "aws_iam_policy_document" "newrelic_integration_assume_policy" {
   statement {
     actions = ["sts:AssumeRole"]
@@ -26,6 +20,12 @@ data "aws_iam_policy_document" "newrelic_integration_assume_policy" {
       values   = ["${var.nr_external_id}"] # NewRelicのExternalId
     }
   }
+}
+
+resource "aws_iam_role" "newrelic_integration" {
+  name               = "NewRelicInfrastructure-Integrations"
+  description        = "NewRelic AWS Integration"
+  assume_role_policy = data.aws_iam_policy_document.newrelic_integration_assume_policy.json
 }
 
 resource "aws_iam_policy" "newrelic_integration_policy" {
