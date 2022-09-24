@@ -1,4 +1,4 @@
-# Terraform template for NewRelic AWS Integration
+# Terraform template for AWS Integration (Metric Streams)
 
 ## このモジュールについて
 
