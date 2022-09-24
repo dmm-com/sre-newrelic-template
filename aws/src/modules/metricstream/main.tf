@@ -57,6 +57,14 @@ resource "aws_iam_role_policy_attachment" "newrelic_integration" {
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
 
+resource "time_sleep" "newrelic_integration_create_role_after_wait_30_seconds" {
+  create_duration = "30s"
+
+  depends_on = [
+    aws_iam_role.newrelic_integration
+  ]
+}
+
 #
 # Firehose ログ出力先の S3 バケット作成
 #
@@ -220,4 +228,8 @@ resource "newrelic_cloud_aws_link_account" "cloudwatch_metric_stream_for_newreli
   name                   = "${data.aws_caller_identity.self.account_id}-${data.aws_iam_account_alias.current.account_alias}"
   arn                    = aws_iam_role.newrelic_integration.arn
   metric_collection_mode = "PUSH"
+
+  depends_on = [
+    time_sleep.newrelic_integration_create_role_after_wait_30_seconds
+  ]
 }
