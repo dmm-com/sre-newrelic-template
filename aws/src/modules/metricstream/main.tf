@@ -5,13 +5,13 @@ data "aws_iam_account_alias" "current" {}
 # NewRelic AWS インテグレーション用の IAM ロール作成
 # https://docs.newrelic.com/docs/infrastructure/amazon-integrations/connect/connect-aws-new-relic-infrastructure-monitoring/
 #
-resource "aws_iam_role" "newrelic" {
+resource "aws_iam_role" "newrelic_integration" {
   name               = "NewRelicInfrastructure-Integrations"
   description        = "NewRelic AWS Integration"
-  assume_role_policy = data.aws_iam_policy_document.assume_policy.json
+  assume_role_policy = data.aws_iam_policy_document.newrelic_integration_assume_policy.json
 }
 
-data "aws_iam_policy_document" "assume_policy" {
+data "aws_iam_policy_document" "newrelic_integration_assume_policy" {
   statement {
     actions = ["sts:AssumeRole"]
 
@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "assume_policy" {
   }
 }
 
-resource "aws_iam_policy" "policy" {
+resource "aws_iam_policy" "newrelic_integration_policy" {
   name        = "NewRelicBudget"
   path        = "/"
   description = "NewRelic Policy"
@@ -47,13 +47,13 @@ resource "aws_iam_policy" "policy" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "billing" {
-  role       = aws_iam_role.newrelic.name
-  policy_arn = aws_iam_policy.policy.arn
+resource "aws_iam_role_policy_attachment" "newrelic_integration_billing" {
+  role       = aws_iam_role.newrelic_integration.name
+  policy_arn = aws_iam_policy.newrelic_integration_policy.arn
 }
 
-resource "aws_iam_role_policy_attachment" "newrelic" {
-  role       = aws_iam_role.newrelic.name
+resource "aws_iam_role_policy_attachment" "newrelic_integration" {
+  role       = aws_iam_role.newrelic_integration.name
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
 
@@ -216,8 +216,8 @@ resource "aws_cloudwatch_metric_stream" "cloudwatch_metric_stream_for_newrelic_a
 #
 # NewRelic と AWS のアカウントリンク設定
 #
-resource "newrelic_cloud_aws_link_account" "foo" {
+resource "newrelic_cloud_aws_link_account" "cloudwatch_metric_stream_for_newrelic" {
   name                   = "${data.aws_caller_identity.self.account_id}-${data.aws_iam_account_alias.current.account_alias}"
-  arn                    = aws_iam_role.newrelic.arn
+  arn                    = aws_iam_role.newrelic_integration.arn
   metric_collection_mode = "PUSH"
 }
