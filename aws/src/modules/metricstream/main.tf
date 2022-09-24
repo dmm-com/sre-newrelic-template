@@ -1,3 +1,6 @@
+data "aws_caller_identity" "self" {}
+data "aws_iam_account_alias" "current" {}
+
 #
 # NewRelic AWS インテグレーション用の IAM ロール作成
 # https://docs.newrelic.com/docs/infrastructure/amazon-integrations/connect/connect-aws-new-relic-infrastructure-monitoring/
@@ -57,8 +60,6 @@ resource "aws_iam_role_policy_attachment" "newrelic" {
 #
 # Firehose ログ出力先の S3 バケット作成
 #
-data "aws_caller_identity" "self" {}
-
 resource "aws_s3_bucket" "newrelic_metric_stream_backup_ap_northeast_1" {
   bucket = "${data.aws_caller_identity.self.account_id}-newrelic-aws-metric-stream-backup-ap-northeast-1"
 }
@@ -210,4 +211,13 @@ resource "aws_cloudwatch_metric_stream" "cloudwatch_metric_stream_for_newrelic_a
   firehose_arn  = aws_kinesis_firehose_delivery_stream.newrelic_metric_stream_ap_northeast_1.arn
   output_format = "opentelemetry0.7"
   role_arn      = aws_iam_role.cloudwatch_metric_stream_for_newrelic.arn
+}
+
+#
+# NewRelic と AWS のアカウントリンク設定
+#
+resource "newrelic_cloud_aws_link_account" "foo" {
+  name                   = "${data.aws_caller_identity.self.account_id}-${data.aws_iam_account_alias.current.account_alias}"
+  arn                    = aws_iam_role.newrelic.arn
+  metric_collection_mode = "PUSH"
 }

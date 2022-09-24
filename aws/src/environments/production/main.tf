@@ -2,6 +2,10 @@ terraform {
   required_version = "~> 1.1.0"
 
   required_providers {
+    newrelic = {
+      source  = "newrelic/newrelic"
+      version = "~> 3.2.0"
+    }
     aws = {
       source  = "hashicorp/aws"
       version = "~> 4.32.0"
@@ -9,6 +13,12 @@ terraform {
   }
 
   backend "s3" {}
+}
+
+provider "newrelic" {
+  region     = "US"
+  account_id = local.nr_account_id
+  api_key    = local.nr_api_key
 }
 
 provider "aws" {
