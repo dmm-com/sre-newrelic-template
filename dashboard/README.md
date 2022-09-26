@@ -9,7 +9,7 @@ Terraform による NewRelic ダッシュボード導入のためのテンプレ
 
 リリースノートについては、[コンフルエンス](https://confl.arms.dmm.com/pages/viewpage.action?pageId=1100764234)を参照してください。
 
-## ダッシュボードの説明
+## ダッシュボードの種類
 
 本テンプレートで作成可能なダッシュボードは以下の通りです。
 
@@ -17,40 +17,9 @@ Terraform による NewRelic ダッシュボード導入のためのテンプレ
 * core_web_vitals
 * circleci
 
-### aws_newrelic_charge
-
-AWS と NewRelic の料金推移を可視化します。
-
-![aws_newrelic_charge_aws](attached-file/dashboard_aws_newrelic_charge_aws.png)
-
-![aws_newrelic_charge_newrelic](attached-file/dashboard_aws_newrelic_charge_newrelic.png)
-
-### core_web_vitals
-
-Core Web Vitals を可視化します。  
-Core Web Vitals については、https://web.dev/i18n/ja/vitals/ を参照してください。
-
-![core_web_vitals](attached-file/dashboard_core_web_vitals.png)
-
-### circleci
-
-CircleCI の実行状況を可視化します。  
-詳細については、https://newrelic.com/instant-observability/circleci/39109d3d-b1d8-4366-8ca9-b8925005f727 を参照してください。
-
-![circleci](attached-file/dashboard_circleci.png)
+各ダッシュボードの内容については、各モジュールの README.md を参照してください。
 
 ## 事前準備
-
-NewRelic アカウントが未取得の場合は、作成申請を行ってください。  
-
-https://confl.arms.dmm.com/pages/viewpage.action?pageId=947665682  
-Q. アカウントの開設／閉鎖をするにはどうしたら良いですか
-
-なお、aws configure で `terraform` というプロファイル名の AWS 認証情報が作成済みであるものとします。  
-※`terraform` は例です。
-
-terraform 実行用の IAM ユーザーが存在しない場合は、【[AWS 認証情報](../alert/README.md#AWS-認証情報)】を参考に IAM ユーザーを作成してください。  
-また、プロファイルが未作成の場合は、【[AWS 認証情報ファイルの作成を行います。](../alert/README.md#使い方)】を参考にプロファイルを作成してください。
 
 ### aws_newrelic_charge
 
@@ -84,7 +53,7 @@ CircleCI の Webhooks 設定を行います。
     ```
 2. `locals.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
 3. `backend.cfg` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
-4. AWS 認証情報の読み込み
+4. AWS 認証情報を読み込みます。
     ```bash
     $ export AWS_PROFILE=terraform
     ```
