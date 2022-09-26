@@ -27,6 +27,10 @@ Terraform による NewRelic への AWS 監視導入のためのテンプレー�
 
 各アラートでの監視内容については、各モジュールの README.md を参照してください。
 
+## 前提条件
+
+* `aws/src/modules/metricstream` の実行が完了し、AWS インテグレーションの設定が終わっているものとします。
+
 ## 事前準備
 
 ### Slack チャンネル
@@ -34,11 +38,6 @@ Terraform による NewRelic への AWS 監視導入のためのテンプレー�
 Slack にアラート通知を行うため、Slack チャンネルの作成と Slack の NewRelic インテグレーションの設定を行います。  
 Slack の NewRelic インテグレーション設定については、以下のドキュメントを参照してください。  
 https://docs.newrelic.com/jp/docs/alerts-applied-intelligence/new-relic-alerts/alert-notifications/notification-channels-control-where-send-alerts/#slack
-
-### Amazon CloudWatch Metric Streams と NewRelic の統合
-
-以下のドキュメントを参照し、AWS インテグレーションの設定を行います。  
-https://newrelic.com/jp/blog/how-to-relic/aws-cloudwatch-metric-streams
 
 ### NewRelic Infrastructure エージェント
 
