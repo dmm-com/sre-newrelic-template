@@ -21,24 +21,7 @@ Terraform による NewRelic ダッシュボード導入のためのテンプレ
 
 ## 事前準備
 
-### aws_newrelic_charge
-
-AWS の料金をクエリするには、AWS polling integrations の設定を行い、Billing を有効にしてください。
-
-https://docs.newrelic.com/jp/docs/infrastructure/amazon-integrations/connect/connect-aws-new-relic-infrastructure-monitoring/
-
-NewRelic の料金をクエリするための事前準備はありません。
-
-### core_web_vitals
-
-Browser が設定されており、`FROM PageViewTiming SELECT count(*)` でクエリ結果が正常に出力されることを確認してください。
-
-https://docs.newrelic.com/jp/docs/browser/browser-monitoring/getting-started/introduction-browser-monitoring/
-
-### circleci
-
-CircleCI の Webhooks 設定を行います。  
-設定方法については、https://docs.newrelic.com/docs/logs/forward-logs/circleci-logs/ を参照してください。
+各ダッシュボードにおける事前準備については、各モジュールの README.md を参照してください。
 
 ## 使い方
 
