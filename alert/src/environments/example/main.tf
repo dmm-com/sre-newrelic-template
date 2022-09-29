@@ -25,6 +25,14 @@ provider "aws" {
   region = local.aws_region
 }
 
+module "alert_destination" {
+  source = "../../modules/destination"
+
+  nr_account_id = local.nr_account_id
+
+  email_notification_destination = local.email_notification_destination
+}
+
 module "alert_policy" {
   source = "../../modules/alert-policy"
 

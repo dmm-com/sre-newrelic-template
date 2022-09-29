@@ -1,5 +1,8 @@
 locals {
   alert_policy_name = "SampleAlert" // アラートポリシー名
+
+  email_notification_destination = "" // 通知先メールアドレス
+
   alert_slack_channel = {
     name    = "SampleAlertSlack" // NewRelicチャンネル設定名
     url     = "" // Slack Webhook URL
