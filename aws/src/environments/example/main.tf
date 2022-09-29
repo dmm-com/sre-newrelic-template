@@ -38,4 +38,6 @@ module "metricstream" {
 
 module "logstream" {
   source = "../../modules/logstream"
+
+  nr_license_key = local.nr_license_key
 }
