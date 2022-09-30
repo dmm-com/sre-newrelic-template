@@ -23,7 +23,7 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_utilization" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：StatusCheckFailed
@@ -52,7 +52,7 @@ resource "newrelic_nrql_alert_condition" "ec2_status_check_failed" {
   open_violation_on_expiration = true
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視イベント：cpuIOWaitPercent
@@ -78,7 +78,7 @@ resource "newrelic_nrql_alert_condition" "ec2_cpu_iowait_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視イベント：totalUtilizationPercent
@@ -110,7 +110,7 @@ resource "newrelic_nrql_alert_condition" "ec2_total_utilization_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視イベント：loadAverageFiveMinute
@@ -136,7 +136,7 @@ resource "newrelic_nrql_alert_condition" "ec2_load_average_five_minute" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視イベント：timeshift
@@ -162,7 +162,7 @@ resource "newrelic_nrql_alert_condition" "ec2_timesync" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視イベント：memoryUsedPercent
@@ -188,7 +188,7 @@ resource "newrelic_nrql_alert_condition" "ec2_memory_used_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視イベント：diskUsedPercent
@@ -214,7 +214,7 @@ resource "newrelic_nrql_alert_condition" "ec2_disk_used_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視イベント：inodesUsedPercent
@@ -240,5 +240,5 @@ resource "newrelic_nrql_alert_condition" "ec2_inodes_used_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }

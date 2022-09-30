@@ -23,7 +23,7 @@ resource "newrelic_nrql_alert_condition" "rds_replica_lag" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：AuroraReplicaLag (Aurora)
@@ -49,7 +49,7 @@ resource "newrelic_nrql_alert_condition" "rds_aurora_replica_lag" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：CPUUtilization (RDS/Aurora)
@@ -75,7 +75,7 @@ resource "newrelic_nrql_alert_condition" "rds_cpu_utilization" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：FreeableMemory (RDS/Aurora)
@@ -101,7 +101,7 @@ resource "newrelic_nrql_alert_condition" "rds_freeable_memory" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：FreeLocalStorage (RDS/Aurora)
@@ -128,7 +128,7 @@ resource "newrelic_nrql_alert_condition" "rds_free_local_storage" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：DatabaseConnections (RDS/Aurora)
@@ -154,7 +154,7 @@ resource "newrelic_nrql_alert_condition" "rds_database_connections" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：BlockedTransactions (Aurora)
@@ -180,7 +180,7 @@ resource "newrelic_nrql_alert_condition" "rds_blocked_transactions" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：Deadlocks (Aurora)
@@ -206,7 +206,7 @@ resource "newrelic_nrql_alert_condition" "rds_deadlocks" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：FreeStorageSpace (RDS)
@@ -232,7 +232,7 @@ resource "newrelic_nrql_alert_condition" "rds_free_storage_space" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：SwapUsage (RDS)
@@ -258,5 +258,5 @@ resource "newrelic_nrql_alert_condition" "rds_swap_usage" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }

@@ -23,7 +23,7 @@ resource "newrelic_nrql_alert_condition" "ecs_cpu_utilization" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：MemoryUtilized, MemoryReserved
@@ -49,7 +49,7 @@ resource "newrelic_nrql_alert_condition" "ecs_memory_used_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：RunningTaskCount, DesiredTaskCount
@@ -75,7 +75,7 @@ resource "newrelic_nrql_alert_condition" "ecs_task_running_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：RunningTaskCount
@@ -101,5 +101,5 @@ resource "newrelic_nrql_alert_condition" "ecs_running_task_count" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
