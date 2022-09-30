@@ -57,7 +57,7 @@ resource "newrelic_nrql_alert_condition" "synthetics_ping_alert" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：SyntheticCheck duration
@@ -85,7 +85,7 @@ resource "newrelic_nrql_alert_condition" "synthetics_browser_alert" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 内容：FAILEDの発生を監視。
@@ -112,7 +112,7 @@ resource "newrelic_nrql_alert_condition" "synthetics_ping_failed_count" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 内容：FAILEDの発生を監視。
@@ -139,5 +139,5 @@ resource "newrelic_nrql_alert_condition" "synthetics_browser_failed_count" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }

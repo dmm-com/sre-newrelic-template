@@ -23,7 +23,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_4xx_error_rate" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：5xxErrorRate
@@ -49,7 +49,7 @@ resource "newrelic_nrql_alert_condition" "cloudfront_5xx_error_rate" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：OriginLatency
@@ -75,5 +75,5 @@ resource "newrelic_nrql_alert_condition" "cloudfront_origin_latency" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }

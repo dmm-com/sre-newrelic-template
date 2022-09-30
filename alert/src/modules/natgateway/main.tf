@@ -23,7 +23,7 @@ resource "newrelic_nrql_alert_condition" "natgateway_packets_drop_count" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：ErrorPortAllocation
@@ -49,5 +49,5 @@ resource "newrelic_nrql_alert_condition" "natgateway_error_port_allocation" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }

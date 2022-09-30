@@ -23,7 +23,7 @@ resource "newrelic_nrql_alert_condition" "elb_http_code_elb_5xx_count" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：RejectedConnectionCount (ALB)
@@ -49,7 +49,7 @@ resource "newrelic_nrql_alert_condition" "elb_rejected_connection_count" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：HTTPCode_Target_5XX_Count (ALB)
@@ -75,7 +75,7 @@ resource "newrelic_nrql_alert_condition" "elb_http_code_target_5xx_count" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：TargetConnectionErrorCount (ALB)
@@ -101,7 +101,7 @@ resource "newrelic_nrql_alert_condition" "elb_target_connection_error_count" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：UnHealthyHostCount (ALB)
@@ -127,7 +127,7 @@ resource "newrelic_nrql_alert_condition" "elb_alb_unhealthy_host_count" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：PortAllocationErrorCount (NLB)
@@ -153,7 +153,7 @@ resource "newrelic_nrql_alert_condition" "elb_port_allocation_error_count" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：UnHealthyHostCount (NLB)
@@ -179,5 +179,5 @@ resource "newrelic_nrql_alert_condition" "elb_nlb_unhealthy_host_count" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
