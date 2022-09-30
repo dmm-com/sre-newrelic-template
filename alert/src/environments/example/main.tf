@@ -28,8 +28,7 @@ provider "aws" {
 module "alert_workflows" {
   source = "../../modules/workflows"
 
-  nr_account_id = local.nr_account_id
-
+  nr_account_id                  = local.nr_account_id
   email_notification_destination = local.email_notification_destination
 }
 
