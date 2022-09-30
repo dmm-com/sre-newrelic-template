@@ -25,8 +25,8 @@ provider "aws" {
   region = local.aws_region
 }
 
-module "alert_destination" {
-  source = "../../modules/destination"
+module "alert_workflows" {
+  source = "../../modules/workflows"
 
   nr_account_id = local.nr_account_id
 
