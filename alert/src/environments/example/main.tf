@@ -43,7 +43,6 @@ module "alert_policy" {
     url     = local.alert_slack_channel.url
     channel = local.alert_slack_channel.channel
   }
-  slack_mention = local.slack_mention
 }
 
 module "alert_apm" {

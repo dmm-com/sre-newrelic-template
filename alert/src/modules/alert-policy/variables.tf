@@ -9,7 +9,3 @@ variable "alert_slack_channel" {
     channel = string
   })
 }
-
-variable "slack_mention" {
-  type = string
-}
