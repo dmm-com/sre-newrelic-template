@@ -5,7 +5,7 @@ locals {
     url     = "" // Slack Webhook URL
     channel = "" // Slackチャンネル名
   }
-  slack_mention = "" // Slack通知時のメンション先
+  slack_mention = "" // Slack通知時のメンション先 e.g. !here , @yamada-taro
 
   apm_app_name_prefix = "[sample]%" // NewRelic APMの監視対象とするappNameの接頭辞
 

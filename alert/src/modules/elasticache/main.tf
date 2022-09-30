@@ -23,7 +23,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_cpu_utilization" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：SwapUsage (Memcached/Redis)
@@ -49,7 +49,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_swap_usage" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：FreeableMemory (Memcached/Redis)
@@ -75,7 +75,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_freeable_memory" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：Evictions (Memcached/Redis)
@@ -102,7 +102,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_evictions" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：CurrConnections (Memcached/Redis)
@@ -129,7 +129,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_currconnections" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：EngineCPUUtilization (Redis)
@@ -155,7 +155,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_engine_cpu_utilizati
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：ReplicationLag (Redis)
@@ -181,7 +181,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_replication_lag" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：DatabaseMemoryUsagePercentage (Redis)
@@ -207,5 +207,5 @@ resource "newrelic_nrql_alert_condition" "elasticache_redis_database_memory_usag
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
