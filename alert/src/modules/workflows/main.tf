@@ -26,6 +26,23 @@ resource "newrelic_notification_channel" "email" {
   }
 }
 
+resource "newrelic_notification_channel" "slack" {
+  account_id = var.nr_account_id
+
+  name = "SlackTo-tsuchinoko"
+  type = "SLACK"
+
+  destination_id = var.slack_destination_id
+
+  product = "IINT"
+
+  property {
+    display_value = var.slack_channel_name
+    key           = "channelId"
+    value         = var.slack_channel_id
+  }
+}
+
 resource "newrelic_workflow" "comprehensive_alerts_to_email" {
   enabled = true
 
@@ -50,5 +67,32 @@ resource "newrelic_workflow" "comprehensive_alerts_to_email" {
 
   destination {
     channel_id = newrelic_notification_channel.email.id
+  }
+}
+
+resource "newrelic_workflow" "comprehensive_alerts_to_slack" {
+  enabled = true
+
+  account_id = var.nr_account_id
+
+  name = "${var.workflow_name}-to-slack"
+
+  muting_rules_handling = "DONT_NOTIFY_FULLY_MUTED_ISSUES"
+
+  issues_filter {
+    name = "labels-policyIds"
+    type = "FILTER"
+
+    predicate {
+      attribute = "labels.policyIds"
+      operator = "EXACTLY_MATCHES"
+      values = [
+        "${var.policy_id}"
+      ]
+    }
+  }
+
+  destination {
+    channel_id = newrelic_notification_channel.slack.id
   }
 }
