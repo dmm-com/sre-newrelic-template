@@ -28,6 +28,9 @@ provider "aws" {
 module "alert_workflows" {
   source = "../../modules/workflows"
 
+  create_email_notification = local.create_email_notification
+  create_slack_notification = local.create_slack_notification
+
   nr_account_id                  = local.nr_account_id
   email_notification_destination = local.email_notification_destination
   slack_destination_id           = local.alert_to_slack.destination_id

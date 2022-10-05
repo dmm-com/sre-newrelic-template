@@ -2,6 +2,14 @@ variable "nr_account_id" {
   type = number
 }
 
+variable "create_email_notification" {
+  type = bool
+}
+
+variable "create_slack_notification" {
+  type = bool
+}
+
 variable "email_notification_destination" {
   type = string
 }

@@ -1,5 +1,7 @@
 # Alert to email
 resource "newrelic_notification_destination" "email" {
+  count = var.create_email_notification ? 1 : 0
+
   account_id = var.nr_account_id
 
   name = var.email_notification_destination
@@ -12,12 +14,14 @@ resource "newrelic_notification_destination" "email" {
 }
 
 resource "newrelic_notification_channel" "email" {
+  count = var.create_email_notification ? 1 : 0
+
   account_id = var.nr_account_id
 
   name = "EmailTo-${var.email_notification_destination}"
   type = "EMAIL"
 
-  destination_id = newrelic_notification_destination.email.id
+  destination_id = newrelic_notification_destination.email[count.index].id
 
   product = "IINT"
 
@@ -28,6 +32,8 @@ resource "newrelic_notification_channel" "email" {
 }
 
 resource "newrelic_workflow" "comprehensive_alerts_to_email" {
+  count = var.create_email_notification ? 1 : 0
+
   enabled = true
 
   account_id = var.nr_account_id
@@ -50,12 +56,14 @@ resource "newrelic_workflow" "comprehensive_alerts_to_email" {
   }
 
   destination {
-    channel_id = newrelic_notification_channel.email.id
+    channel_id = newrelic_notification_channel.email[count.index].id
   }
 }
 
 # Alert to slack
 resource "newrelic_notification_channel" "slack" {
+  count = var.create_slack_notification ? 1 : 0
+
   account_id = var.nr_account_id
 
   name = "SlackTo-tsuchinoko"
@@ -73,6 +81,8 @@ resource "newrelic_notification_channel" "slack" {
 }
 
 resource "newrelic_workflow" "comprehensive_alerts_to_slack" {
+  count = var.create_slack_notification ? 1 : 0
+
   enabled = true
 
   account_id = var.nr_account_id
@@ -95,6 +105,6 @@ resource "newrelic_workflow" "comprehensive_alerts_to_slack" {
   }
 
   destination {
-    channel_id = newrelic_notification_channel.slack.id
+    channel_id = newrelic_notification_channel.slack[count.index].id
   }
 }
