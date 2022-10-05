@@ -1,3 +1,4 @@
+# Alert to email
 resource "newrelic_notification_destination" "email" {
   account_id = var.nr_account_id
 
@@ -26,23 +27,6 @@ resource "newrelic_notification_channel" "email" {
   }
 }
 
-resource "newrelic_notification_channel" "slack" {
-  account_id = var.nr_account_id
-
-  name = "SlackTo-tsuchinoko"
-  type = "SLACK"
-
-  destination_id = var.slack_destination_id
-
-  product = "IINT"
-
-  property {
-    display_value = var.slack_channel_name
-    key           = "channelId"
-    value         = var.slack_channel_id
-  }
-}
-
 resource "newrelic_workflow" "comprehensive_alerts_to_email" {
   enabled = true
 
@@ -67,6 +51,24 @@ resource "newrelic_workflow" "comprehensive_alerts_to_email" {
 
   destination {
     channel_id = newrelic_notification_channel.email.id
+  }
+}
+
+# Alert to slack
+resource "newrelic_notification_channel" "slack" {
+  account_id = var.nr_account_id
+
+  name = "SlackTo-tsuchinoko"
+  type = "SLACK"
+
+  destination_id = var.slack_destination_id
+
+  product = "IINT"
+
+  property {
+    display_value = var.slack_channel_name
+    key           = "channelId"
+    value         = var.slack_channel_id
   }
 }
 
