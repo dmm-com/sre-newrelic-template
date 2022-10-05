@@ -41,11 +41,6 @@ module "alert_policy" {
   source = "../../modules/alert-policy"
 
   alert_policy_name = local.alert_policy_name
-  alert_slack_channel = {
-    name    = local.alert_slack_channel.name
-    url     = local.alert_slack_channel.url
-    channel = local.alert_slack_channel.channel
-  }
 }
 
 module "alert_apm" {
