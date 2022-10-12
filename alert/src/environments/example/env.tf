@@ -4,7 +4,9 @@ locals {
   create_email_notification = "false" // E-Mail通知をするか否か "true" or "false"
   create_slack_notification = "true" // Slack通知をするか否か "true" or "false"
 
-  email_notification_destination = "" // 通知先メールアドレス
+  alert_to_email = {
+    address = "" // 通知先メールアドレス
+  }
 
   alert_to_slack = {
     destination_id = "" // Slack連携後に付与されるdestination id（作成されたSlack設定右側にある三点リーダーからコピー可能）

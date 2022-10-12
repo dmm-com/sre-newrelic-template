@@ -4,12 +4,12 @@ resource "newrelic_notification_destination" "email" {
 
   account_id = var.nr_account_id
 
-  name = var.email_notification_destination
+  name = var.email_destination_address
   type = "EMAIL"
 
   property {
     key   = "email"
-    value = var.email_notification_destination
+    value = var.email_destination_address
   }
 }
 
@@ -18,7 +18,7 @@ resource "newrelic_notification_channel" "email" {
 
   account_id = var.nr_account_id
 
-  name = "EmailTo-${var.email_notification_destination}"
+  name = "EmailTo-${var.email_destination_address}"
   type = "EMAIL"
 
   destination_id = newrelic_notification_destination.email[count.index].id

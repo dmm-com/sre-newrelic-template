@@ -10,7 +10,7 @@ variable "create_slack_notification" {
   type = bool
 }
 
-variable "email_notification_destination" {
+variable "email_destination_address" {
   type = string
 }
 

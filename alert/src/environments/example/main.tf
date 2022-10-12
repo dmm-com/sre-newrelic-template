@@ -31,13 +31,13 @@ module "alert_workflows" {
   create_email_notification = local.create_email_notification
   create_slack_notification = local.create_slack_notification
 
-  nr_account_id                  = local.nr_account_id
-  email_notification_destination = local.email_notification_destination
-  slack_destination_id           = local.alert_to_slack.destination_id
-  slack_channel_name             = local.alert_to_slack.channel_name
-  slack_channel_id               = local.alert_to_slack.channel_id
-  workflow_name                  = module.alert_policy.newrelic_alert_policy_policy_name
-  policy_id                      = module.alert_policy.newrelic_alert_policy_policy_id
+  nr_account_id             = local.nr_account_id
+  email_destination_address = local.alert_to_email.address
+  slack_destination_id      = local.alert_to_slack.destination_id
+  slack_channel_name        = local.alert_to_slack.channel_name
+  slack_channel_id          = local.alert_to_slack.channel_id
+  workflow_name             = module.alert_policy.newrelic_alert_policy_policy_name
+  policy_id                 = module.alert_policy.newrelic_alert_policy_policy_id
 }
 
 module "alert_policy" {
