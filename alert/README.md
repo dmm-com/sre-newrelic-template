@@ -37,7 +37,7 @@ Terraform による NewRelic への AWS 監視導入のためのテンプレー�
 
 Slack にアラート通知を行うため、Slack チャンネルの作成と Slack の NewRelic インテグレーションの設定を行います。  
 Slack の NewRelic インテグレーション設定については、以下のドキュメントを参照してください。  
-https://docs.newrelic.com/jp/docs/alerts-applied-intelligence/new-relic-alerts/alert-notifications/notification-channels-control-where-send-alerts/#slack
+https://docs.newrelic.com/jp/docs/alerts-applied-intelligence/notifications/notification-integrations#slack
 
 ### NewRelic Infrastructure エージェント
 
