@@ -1,10 +1,19 @@
 locals {
   alert_policy_name = "" // アラートポリシー名
-  alert_slack_channel = {
-    name    = "" // NewRelicチャンネル設定名
-    url     = "" // Slack Webhook URL
-    channel = "" // Slackチャンネル名
+
+  create_email_notification = "false" // E-Mail通知をするか否か "true" or "false"
+  create_slack_notification = "true" // Slack通知をするか否か "true" or "false"
+
+  alert_to_email = {
+    address = "" // 通知先メールアドレス
   }
+
+  alert_to_slack = {
+    destination_id = "" // Slack連携後に付与されるdestination id（作成されたSlack設定右側にある三点リーダーから Copy destination id to clipboard でコピー可能）
+    channel_name   = "" // Slackチャンネル名
+    channel_id     = "" // Slack ID
+  }
+
   slack_mention = "" // Slack通知時のメンション先 e.g. !here , @yamada-taro
 
   apm_app_name_prefix = "" // NewRelic APMの監視対象とするappNameの接頭辞
