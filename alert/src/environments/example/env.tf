@@ -9,7 +9,7 @@ locals {
   }
 
   alert_to_slack = {
-    destination_id = "" // Slack連携後に付与されるdestination id（作成されたSlack設定右側にある三点リーダーから Copy destination id to clipboard でコピー可能）
+    destination_id = "" // [Alerts & AI] - [Destinations]にあるSlack連携後に付与されるdestination id（作成されたSlack設定右側にある三点リーダーから Copy destination id to clipboard でコピー可能）
     channel_name   = "" // Slackチャンネル名
     channel_id     = "" // Slack ID
   }
