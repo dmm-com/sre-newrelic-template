@@ -1,7 +1,7 @@
 data "aws_caller_identity" "self" {}
 
 // 監視メトリクス：CPUUtilization (Memcached/Redis)
-// 内容：ホスト全体の CPU 使用率の割合 (%)。
+// 内容：ホスト全体の CPU 使用率の割合 (%)。EngineCPUUtilization と似ているため、詳細は [CPUUtilization](https://docs.aws.amazon.com/ja_jp/AmazonElastiCache/latest/red-ug/CacheMetrics.WhichShouldIMonitor.html#metrics-cpu-utilization) を参照してください。
 //
 resource "newrelic_nrql_alert_condition" "elasticache_cpu_utilization" {
   policy_id = var.policy_id
@@ -133,7 +133,7 @@ resource "newrelic_nrql_alert_condition" "elasticache_currconnections" {
 }
 
 // 監視メトリクス：EngineCPUUtilization (Redis)
-// 内容：Redis エンジンスレッドの CPU 使用率を提供します。
+// 内容：Redis エンジンスレッドの CPU 使用率を提供します。CPUUtilization と似ているため、詳細は [EngineCPUUtilization](https://docs.aws.amazon.com/ja_jp/AmazonElastiCache/latest/red-ug/CacheMetrics.WhichShouldIMonitor.html#metrics-engine-cpu-utilization) を参照してください。
 //
 resource "newrelic_nrql_alert_condition" "elasticache_redis_engine_cpu_utilization" {
   policy_id = var.policy_id
