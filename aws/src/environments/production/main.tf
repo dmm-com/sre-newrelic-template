@@ -49,7 +49,7 @@ module "metricstream_common" {
 module "metricstream_for_tokyo" {
   source = "../../modules/metricstream"
 
-  nr_license_key = var.nr_license_key
+  nr_license_key = local.nr_license_key
 
   aws_iam_role_firehose_cloudwatch_metric_stream_for_newrelic_arn = module.metricstream_common.aws_iam_role_firehose_cloudwatch_metric_stream_for_newrelic_arn
   aws_s3_bucket_newrelic_metric_stream_backup_arn                 = module.metricstream_common.aws_s3_bucket_newrelic_metric_stream_backup_arn
@@ -63,7 +63,7 @@ module "metricstream_for_virginia" {
 
   source = "../../modules/metricstream"
 
-  nr_license_key = var.nr_license_key
+  nr_license_key = local.nr_license_key
 
   aws_iam_role_firehose_cloudwatch_metric_stream_for_newrelic_arn = module.metricstream_common.aws_iam_role_firehose_cloudwatch_metric_stream_for_newrelic_arn
   aws_s3_bucket_newrelic_metric_stream_backup_arn                 = module.metricstream_common.aws_s3_bucket_newrelic_metric_stream_backup_arn
