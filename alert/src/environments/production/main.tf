@@ -22,7 +22,7 @@ provider "newrelic" {
 }
 
 provider "aws" {
-  region = local.aws_region
+  region = "ap-northeast-1"
 }
 
 module "alert_workflows" {

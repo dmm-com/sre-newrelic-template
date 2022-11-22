@@ -14,13 +14,13 @@ Terraform による NewRelic に関係した AWS リソースの作成を行う�
 
 | モジュール名 | 説明 |
 | ---- | ---- |
-| metricstream | NewRelic で AWS インテグレーション設定を行う際に必要なリソースを作成。 |
+| metricstream_common | NewRelic で AWS インテグレーション設定を行う際に必要なリソースを作成。リージョン共通で使用されるリソースがここに含まれる。 |
+| metricstream | NewRelic で AWS インテグレーション設定を行う際に必要なリソースを作成。リージョン単位で使用されるリソースがここに含まれる。 |
 
 ## 使い方
 
-### 手作業
-
-以下は手作業で terraform を実行する際の手順です。
+以下は手作業で terraform を実行する際の手順です。  
+※現状、aws について CI/CD に対応していません。
 
 ※`aws/src/environments/example` にはサンプル設定が入っています。
 
@@ -28,7 +28,7 @@ Terraform による NewRelic に関係した AWS リソースの作成を行う�
     ```bash
     $ cd aws/src/environments/*****
     ```
-2. `locals.tf` および `env.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
+2. `locals.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
 3. `backend.cfg` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
 4. AWS 認証情報を読み込みます。
     ```bash

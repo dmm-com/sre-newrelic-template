@@ -48,7 +48,7 @@ resource "newrelic_workflow" "comprehensive_alerts_to_email" {
 
     predicate {
       attribute = "labels.policyIds"
-      operator = "EXACTLY_MATCHES"
+      operator  = "EXACTLY_MATCHES"
       values = [
         "${var.policy_id}"
       ]
@@ -97,7 +97,7 @@ resource "newrelic_workflow" "comprehensive_alerts_to_slack" {
 
     predicate {
       attribute = "labels.policyIds"
-      operator = "EXACTLY_MATCHES"
+      operator  = "EXACTLY_MATCHES"
       values = [
         "${var.policy_id}"
       ]
