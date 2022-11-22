@@ -34,6 +34,12 @@ provider "aws" {
   alias  = "virginia"
 }
 
+# 他のリージョンにメトリクスストリームを作成する場合は、以下のように該当するリージョンの alias の provider 定義を追加すること。
+# provider "aws" {
+#   region = "us-west-2"
+#   alias  = "oregon"
+# }
+
 module "metricstream_common" {
   providers = {
     aws = aws.virginia
@@ -69,3 +75,18 @@ module "metricstream_for_virginia" {
   aws_s3_bucket_newrelic_metric_stream_backup_arn                 = module.metricstream_common.aws_s3_bucket_newrelic_metric_stream_backup_arn
   aws_iam_role_cloudwatch_metric_stream_for_newrelic_arn          = module.metricstream_common.aws_iam_role_cloudwatch_metric_stream_for_newrelic_arn
 }
+
+# 他のリージョンにメトリクスストリームを作成する場合は、以下のように該当するリージョンの module 定義を追加すること。
+# module "metricstream_for_oregon" {
+#   providers = {
+#     aws = aws.oregon
+#   }
+# 
+#   source = "../../modules/metricstream"
+# 
+#   nr_license_key = local.nr_license_key
+# 
+#   aws_iam_role_firehose_cloudwatch_metric_stream_for_newrelic_arn = module.metricstream_common.aws_iam_role_firehose_cloudwatch_metric_stream_for_newrelic_arn
+#   aws_s3_bucket_newrelic_metric_stream_backup_arn                 = module.metricstream_common.aws_s3_bucket_newrelic_metric_stream_backup_arn
+#   aws_iam_role_cloudwatch_metric_stream_for_newrelic_arn          = module.metricstream_common.aws_iam_role_cloudwatch_metric_stream_for_newrelic_arn
+# }
