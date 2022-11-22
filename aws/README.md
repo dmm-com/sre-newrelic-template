@@ -19,9 +19,8 @@ Terraform による NewRelic に関係した AWS リソースの作成を行う�
 
 ## 使い方
 
-### 手作業
-
-以下は手作業で terraform を実行する際の手順です。
+以下は手作業で terraform を実行する際の手順です。  
+※現状、aws について CI/CD に対応していません。
 
 ※`aws/src/environments/example` にはサンプル設定が入っています。
 
