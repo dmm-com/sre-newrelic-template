@@ -4,7 +4,7 @@ terraform {
       source = "newrelic/newrelic"
     }
     aws = {
-      source  = "hashicorp/aws"
+      source = "hashicorp/aws"
     }
   }
 }
