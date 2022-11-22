@@ -7,6 +7,7 @@ NewRelic でアラートやダッシュボードを作成する際に必須で�
 
 参考：https://newrelic.com/jp/blog/how-to-relic/aws-cloudwatch-metric-streams
 
-## 補足
+なお、このモジュールでは任意のリージョンに以下の AWS リソースを作成します。
 
-- 現状、東京リージョンへのリソース作成のみ対応しています。
+* NewRelic にメトリクスを送信する Firehose 配信ストリーム
+* Firehose にメトリクスを送信する Metric Streams

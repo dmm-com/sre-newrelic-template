@@ -14,7 +14,8 @@ Terraform による NewRelic に関係した AWS リソースの作成を行う�
 
 | モジュール名 | 説明 |
 | ---- | ---- |
-| metricstream | NewRelic で AWS インテグレーション設定を行う際に必要なリソースを作成。 |
+| metricstream_common | NewRelic で AWS インテグレーション設定を行う際に必要なリソースを作成。リージョン共通で使用されるリソースがここに含まれる。 |
+| metricstream | NewRelic で AWS インテグレーション設定を行う際に必要なリソースを作成。リージョン単位で使用されるリソースがここに含まれる。 |
 
 ## 使い方
 
