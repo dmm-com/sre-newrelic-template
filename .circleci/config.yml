@@ -87,190 +87,172 @@ anchors:
 
 jobs:
   # For aws template
-  aws_plan_staging:
+  staging_aws_plan:
     <<: *staging
     <<: *aws_plan
 
-  aws_plan_production:
+  production_aws_plan:
     <<: *production
     <<: *aws_plan
 
-  aws_apply_staging:
+  staging_aws_apply:
     <<: *staging
     <<: *aws_apply
 
-  aws_apply_production:
+  production_aws_apply:
     <<: *production
     <<: *aws_apply
 
-  aws_destroy_staging:
+  staging_aws_destroy:
     <<: *staging
     <<: *aws_destroy
 
-  aws_destroy_production:
+  production_aws_destroy:
     <<: *production
     <<: *aws_destroy
 
   # For alert template
-  alert_plan_staging:
+  staging_alert_plan:
     <<: *staging
     <<: *alert_plan
 
-  alert_plan_production:
+  production_alert_plan:
     <<: *production
     <<: *alert_plan
 
-  alert_apply_staging:
+  staging_alert_apply:
     <<: *staging
     <<: *alert_apply
 
-  alert_apply_production:
+  production_alert_apply:
     <<: *production
     <<: *alert_apply
 
-  alert_destroy_staging:
+  staging_alert_destroy:
     <<: *staging
     <<: *alert_destroy
 
-  alert_destroy_production:
+  production_alert_destroy:
     <<: *production
     <<: *alert_destroy
 
 workflows:
   version: 2
 
-  # For aws template
-  aws_apply_staging:
+  main:
     jobs:
-      - aws_plan_staging:
+      # For aws template
+      - staging_aws_plan:
           context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           filters:
             branches:
               ignore:
                 - main
 
-      - approve:
+      - staging_aws_apply_approve:
           requires:
-            - aws_plan_staging
+            - staging_aws_plan
           type: approval
 
-      - aws_apply_staging:
+      - staging_aws_apply:
           context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
-            - approve
+            - staging_aws_apply_approve
 
-#  aws_destroy_staging:
+#  staging_aws_destroy:
 #    jobs:
 #      - approve:
 #          type: approval
 #
-#      - aws_destroy_staging:
+#      - staging_aws_destroy:
 #          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
 #          requires:
 #            - approve
 
-  aws_plan_production:
-    jobs:
-      - aws_plan_production:
+      - production_aws_plan:
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-          filters:
-            branches:
-              ignore:
-                - main
 
-  aws_apply_production:
-    jobs:
-      - aws_plan_production:
-          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+      - production_aws_apply_approve:
+          requires:
+            - production_aws_plan
+          type: approval
           filters:
             branches:
               only:
                 - main
 
-      - approve:
-          requires:
-            - aws_plan_production
-          type: approval
-
-      - aws_apply_production:
+      - production_aws_apply:
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
-            - approve
+            - production_aws_apply_approve
 
-#  aws_destroy_production:
+#  production_aws_destroy:
 #    jobs:
 #      - approve:
 #          type: approval
 #
-#      - aws_destroy_production:
+#      - production_aws_destroy:
 #          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
 #          requires:
 #            - approve
 
-  # For alert template
-  alert_apply_staging:
-    jobs:
-      - alert_plan_staging:
+      # For alert template
+      - staging_alert_plan:
           context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           filters:
             branches:
               ignore:
                 - main
-
-      - approve:
           requires:
-            - alert_plan_staging
+            - staging_aws_plan
+
+      - staging_alert_apply_approve:
+          requires:
+            - staging_alert_plan
+            - staging_aws_apply
           type: approval
 
-      - alert_apply_staging:
+      - staging_alert_apply:
           context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
-            - approve
+            - staging_alert_apply_approve
 
-#  alert_destroy_staging:
+#  staging_alert_destroy:
 #    jobs:
 #      - approve:
 #          type: approval
 #
-#      - alert_destroy_staging:
+#      - staging_alert_destroy:
 #          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
 #          requires:
 #            - approve
 
-  alert_plan_production:
-    jobs:
-      - alert_plan_production:
+      - production_alert_plan:
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-          filters:
-            branches:
-              ignore:
-                - main
+          requires:
+            - production_aws_plan
 
-  alert_apply_production:
-    jobs:
-      - alert_plan_production:
-          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+      - production_alert_apply_approve:
+          requires:
+            - production_alert_plan
+            - production_aws_apply
+          type: approval
           filters:
             branches:
               only:
                 - main
 
-      - approve:
-          requires:
-            - alert_plan_production
-          type: approval
-
-      - alert_apply_production:
+      - production_alert_apply:
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
-            - approve
+            - production_alert_apply_approve
 
-#  alert_destroy_production:
+#  production_alert_destroy:
 #    jobs:
 #      - approve:
 #          type: approval
 #
-#      - alert_destroy_production:
+#      - production_alert_destroy:
 #          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
 #          requires:
 #            - approve
