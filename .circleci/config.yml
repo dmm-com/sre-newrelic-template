@@ -17,6 +17,41 @@ anchors:
     environment:
       TERRAFORM_TARGET_DIR: production
 
+  # For aws template
+  - &aws_plan
+    steps:
+      - checkout
+      - run:
+          name: fmt
+          command: terraform fmt -recursive ./aws/src
+      - run:
+          name: init
+          command: cd ./aws/src/environments/${TERRAFORM_TARGET_DIR} && terraform init -backend-config="backend.cfg"
+      - run:
+          name: plan
+          command: cd ./aws/src/environments/${TERRAFORM_TARGET_DIR} && terraform plan -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}" -var "nr_license_key=${NEWRELIC_LICENSE_KEY}"
+
+  - &aws_apply
+    steps:
+      - checkout
+      - run:
+          name: init
+          command: cd ./aws/src/environments/${TERRAFORM_TARGET_DIR} && terraform init -backend-config="backend.cfg"
+      - run:
+          name: apply
+          command: cd ./aws/src/environments/${TERRAFORM_TARGET_DIR} && terraform apply -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}" -var "nr_license_key=${NEWRELIC_LICENSE_KEY}"
+
+  - &aws_destroy
+    steps:
+      - checkout
+      - run:
+          name: init
+          command: cd ./aws/src/environments/${TERRAFORM_TARGET_DIR} && terraform init -backend-config="backend.cfg"
+      - run:
+          name: destroy
+          command: cd ./aws/src/environments/${TERRAFORM_TARGET_DIR} && terraform destroy -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}" -var "nr_license_key=${NEWRELIC_LICENSE_KEY}"
+
+  # For alert template
   - &alert_plan
     steps:
       - checkout
@@ -51,6 +86,32 @@ anchors:
           command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform destroy -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
 
 jobs:
+  # For aws template
+  aws_plan_staging:
+    <<: *staging
+    <<: *aws_plan
+
+  aws_plan_production:
+    <<: *production
+    <<: *aws_plan
+
+  aws_apply_staging:
+    <<: *staging
+    <<: *aws_apply
+
+  aws_apply_production:
+    <<: *production
+    <<: *aws_apply
+
+  aws_destroy_staging:
+    <<: *staging
+    <<: *aws_destroy
+
+  aws_destroy_production:
+    <<: *production
+    <<: *aws_destroy
+
+  # For alert template
   alert_plan_staging:
     <<: *staging
     <<: *alert_plan
@@ -78,6 +139,75 @@ jobs:
 workflows:
   version: 2
 
+  # For aws template
+  aws_apply_staging:
+    jobs:
+      - aws_plan_staging:
+          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          filters:
+            branches:
+              ignore:
+                - main
+
+      - approve:
+          requires:
+            - aws_plan_staging
+          type: approval
+
+      - aws_apply_staging:
+          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          requires:
+            - approve
+
+#  aws_destroy_staging:
+#    jobs:
+#      - approve:
+#          type: approval
+#
+#      - aws_destroy_staging:
+#          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+#          requires:
+#            - approve
+
+  aws_plan_production:
+    jobs:
+      - aws_plan_production:
+          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          filters:
+            branches:
+              ignore:
+                - main
+
+  aws_apply_production:
+    jobs:
+      - aws_plan_production:
+          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          filters:
+            branches:
+              only:
+                - main
+
+      - approve:
+          requires:
+            - aws_plan_production
+          type: approval
+
+      - aws_apply_production:
+          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          requires:
+            - approve
+
+#  aws_destroy_production:
+#    jobs:
+#      - approve:
+#          type: approval
+#
+#      - aws_destroy_production:
+#          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+#          requires:
+#            - approve
+
+  # For alert template
   alert_apply_staging:
     jobs:
       - alert_plan_staging:
