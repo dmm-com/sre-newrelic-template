@@ -17,7 +17,7 @@ anchors:
     environment:
       TERRAFORM_TARGET_DIR: production
 
-  - &plan
+  - &alert_plan
     steps:
       - checkout
       - run:
@@ -30,7 +30,7 @@ anchors:
           name: plan
           command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform plan -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
 
-  - &apply
+  - &alert_apply
     steps:
       - checkout
       - run:
@@ -40,7 +40,7 @@ anchors:
           name: apply
           command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform apply -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
 
-  - &destroy
+  - &alert_destroy
     steps:
       - checkout
       - run:
@@ -51,36 +51,36 @@ anchors:
           command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform destroy -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
 
 jobs:
-  plan_staging:
+  alert_plan_staging:
     <<: *staging
-    <<: *plan
+    <<: *alert_plan
 
-  plan_production:
+  alert_plan_production:
     <<: *production
-    <<: *plan
+    <<: *alert_plan
 
-  apply_staging:
+  alert_apply_staging:
     <<: *staging
-    <<: *apply
+    <<: *alert_apply
 
-  apply_production:
+  alert_apply_production:
     <<: *production
-    <<: *apply
+    <<: *alert_apply
 
-  destroy_staging:
+  alert_destroy_staging:
     <<: *staging
-    <<: *destroy
+    <<: *alert_destroy
 
-  destroy_production:
+  alert_destroy_production:
     <<: *production
-    <<: *destroy
+    <<: *alert_destroy
 
 workflows:
   version: 2
 
-  apply_staging:
+  alert_apply_staging:
     jobs:
-      - plan_staging:
+      - alert_plan_staging:
           context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           filters:
             branches:
@@ -89,36 +89,36 @@ workflows:
 
       - approve:
           requires:
-            - plan_staging
+            - alert_plan_staging
           type: approval
 
-      - apply_staging:
+      - alert_apply_staging:
           context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
             - approve
 
-#  destroy_staging:
+#  alert_destroy_staging:
 #    jobs:
 #      - approve:
 #          type: approval
 #
-#      - destroy_staging:
+#      - alert_destroy_staging:
 #          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
 #          requires:
 #            - approve
 
-  plan_production:
+  alert_plan_production:
     jobs:
-      - plan_production:
+      - alert_plan_production:
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           filters:
             branches:
               ignore:
                 - main
 
-  apply_production:
+  alert_apply_production:
     jobs:
-      - plan_production:
+      - alert_plan_production:
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           filters:
             branches:
@@ -127,20 +127,20 @@ workflows:
 
       - approve:
           requires:
-            - plan_production
+            - alert_plan_production
           type: approval
 
-      - apply_production:
+      - alert_apply_production:
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
             - approve
 
-#  destroy_production:
+#  alert_destroy_production:
 #    jobs:
 #      - approve:
 #          type: approval
 #
-#      - destroy_production:
+#      - alert_destroy_production:
 #          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
 #          requires:
 #            - approve
