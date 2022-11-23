@@ -47,6 +47,12 @@ https://docs.newrelic.com/jp/docs/infrastructure/infrastructure-monitoring/get-s
 なお、一部の監視に [New Relic Flex](https://docs.newrelic.com/jp/docs/integrations/host-integrations/host-integrations-list/flex-integration-tool-build-your-own-integration/) を使用しています。  
 Flex を有効にするために EC2 インスタンスの `/etc/newrelic-infra/integrations.d` 配下に [flex-dummy.yml](src/modules/ec2/flex-dummy.yml) をコピーしてください。
 
+### Container Insights
+
+ECS の監視では、Container Insights メトリクスを使用しています。  
+Container Insights が有効になっていない場合は、以下のドキュメントを参考に設定を行ってください。  
+https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/deploy-container-insights-ECS-cluster.html
+
 ## 使い方
 
 ### 手作業
