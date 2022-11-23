@@ -7,11 +7,6 @@ anchors:
     environment:
       AWS_DEFAULT_REGION: ap-northeast-1
 
-  - &staging
-    <<: *defaults
-    environment:
-      TERRAFORM_TARGET_DIR: staging
-
   - &production
     <<: *defaults
     environment:
@@ -67,34 +62,18 @@ anchors:
 
 jobs:
   # For aws template
-  staging_aws_plan:
-    <<: *staging
-    <<: *aws_plan
-
   production_aws_plan:
     <<: *production
     <<: *aws_plan
-
-  staging_aws_apply:
-    <<: *staging
-    <<: *aws_apply
 
   production_aws_apply:
     <<: *production
     <<: *aws_apply
 
   # For alert template
-  staging_alert_plan:
-    <<: *staging
-    <<: *alert_plan
-
   production_alert_plan:
     <<: *production
     <<: *alert_plan
-
-  staging_alert_apply:
-    <<: *staging
-    <<: *alert_apply
 
   production_alert_apply:
     <<: *production
@@ -106,23 +85,6 @@ workflows:
   main:
     jobs:
       # For aws template
-      - staging_aws_plan:
-          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-          filters:
-            branches:
-              ignore:
-                - main
-
-      - staging_aws_apply_approve:
-          requires:
-            - staging_aws_plan
-          type: approval
-
-      - staging_aws_apply:
-          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-          requires:
-            - staging_aws_apply_approve
-
       - production_aws_plan:
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
 
@@ -141,26 +103,6 @@ workflows:
             - production_aws_apply_approve
 
       # For alert template
-      - staging_alert_plan:
-          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-          filters:
-            branches:
-              ignore:
-                - main
-          requires:
-            - staging_aws_plan
-
-      - staging_alert_apply_approve:
-          requires:
-            - staging_alert_plan
-            - staging_aws_apply
-          type: approval
-
-      - staging_alert_apply:
-          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-          requires:
-            - staging_alert_apply_approve
-
       - production_alert_plan:
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
