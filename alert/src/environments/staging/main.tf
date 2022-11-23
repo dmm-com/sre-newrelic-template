@@ -31,7 +31,7 @@ module "alert_workflows" {
   create_email_notification = local.create_email_notification
   create_slack_notification = local.create_slack_notification
 
-  nr_account_id             = local.nr_account_id
+  nr_account_id             = var.nr_account_id
   email_destination_address = local.alert_to_email.address
   slack_destination_id      = local.alert_to_slack.destination_id
   slack_channel_name        = local.alert_to_slack.channel_name
