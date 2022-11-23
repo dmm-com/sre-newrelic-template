@@ -41,16 +41,6 @@ anchors:
           name: apply
           command: cd ./aws/src/environments/${TERRAFORM_TARGET_DIR} && terraform apply -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}" -var "nr_license_key=${NEWRELIC_LICENSE_KEY}"
 
-  - &aws_destroy
-    steps:
-      - checkout
-      - run:
-          name: init
-          command: cd ./aws/src/environments/${TERRAFORM_TARGET_DIR} && terraform init -backend-config="backend.cfg"
-      - run:
-          name: destroy
-          command: cd ./aws/src/environments/${TERRAFORM_TARGET_DIR} && terraform destroy -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}" -var "nr_license_key=${NEWRELIC_LICENSE_KEY}"
-
   # For alert template
   - &alert_plan
     steps:
@@ -75,16 +65,6 @@ anchors:
           name: apply
           command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform apply -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
 
-  - &alert_destroy
-    steps:
-      - checkout
-      - run:
-          name: init
-          command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform init -backend-config="backend.cfg"
-      - run:
-          name: destroy
-          command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform destroy -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
-
 jobs:
   # For aws template
   staging_aws_plan:
@@ -103,14 +83,6 @@ jobs:
     <<: *production
     <<: *aws_apply
 
-  staging_aws_destroy:
-    <<: *staging
-    <<: *aws_destroy
-
-  production_aws_destroy:
-    <<: *production
-    <<: *aws_destroy
-
   # For alert template
   staging_alert_plan:
     <<: *staging
@@ -127,14 +99,6 @@ jobs:
   production_alert_apply:
     <<: *production
     <<: *alert_apply
-
-  staging_alert_destroy:
-    <<: *staging
-    <<: *alert_destroy
-
-  production_alert_destroy:
-    <<: *production
-    <<: *alert_destroy
 
 workflows:
   version: 2
@@ -159,16 +123,6 @@ workflows:
           requires:
             - staging_aws_apply_approve
 
-#  staging_aws_destroy:
-#    jobs:
-#      - approve:
-#          type: approval
-#
-#      - staging_aws_destroy:
-#          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-#          requires:
-#            - approve
-
       - production_aws_plan:
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
 
@@ -185,16 +139,6 @@ workflows:
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
             - production_aws_apply_approve
-
-#  production_aws_destroy:
-#    jobs:
-#      - approve:
-#          type: approval
-#
-#      - production_aws_destroy:
-#          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-#          requires:
-#            - approve
 
       # For alert template
       - staging_alert_plan:
@@ -217,16 +161,6 @@ workflows:
           requires:
             - staging_alert_apply_approve
 
-#  staging_alert_destroy:
-#    jobs:
-#      - approve:
-#          type: approval
-#
-#      - staging_alert_destroy:
-#          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-#          requires:
-#            - approve
-
       - production_alert_plan:
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
@@ -246,13 +180,3 @@ workflows:
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
             - production_alert_apply_approve
-
-#  production_alert_destroy:
-#    jobs:
-#      - approve:
-#          type: approval
-#
-#      - production_alert_destroy:
-#          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-#          requires:
-#            - approve
