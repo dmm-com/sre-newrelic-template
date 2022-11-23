@@ -81,7 +81,7 @@ workflows:
   apply_staging:
     jobs:
       - plan_staging:
-          context: stg-newrelic-template
+          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           filters:
             branches:
               ignore:
@@ -93,7 +93,7 @@ workflows:
           type: approval
 
       - apply_staging:
-          context: stg-newrelic-template
+          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
             - approve
 
@@ -103,14 +103,14 @@ workflows:
 #          type: approval
 #
 #      - destroy_staging:
-#          context: stg-newrelic-template
+#          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
 #          requires:
 #            - approve
 
   plan_production:
     jobs:
       - plan_production:
-          context: prd-newrelic-template
+          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           filters:
             branches:
               ignore:
@@ -119,7 +119,7 @@ workflows:
   apply_production:
     jobs:
       - plan_production:
-          context: prd-newrelic-template
+          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           filters:
             branches:
               only:
@@ -131,7 +131,7 @@ workflows:
           type: approval
 
       - apply_production:
-          context: prd-newrelic-template
+          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
             - approve
 
@@ -141,6 +141,6 @@ workflows:
 #          type: approval
 #
 #      - destroy_production:
-#          context: prd-newrelic-template
+#          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
 #          requires:
 #            - approve

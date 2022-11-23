@@ -75,10 +75,14 @@ Flex を有効にするために EC2 インスタンスの `/etc/newrelic-infra/
 ### CircleCI
 
 alert テンプレートについては、CircleCI での terraform 実行に対応しています。  
-実行の前に以下の内容で Contexts の設定が必要となります。
+事前に以下の内容で Contexts を作成してください。
+```
+Contexts 名は CircleCI の Organization で一意である必要があるため、適宜変更してください。
+ここで作成した Contexts を .circleci/config.yml に設定します。
+```
 
 1. CircleCI の Organization Settings で Contexts を作成します。
-    | Contexts 名 | 説明 |
+    | Contexts 名（例） | 説明 |
     | ---- | ---- |
     | stg-newrelic-template | ステージング環境用の Contexts |
     | prd-newrelic-template | 本番環境用の Contexts |
