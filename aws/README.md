@@ -19,8 +19,9 @@ Terraform による NewRelic に関係した AWS リソースの作成を行う�
 
 ## 使い方
 
-以下は手作業で terraform を実行する際の手順です。  
-※現状、aws について CI/CD に対応していません。
+### 手作業
+
+以下は手作業で terraform を実行する際の手順です。
 
 ※`aws/src/environments/example` にはサンプル設定が入っています。
 
@@ -40,3 +41,28 @@ Terraform による NewRelic に関係した AWS リソースの作成を行う�
     $ terraform plan
     $ terraform apply
     ```
+
+### CircleCI
+
+aws テンプレートについては、CircleCI での terraform 実行に対応しています。  
+事前に以下の内容で Contexts を作成してください。
+```
+Contexts 名は CircleCI の Organization で一意である必要があるため、適宜変更してください。
+ここで作成した Contexts を .circleci/config.yml に設定します。
+```
+
+1. CircleCI の Organization Settings で Contexts を作成します。
+    | Contexts 名（例） | 説明 |
+    | ---- | ---- |
+    | stg-newrelic-template | ステージング環境用の Contexts |
+    | prd-newrelic-template | 本番環境用の Contexts |
+2. 作成した Contexts に以下の環境変数を作成します。
+    | 環境変数名 | 説明 |
+    | ---- | ---- |
+    | AWS_ACCESS_KEY_ID | 操作対象とする AWS アカウントの AWS アクセスキー ID |
+    | AWS_SECRET_ACCESS_KEY | 操作対象とする AWS アカウントの AWS シークレットアクセスキー |
+    | NEWRELIC_ACCOUNT_ID | 操作対象とする NewRelic のアカウント ID |
+    | NEWRELIC_API_KEY | 操作対象とする NewRelic の API キー（Type:USER） |
+    | NEWRELIC_LICENSE_KEY | 操作対象とする NewRelic の API キー（Type:License） |
+
+コード内の各種設定内容については、【[手作業](../aws/README.md#手作業)】を参照してください。
