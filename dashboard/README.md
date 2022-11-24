@@ -25,6 +25,8 @@ Terraform による NewRelic ダッシュボード導入のためのテンプレ
 
 ## 使い方
 
+本テンプレートは staging や production といった区別なく利用するため、実環境への適用時には `dashboard/src/environments/production` を使用してください。
+
 以下は手作業で terraform を実行する際の手順です。  
 ※現状、dashboard について CI/CD に対応していません。
 

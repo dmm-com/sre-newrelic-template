@@ -61,6 +61,9 @@ https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/viewing
 
 ## 使い方
 
+本テンプレートは staging と production でアラート設定を分ける前提としています。  
+実環境への適用時にはそれぞれに対応したディレクトリ `aws/src/environments/{production,staging}` を使用してください。
+
 ### 手作業
 
 以下は手作業で terraform を実行する際の手順です。

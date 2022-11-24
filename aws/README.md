@@ -19,6 +19,9 @@ Terraform による NewRelic に関係した AWS リソースの作成を行う�
 
 ## 使い方
 
+本テンプレートは AWS アカウントを staging と production など環境によるアカウント分離を行っている前提としています。  
+実環境への適用時にはそれぞれに対応したディレクトリ `aws/src/environments/{production,staging}` を使用してください。
+
 ### 手作業
 
 以下は手作業で terraform を実行する際の手順です。
