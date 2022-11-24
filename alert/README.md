@@ -5,10 +5,6 @@
 Terraform による NewRelic への AWS 監視導入のためのテンプレートです。  
 最小限の設定で NewRelic を用いた監視を始めることが出来ます。
 
-## リリースノート
-
-リリースノートについては、[コンフルエンス](https://confl.arms.dmm.com/pages/viewpage.action?pageId=1090676546)を参照してください。
-
 ## アラートの種類
 
 本テンプレートで作成可能なアラートは以下の通りです。
