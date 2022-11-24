@@ -71,7 +71,7 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
     name = "NewRelic"
 
     widget_stacked_bar {
-      title  = "1日あたりのデータ使用量（GB）"
+      title  = "日あたりのデータ使用量（GB）"
       column = 1
       height = 3
       row    = 1
@@ -97,7 +97,7 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
     }
 
     widget_stacked_bar {
-      title  = "1日あたりのデータ使用料金（円）"
+      title  = "日あたりのデータ使用料金（円）"
       column = 1
       height = 3
       row    = 4
@@ -110,7 +110,7 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
     }
 
     widget_stacked_bar {
-      title  = "1日あたりのソース別データ使用量（GB）"
+      title  = "日あたりのソース別データ使用量（GB）"
       column = 7
       height = 3
       row    = 4
