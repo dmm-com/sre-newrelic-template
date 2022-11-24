@@ -105,7 +105,7 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM NrConsumption SELECT sum(GigabytesIngested) * 33 WHERE productLine = 'DataPlatform' TIMESERIES 1 day SINCE 3 months ago"
+        query      = "FROM NrConsumption SELECT sum(GigabytesIngested) * 30.25 WHERE productLine = 'DataPlatform' TIMESERIES 1 day SINCE 3 months ago"
       }
     }
 
