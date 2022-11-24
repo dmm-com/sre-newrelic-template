@@ -10,16 +10,19 @@ Alert テンプレート
 
 - その他
   - Terraform アップデート
+    - 1.1.9 → 1.3.5
 
 AWS テンプレート
 
 - その他
   - Terraform アップデート
+    - 1.1.9 → 1.3.5
 
 Dashboard テンプレート
 
 - その他
   - Terraform アップデート
+    - 1.1.9 → 1.3.5
 
 ### 2022/11/23
 
@@ -34,7 +37,9 @@ Alert テンプレート
 
 - その他
   - Terraform AWS プロバイダのアップデート
+    - 4.32.0 → 4.40.0
   - Terraform NewRelic プロバイダのアップデート
+    - 3.2.0 → 3.7.0
 
 AWS テンプレート
 
@@ -43,13 +48,17 @@ AWS テンプレート
 
 - その他
   - Terraform AWS プロバイダのアップデート
+    - 4.32.0 → 4.40.0
   - Terraform NewRelic プロバイダのアップデート
+    - 3.2.0 → 3.7.0
   - Terraform Time プロバイダのアップデート
+    - 0.8.0 → 0.9.0
 
 Dashboard テンプレート
 
 - その他
   - Terraform NewRelic プロバイダのアップデート
+    - 3.2.0 → 3.7.0
 
 ### 2022/10/12
 
@@ -72,17 +81,21 @@ Alert テンプレート
 
 - その他
   - Terraform AWS プロバイダのアップデート
+    - 4.14.0 → 4.32.0
   - Terraform NewRelic プロバイダのアップデート
+    - 2.45.1 → 3.2.0
 
 AWS テンプレート
 
 - その他
   - Terraform AWS プロバイダのアップデート
+    - 4.14.0 → 4.32.0
 
 Dashboard テンプレート
 
 - その他
   - Terraform NewRelic プロバイダのアップデート
+    - 2.45.1 → 3.2.0
 
 ### 2022/09/23
 
