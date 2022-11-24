@@ -61,6 +61,8 @@ https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/viewing
 
 ## 使い方
 
+NewRelic アカウントでは、基本的に staging や production といった環境によるアカウント分離はないため、実環境への適用時には `alert/src/environments/production` を使用してください。
+
 ### 手作業
 
 以下は手作業で terraform を実行する際の手順です。
@@ -96,7 +98,3 @@ alert テンプレートについては、CircleCI での terraform 実行に対
 * AWS のタグは、NewRelic に反映されるまでタイムラグがあります。30分程度待ってから確認することをおすすめします。
 * 同一の AWS アカウント内に複数のサブシステムがあり監視を切り分けたい場合、EC2 などではタグによるフィルターが可能です。  
   ただし、CloudFront や ElastiCache などではタグ情報が NewRelic に送られないため、タグによるフィルターを行うことが出来ません。
-
-## 補足
-
-* NewRelic アカウントでは、基本的に staging や production といった環境によるアカウント分離はないため、実環境への適用時には `alert/src/environments/production` を使用してください。

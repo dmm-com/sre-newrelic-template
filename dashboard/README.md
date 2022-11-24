@@ -25,6 +25,8 @@ Terraform による NewRelic ダッシュボード導入のためのテンプレ
 
 ## 使い方
 
+NewRelic アカウントでは、基本的に staging や production といった環境によるアカウント分離はないため、実環境への適用時には `dashboard/src/environments/production` を使用してください。
+
 以下は手作業で terraform を実行する際の手順です。  
 ※現状、dashboard について CI/CD に対応していません。
 
@@ -56,7 +58,3 @@ $ terraform state rm module.dashboard_aws_newrelic_charge.newrelic_one_dashboard
 $ terraform state rm module.dashboard_core_web_vitals.newrelic_one_dashboard.core_web_vitals
 $ terraform state rm module.dashboard_circleci.newrelic_one_dashboard.circleci
 ```
-
-## 補足
-
-* NewRelic アカウントでは、基本的に staging や production といった環境によるアカウント分離はないため、実環境への適用時には `dashboard/src/environments/production` を使用してください。

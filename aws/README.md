@@ -19,6 +19,9 @@ Terraform による NewRelic に関係した AWS リソースの作成を行う�
 
 ## 使い方
 
+本テンプレートでは AWS アカウントを staging や production など環境によるアカウント分離を行っている前提としています。  
+実環境への適用時にはそれぞれに対応したディレクトリ `aws/src/environments/{production,staging}` を使用してください。
+
 ### 手作業
 
 以下は手作業で terraform を実行する際の手順です。
@@ -66,7 +69,3 @@ Contexts 名は CircleCI の Organization で一意である必要があるた�
     | NEWRELIC_LICENSE_KEY | 操作対象とする NewRelic の API キー（Type:License） |
 
 コード内の各種設定内容については、【[手作業](../aws/README.md#手作業)】を参照してください。
-
-## 補足
-
-* AWS アカウントを staging や production など環境によるアカウント分離を行っている場合は、実環境への適用時にはそれぞれに対応したディレクトリ `aws/src/environments/{production,staging}` を使用してください。
