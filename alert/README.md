@@ -61,7 +61,8 @@ https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/viewing
 
 ## 使い方
 
-NewRelic アカウントでは、基本的に staging や production といった環境によるアカウント分離はないため、実環境への適用時には `alert/src/environments/production` を使用してください。
+本テンプレートは staging と production でアラート設定を分ける前提としています。  
+実環境への適用時にはそれぞれに対応したディレクトリ `aws/src/environments/{production,staging}` を使用してください。
 
 ### 手作業
 
