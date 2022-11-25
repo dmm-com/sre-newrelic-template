@@ -71,7 +71,7 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
     name = "NewRelic"
 
     widget_stacked_bar {
-      title  = "1日あたりのデータ使用量（GB）"
+      title  = "日あたりのデータ使用量（GB）"
       column = 1
       height = 3
       row    = 1
@@ -97,7 +97,7 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
     }
 
     widget_stacked_bar {
-      title  = "1日あたりのデータ使用料金（円）"
+      title  = "日あたりのデータ使用料金（円）"
       column = 1
       height = 3
       row    = 4
@@ -105,12 +105,12 @@ resource "newrelic_one_dashboard" "aws_newrelic_charge" {
 
       nrql_query {
         account_id = var.nr_account_id
-        query      = "FROM NrConsumption SELECT sum(GigabytesIngested) * 33 WHERE productLine = 'DataPlatform' TIMESERIES 1 day SINCE 3 months ago"
+        query      = "FROM NrConsumption SELECT sum(GigabytesIngested) * 30.25 WHERE productLine = 'DataPlatform' TIMESERIES 1 day SINCE 3 months ago"
       }
     }
 
     widget_stacked_bar {
-      title  = "1日あたりのソース別データ使用量（GB）"
+      title  = "日あたりのソース別データ使用量（GB）"
       column = 7
       height = 3
       row    = 4
