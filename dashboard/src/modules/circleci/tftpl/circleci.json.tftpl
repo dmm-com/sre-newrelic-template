@@ -1,0 +1,321 @@
+{
+  "name": "CircleCI",
+  "description": null,
+  "permissions": "PUBLIC_READ_WRITE",
+  "pages": [
+    {
+      "name": "Top",
+      "description": null,
+      "widgets": [
+        {
+          "title": "Summary",
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.table"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM Log SELECT count(cases(where organization.name = '${circleci_organization_name}' and job.status = 'success')) as 'Success', count(cases(where organization.name = '${circleci_organization_name}' and job.status='failed')) as 'Failed', percentage(count(job.id), WHERE organization.name = '${circleci_organization_name}' and job.status = 'success') as 'Health' Facet project.name as 'Project' since 30 days ago "
+              }
+            ],
+            "platformOptions": {}
+          }
+        },
+        {
+          "title": "Jobs Ran Per Project",
+          "layout": {
+            "column": 5,
+            "row": 1,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.bar"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM Log SELECT Count(job.id) WHERE organization.name = '${circleci_organization_name}' facet project.name as 'Project' since 30 days ago"
+              }
+            ],
+            "platformOptions": {}
+          }
+        },
+        {
+          "title": "Recent Job Duration",
+          "layout": {
+            "column": 9,
+            "row": 1,
+            "width": 4,
+            "height": 5
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.table"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM Log SELECT job.name as 'Job Name', job.started_at as 'Started Time', job.stopped_at as 'Stopped Time', timestamp WHERE organization.name = '${circleci_organization_name}' and job.started_at IS NOT NULL since 3 days ago limit 10"
+              }
+            ],
+            "platformOptions": {}
+          }
+        },
+        {
+          "title": "Total Workflows",
+          "layout": {
+            "column": 1,
+            "row": 4,
+            "width": 1,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM Log SELECT uniqueCount(workflow.id) AS 'Workflows Ran' WHERE organization.name = '${circleci_organization_name}' and type = 'workflow-completed' since 30 days ago"
+              }
+            ],
+            "platformOptions": {}
+          }
+        },
+        {
+          "title": "Workflow Health",
+          "layout": {
+            "column": 2,
+            "row": 4,
+            "width": 3,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.pie"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM Log SELECT uniqueCount(workflow.id) WHERE organization.name = '${circleci_organization_name}' and type = 'workflow-completed' FACET workflow.status since 30 days ago"
+              }
+            ],
+            "platformOptions": {}
+          }
+        },
+        {
+          "title": "Workflows Per Day",
+          "layout": {
+            "column": 5,
+            "row": 4,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.area"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM Log SELECT uniqueCount(workflow.id) WHERE organization.name = '${circleci_organization_name}' and type = 'workflow-completed' FACET project.name TIMESERIES 1 days since 30 days ago"
+              }
+            ],
+            "platformOptions": {}
+          }
+        },
+        {
+          "title": "Daily Performance",
+          "layout": {
+            "column": 9,
+            "row": 6,
+            "width": 4,
+            "height": 4
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM Log SELECT count(job.id) WHERE organization.name = '${circleci_organization_name}' facet job.status TIMESERIES 1 days since 30 days ago"
+              }
+            ],
+            "platformOptions": {}
+          }
+        },
+        {
+          "title": "Total Jobs",
+          "layout": {
+            "column": 1,
+            "row": 7,
+            "width": 1,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM Log SELECT count(job.id) as 'Jobs Ran' WHERE organization.name = '${circleci_organization_name}' since 30 days ago"
+              }
+            ],
+            "platformOptions": {}
+          }
+        },
+        {
+          "title": "Job Health",
+          "layout": {
+            "column": 2,
+            "row": 7,
+            "width": 3,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.pie"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM Log SELECT count(job.id) as 'Jobs' WHERE organization.name = '${circleci_organization_name}' facet job.status since 30 days ago"
+              }
+            ],
+            "platformOptions": {}
+          }
+        },
+        {
+          "title": "Jobs Per Day",
+          "layout": {
+            "column": 5,
+            "row": 7,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.line"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM Log SELECT count(job.id) WHERE organization.name = '${circleci_organization_name}' facet project.name TIMESERIES 1 days since 30 days ago"
+              }
+            ],
+            "platformOptions": {}
+          }
+        },
+        {
+          "title": "10 Most Recent Failed Jobs",
+          "layout": {
+            "column": 1,
+            "row": 10,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.table"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM Log SELECT project.name as 'Project', job.name as 'Job Name',  job.number as 'Job Number', workflow.url as 'Workflow URL',job.status as 'Status', timestamp where organization.name = '${circleci_organization_name}' and job.status ='failed' limit 10 since 30 days ago"
+              }
+            ],
+            "platformOptions": {}
+          }
+        },
+        {
+          "title": "10 Most Recent Failed Workflows",
+          "layout": {
+            "column": 7,
+            "row": 10,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.table"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM Log SELECT project.name as 'Project',workflow.name as 'workflow Name',  workflow.url as 'Workflow URL',workflow.status as 'status',timestamp where organization.name = '${circleci_organization_name}' and workflow.status ='failed' since 30 days ago limit 10"
+              }
+            ],
+            "platformOptions": {}
+          }
+        },
+        {
+          "title": "今週の成功デプロイ総数（先週比較）",
+          "layout": {
+            "column": 1,
+            "row": 13,
+            "width": 2,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.billboard"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM Log SELECT uniqueCount(workflow.id) AS 'Deploys' WHERE organization.name = '${circleci_organization_name}' and workflow.status = 'success' SINCE this week COMPARE WITH 1 week ago"
+              }
+            ],
+            "platformOptions": {}
+          }
+        },
+        {
+          "title": "日毎の成功デプロイ総数",
+          "layout": {
+            "column": 3,
+            "row": 13,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.area"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM Log SELECT uniqueCount(workflow.id) WHERE organization.name = '${circleci_organization_name}' and workflow.status = 'success' TIMESERIES 1 day FACET project.name SINCE 30 days ago"
+              }
+            ],
+            "platformOptions": {}
+          }
+        }
+      ]
+    }
+  ]
+}
