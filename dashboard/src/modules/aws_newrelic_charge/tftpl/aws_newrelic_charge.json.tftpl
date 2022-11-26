@@ -43,7 +43,7 @@
             },
             "nrqlQueries": [
               {
-                "accountId": ${account_id},
+                "accountId": ${nr_account_id},
                 "query": "SELECT round(latest(`provider.estimatedCharges.Maximum`) * ${exchange_rate}) AS '料金（円）' FROM FinanceSample WHERE provider = 'BillingAccountCost' FACET providerAccountName SINCE 1 day ago"
               }
             ],
@@ -67,7 +67,7 @@
           "rawConfiguration": {
             "nrqlQueries": [
               {
-                "accountId": ${account_id},
+                "accountId": ${nr_account_id},
                 "query": "SELECT round(latest(`provider.estimatedCharges.Maximum`) * ${exchange_rate}) FROM FinanceSample WHERE provider = 'BillingServiceCost' FACET `provider.serviceName` SINCE 1 day ago LIMIT 100"
               }
             ]
@@ -88,7 +88,7 @@
           "rawConfiguration": {
             "nrqlQueries": [
               {
-                "accountId": ${account_id},
+                "accountId": ${nr_account_id},
                 "query": "SELECT round(latest(`provider.estimatedCharges.Maximum`) * ${exchange_rate}) FROM FinanceSample WHERE provider = 'BillingAccountCost' FACET providerAccountName TIMESERIES AUTO SINCE 1 month ago"
               }
             ]
@@ -121,7 +121,7 @@
             },
             "nrqlQueries": [
               {
-                "accountId": ${account_id},
+                "accountId": ${nr_account_id},
                 "query": "FROM NrConsumption SELECT sum(GigabytesIngested) WHERE productLine = 'DataPlatform' FACET usageMetric TIMESERIES 1 day SINCE 3 months ago"
               }
             ],
@@ -151,7 +151,7 @@
             },
             "nrqlQueries": [
               {
-                "accountId": ${account_id},
+                "accountId": ${nr_account_id},
                 "query": "FROM NrConsumption SELECT sum(GigabytesIngested) * 30.25 WHERE productLine = 'DataPlatform' FACET usageMetric TIMESERIES 1 day SINCE 3 months ago"
               }
             ],
@@ -181,7 +181,7 @@
             },
             "nrqlQueries": [
               {
-                "accountId": ${account_id},
+                "accountId": ${nr_account_id},
                 "query": "FROM NrConsumption SELECT sum(GigabytesIngested) WHERE productLine = 'DataPlatform' TIMESERIES 1 day SINCE 3 months ago"
               }
             ],
@@ -211,7 +211,7 @@
             },
             "nrqlQueries": [
               {
-                "accountId": ${account_id},
+                "accountId": ${nr_account_id},
                 "query": "FROM NrConsumption SELECT sum(GigabytesIngested) * 30.25 WHERE productLine = 'DataPlatform' TIMESERIES 1 day SINCE 3 months ago"
               }
             ],
@@ -235,7 +235,7 @@
           "rawConfiguration": {
             "nrqlQueries": [
               {
-                "accountId": ${account_id},
+                "accountId": ${nr_account_id},
                 "query": "FROM NrMTDConsumption SELECT latest(GigabytesIngested) WHERE productLine = 'DataPlatform' FACET month TIMESERIES AUTO SINCE 3 months ago"
               }
             ],
@@ -263,7 +263,7 @@
             },
             "nrqlQueries": [
               {
-                "accountId": ${account_id},
+                "accountId": ${nr_account_id},
                 "query": "FROM NrMTDConsumption SELECT latest(GigabytesIngested) * 30.25 WHERE productLine = 'DataPlatform' FACET month TIMESERIES AUTO SINCE 3 months ago"
               }
             ],
