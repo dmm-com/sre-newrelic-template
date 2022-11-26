@@ -8,6 +8,7 @@ locals {
   create_slack_notification = "true" // Slack通知をするか否か "true" or "false"
 
   alert_to_email = {
+    name    = "" // 通知先名
     address = "" // 通知先メールアドレス
   }
 
