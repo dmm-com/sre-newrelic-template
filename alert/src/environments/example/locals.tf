@@ -4,7 +4,7 @@ locals {
 
   alert_policy_name = "SampleAlert" // アラートポリシー名
 
-  create_email_notification = "false" // E-Mail通知をするか否か "true" or "false"
+  create_email_notification = "true" // E-Mail通知をするか否か "true" or "false"
   create_slack_notification = "true" // Slack通知をするか否か "true" or "false"
 
   alert_to_email = {
