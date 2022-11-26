@@ -18,7 +18,7 @@ resource "newrelic_notification_channel" "email" {
 
   account_id = var.nr_account_id
 
-  name = "EmailTo-${var.email_destination_address}"
+  name = var.email_destination_name
   type = "EMAIL"
 
   destination_id = newrelic_notification_destination.email[count.index].id
