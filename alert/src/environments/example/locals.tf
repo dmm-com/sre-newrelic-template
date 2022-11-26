@@ -9,7 +9,7 @@ locals {
 
   alert_to_email = {
     name    = "" // 通知先名
-    address = "" // 通知先メールアドレス
+    address = "" // 通知先メールアドレス（複数指定可 "xxx@dmm.com,yyy@dmm.com,zzz@dmm.com"）
   }
 
   alert_to_slack = {
