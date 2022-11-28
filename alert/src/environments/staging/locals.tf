@@ -1,11 +1,12 @@
 locals {
   alert_policy_name = "" // アラートポリシー名
 
-  create_email_notification = "false" // E-Mail通知をするか否か "true" or "false"
+  create_email_notification = "true" // E-Mail通知をするか否か "true" or "false"
   create_slack_notification = "true" // Slack通知をするか否か "true" or "false"
 
   alert_to_email = {
-    address = "" // 通知先メールアドレス
+    destination_name    = "" // 通知先名
+    destination_address = "" // 通知先メールアドレス（複数指定可 "xxx@dmm.com,yyy@dmm.com,zzz@dmm.com"）
   }
 
   alert_to_slack = {
