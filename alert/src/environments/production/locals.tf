@@ -21,11 +21,11 @@ locals {
 
   newrelic_synthetics_ping = [
     {
-      name                      = "" // Synthetics監視名
-      status                    = "" // 設定の有効／無効
-      uri                       = "" // 監視対象URL
-      validation_string         = "" // 応答で検証する文字列
-      verify_ssl                = true // SSL証明書検証の有無
+      name                      = ""    // Synthetics監視名
+      status                    = ""    // 設定の有効／無効
+      uri                       = ""    // 監視対象URL
+      validation_string         = ""    // 応答で検証する文字列
+      verify_ssl                = true  // SSL証明書検証の有無
       bypass_head_request       = false // HEAD リクエストをスキップしGETリクエストするかどうか
       treat_redirect_as_failure = false // リダイレクトされた場合に監視を失敗とするかどうか
     },
