@@ -1,14 +1,14 @@
 terraform {
-  required_version = "~> 1.1.0"
+  required_version = "~> 1.3.0"
 
   required_providers {
     newrelic = {
       source  = "newrelic/newrelic"
-      version = "~> 3.2.0"
+      version = "~> 3.11.0"
     }
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.32.0"
+      version = "~> 4.48.0"
     }
   }
 
@@ -22,19 +22,29 @@ provider "newrelic" {
 }
 
 provider "aws" {
-  region = local.aws_region
+  region = "ap-northeast-1"
+}
+
+module "alert_workflows" {
+  source = "../../modules/workflows"
+
+  create_email_notification = local.create_email_notification
+  create_slack_notification = local.create_slack_notification
+
+  nr_account_id             = var.nr_account_id
+  email_destination_name    = local.alert_to_email.destination_name
+  email_destination_address = local.alert_to_email.destination_address
+  slack_destination_id      = local.alert_to_slack.destination_id
+  slack_channel_name        = local.alert_to_slack.channel_name
+  slack_channel_id          = local.alert_to_slack.channel_id
+  workflow_name             = module.alert_policy.newrelic_alert_policy_policy_name
+  policy_id                 = module.alert_policy.newrelic_alert_policy_policy_id
 }
 
 module "alert_policy" {
   source = "../../modules/alert-policy"
 
   alert_policy_name = local.alert_policy_name
-  alert_slack_channel = {
-    name    = local.alert_slack_channel.name
-    url     = local.alert_slack_channel.url
-    channel = local.alert_slack_channel.channel
-  }
-  slack_mention = local.slack_mention
 }
 
 module "alert_apm" {

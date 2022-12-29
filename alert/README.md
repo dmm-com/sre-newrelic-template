@@ -5,10 +5,6 @@
 Terraform による NewRelic への AWS 監視導入のためのテンプレートです。  
 最小限の設定で NewRelic を用いた監視を始めることが出来ます。
 
-## リリースノート
-
-リリースノートについては、[コンフルエンス](https://confl.arms.dmm.com/pages/viewpage.action?pageId=1090676546)を参照してください。
-
 ## アラートの種類
 
 本テンプレートで作成可能なアラートは以下の通りです。
@@ -37,7 +33,7 @@ Terraform による NewRelic への AWS 監視導入のためのテンプレー�
 
 Slack にアラート通知を行うため、Slack チャンネルの作成と Slack の NewRelic インテグレーションの設定を行います。  
 Slack の NewRelic インテグレーション設定については、以下のドキュメントを参照してください。  
-https://docs.newrelic.com/jp/docs/alerts-applied-intelligence/new-relic-alerts/alert-notifications/notification-channels-control-where-send-alerts/#slack
+https://docs.newrelic.com/jp/docs/alerts-applied-intelligence/notifications/notification-integrations#slack
 
 ### NewRelic Infrastructure エージェント
 
@@ -47,7 +43,22 @@ https://docs.newrelic.com/jp/docs/infrastructure/infrastructure-monitoring/get-s
 なお、一部の監視に [New Relic Flex](https://docs.newrelic.com/jp/docs/integrations/host-integrations/host-integrations-list/flex-integration-tool-build-your-own-integration/) を使用しています。  
 Flex を有効にするために EC2 インスタンスの `/etc/newrelic-infra/integrations.d` 配下に [flex-dummy.yml](src/modules/ec2/flex-dummy.yml) をコピーしてください。
 
+### ECS Container Insights
+
+ECS の監視では、Container Insights メトリクスを使用しています。  
+Container Insights が有効になっていない場合は、以下のドキュメントを参考に設定を行ってください。  
+https://docs.aws.amazon.com/ja_jp/AmazonCloudWatch/latest/monitoring/deploy-container-insights-ECS-cluster.html
+
+### CloudFront 追加のメトリクス
+
+CloudFront の監視では、追加のメトリクスを使用しています。  
+追加のメトリクスが有効になっていない場合は、以下のドキュメントを参考に設定を行ってください。  
+https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/viewing-cloudfront-metrics.html#monitoring-console.distributions-additional
+
 ## 使い方
+
+本テンプレートは staging と production でアラート設定を分ける前提としています。  
+実環境への適用時にはそれぞれに対応したディレクトリ `aws/src/environments/{production,staging}` を使用してください。
 
 ### 手作業
 
@@ -59,7 +70,7 @@ Flex を有効にするために EC2 インスタンスの `/etc/newrelic-infra/
     ```bash
     $ cd alert/src/environments/*****
     ```
-2. `locals.tf` および `env.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
+2. `locals.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
 3. `backend.cfg` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
 4. AWS 認証情報を読み込みます。
     ```bash
@@ -75,20 +86,7 @@ Flex を有効にするために EC2 インスタンスの `/etc/newrelic-infra/
 ### CircleCI
 
 alert テンプレートについては、CircleCI での terraform 実行に対応しています。  
-実行の前に以下の内容で Contexts の設定が必要となります。
-
-1. CircleCI の Organization Settings で Contexts を作成します。
-    | Contexts 名 | 説明 |
-    | ---- | ---- |
-    | stg-newrelic-template | ステージング環境用の Contexts |
-    | prd-newrelic-template | 本番環境用の Contexts |
-2. 作成した Contexts に以下の環境変数を作成します。
-    | 環境変数名 | 説明 |
-    | ---- | ---- |
-    | AWS_ACCESS_KEY_ID | 操作対象とする AWS アカウントの AWS アクセスキー ID |
-    | AWS_SECRET_ACCESS_KEY | 操作対象とする AWS アカウントの AWS シークレットアクセスキー |
-    | NEWRELIC_ACCOUNT_ID | 操作対象とする NewRelic のアカウント ID |
-    | NEWRELIC_API_KEY | 操作対象とする NewRelic の API キー（Type:USER） |
+ここでは【[aws テンプレート](../aws/README.md#CircleCI)】で Contexts が作成済みであるものとします。
 
 コード内の各種設定内容については、【[手作業](../alert/README.md#手作業)】を参照してください。
 

@@ -3,7 +3,7 @@ version: 2
 anchors:
   - &defaults
     docker:
-      - image: hashicorp/terraform:1.1.9
+      - image: hashicorp/terraform:1.3.6
     environment:
       AWS_DEFAULT_REGION: ap-northeast-1
 
@@ -17,7 +17,32 @@ anchors:
     environment:
       TERRAFORM_TARGET_DIR: production
 
-  - &plan
+  # For aws template
+  - &aws_plan
+    steps:
+      - checkout
+      - run:
+          name: fmt
+          command: terraform fmt -recursive ./aws/src
+      - run:
+          name: init
+          command: cd ./aws/src/environments/${TERRAFORM_TARGET_DIR} && terraform init -backend-config="backend.cfg"
+      - run:
+          name: plan
+          command: cd ./aws/src/environments/${TERRAFORM_TARGET_DIR} && terraform plan -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}" -var "nr_license_key=${NEWRELIC_LICENSE_KEY}"
+
+  - &aws_apply
+    steps:
+      - checkout
+      - run:
+          name: init
+          command: cd ./aws/src/environments/${TERRAFORM_TARGET_DIR} && terraform init -backend-config="backend.cfg"
+      - run:
+          name: apply
+          command: cd ./aws/src/environments/${TERRAFORM_TARGET_DIR} && terraform apply -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}" -var "nr_license_key=${NEWRELIC_LICENSE_KEY}"
+
+  # For alert template
+  - &alert_plan
     steps:
       - checkout
       - run:
@@ -30,7 +55,7 @@ anchors:
           name: plan
           command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform plan -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
 
-  - &apply
+  - &alert_apply
     steps:
       - checkout
       - run:
@@ -40,107 +65,118 @@ anchors:
           name: apply
           command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform apply -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
 
-  - &destroy
-    steps:
-      - checkout
-      - run:
-          name: init
-          command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform init -backend-config="backend.cfg"
-      - run:
-          name: destroy
-          command: cd ./alert/src/environments/${TERRAFORM_TARGET_DIR} && terraform destroy -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
-
 jobs:
-  plan_staging:
+  # For aws template
+  staging_aws_plan:
     <<: *staging
-    <<: *plan
+    <<: *aws_plan
 
-  plan_production:
+  production_aws_plan:
     <<: *production
-    <<: *plan
+    <<: *aws_plan
 
-  apply_staging:
+  staging_aws_apply:
     <<: *staging
-    <<: *apply
+    <<: *aws_apply
 
-  apply_production:
+  production_aws_apply:
     <<: *production
-    <<: *apply
+    <<: *aws_apply
 
-  destroy_staging:
+  # For alert template
+  staging_alert_plan:
     <<: *staging
-    <<: *destroy
+    <<: *alert_plan
 
-  destroy_production:
+  production_alert_plan:
     <<: *production
-    <<: *destroy
+    <<: *alert_plan
+
+  staging_alert_apply:
+    <<: *staging
+    <<: *alert_apply
+
+  production_alert_apply:
+    <<: *production
+    <<: *alert_apply
 
 workflows:
   version: 2
 
-  apply_staging:
+  main:
     jobs:
-      - plan_staging:
-          context: stg-newrelic-template
+      # For aws template
+      - staging_aws_plan:
+          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           filters:
             branches:
               ignore:
                 - main
 
-      - approve:
+      - staging_aws_apply_approve:
           requires:
-            - plan_staging
+            - staging_aws_plan
           type: approval
 
-      - apply_staging:
-          context: stg-newrelic-template
+      - staging_aws_apply:
+          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
-            - approve
+            - staging_aws_apply_approve
 
-#  destroy_staging:
-#    jobs:
-#      - approve:
-#          type: approval
-#
-#      - destroy_staging:
-#          context: stg-newrelic-template
-#          requires:
-#            - approve
+      - production_aws_plan:
+          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
 
-  plan_production:
-    jobs:
-      - plan_production:
-          context: prd-newrelic-template
-          filters:
-            branches:
-              ignore:
-                - main
-
-  apply_production:
-    jobs:
-      - plan_production:
-          context: prd-newrelic-template
+      - production_aws_apply_approve:
+          requires:
+            - production_aws_plan
+          type: approval
           filters:
             branches:
               only:
                 - main
 
-      - approve:
+      - production_aws_apply:
+          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
-            - plan_production
+            - production_aws_apply_approve
+
+      # For alert template
+      - staging_alert_plan:
+          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          filters:
+            branches:
+              ignore:
+                - main
+          requires:
+            - staging_aws_plan
+
+      - staging_alert_apply_approve:
+          requires:
+            - staging_alert_plan
+            - staging_aws_apply
           type: approval
 
-      - apply_production:
-          context: prd-newrelic-template
+      - staging_alert_apply:
+          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
-            - approve
+            - staging_alert_apply_approve
 
-#  destroy_production:
-#    jobs:
-#      - approve:
-#          type: approval
-#
-#      - destroy_production:
-#          context: prd-newrelic-template
-#          requires:
-#            - approve
+      - production_alert_plan:
+          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          requires:
+            - production_aws_plan
+
+      - production_alert_apply_approve:
+          requires:
+            - production_alert_plan
+            - production_aws_apply
+          type: approval
+          filters:
+            branches:
+              only:
+                - main
+
+      - production_alert_apply:
+          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          requires:
+            - production_alert_apply_approve

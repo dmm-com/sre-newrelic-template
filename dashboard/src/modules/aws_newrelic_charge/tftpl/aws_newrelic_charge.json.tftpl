@@ -1,0 +1,278 @@
+{
+  "name": "料金",
+  "description": null,
+  "permissions": "PUBLIC_READ_WRITE",
+  "pages": [
+    {
+      "name": "AWS",
+      "description": null,
+      "widgets": [
+        {
+          "title": "",
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "width": 2,
+            "height": 6
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.markdown"
+          },
+          "rawConfiguration": {
+            "text": "備考\r\n- 日本円への変換は、1ドル${exchange_rate}円換算としています。\r\n- AWS料金は月初のUTC0時にリセットされます。\r\n- AWS料金は割引適用前料金のため、実際の請求金額と異なります。\r\n"
+          }
+        },
+        {
+          "title": "月初から現在までのAWS料金",
+          "layout": {
+            "column": 3,
+            "row": 1,
+            "width": 5,
+            "height": 3
+          },
+          "linkedEntityGuids": [
+            "MzUyMjc1NHxWSVp8REFTSEJPQVJEfDY1ODgyNDM"
+          ],
+          "visualization": {
+            "id": "viz.table"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "SELECT round(latest(`provider.estimatedCharges.Maximum`) * ${exchange_rate}) AS '料金（円）' FROM FinanceSample WHERE provider = 'BillingAccountCost' FACET providerAccountName SINCE 1 day ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "月初から現在までのサービス別AWS料金（円）",
+          "layout": {
+            "column": 8,
+            "row": 1,
+            "width": 5,
+            "height": 6
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.bar"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "SELECT round(latest(`provider.estimatedCharges.Maximum`) * ${exchange_rate}) FROM FinanceSample WHERE provider = 'BillingServiceCost' FACET `provider.serviceName` SINCE 1 day ago LIMIT 100"
+              }
+            ]
+          }
+        },
+        {
+          "title": "AWS料金推移（円）",
+          "layout": {
+            "column": 3,
+            "row": 4,
+            "width": 5,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.area"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "SELECT round(latest(`provider.estimatedCharges.Maximum`) * ${exchange_rate}) FROM FinanceSample WHERE provider = 'BillingAccountCost' FACET providerAccountName TIMESERIES AUTO SINCE 1 month ago"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "NewRelic",
+      "description": null,
+      "widgets": [
+        {
+          "title": "日あたりのソース別データ使用量（GB）",
+          "layout": {
+            "column": 1,
+            "row": 1,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.stacked-bar"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM NrConsumption SELECT sum(GigabytesIngested) WHERE productLine = 'DataPlatform' FACET usageMetric TIMESERIES 1 day SINCE 3 months ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "日あたりのソース別データ使用料金（円）",
+          "layout": {
+            "column": 7,
+            "row": 1,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.stacked-bar"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM NrConsumption SELECT sum(GigabytesIngested) * 30.25 WHERE productLine = 'DataPlatform' FACET usageMetric TIMESERIES 1 day SINCE 3 months ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "日あたりのデータ使用量（GB）",
+          "layout": {
+            "column": 1,
+            "row": 4,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.stacked-bar"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM NrConsumption SELECT sum(GigabytesIngested) WHERE productLine = 'DataPlatform' TIMESERIES 1 day SINCE 3 months ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "日あたりのデータ使用料金（円）",
+          "layout": {
+            "column": 7,
+            "row": 4,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.stacked-bar"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM NrConsumption SELECT sum(GigabytesIngested) * 30.25 WHERE productLine = 'DataPlatform' TIMESERIES 1 day SINCE 3 months ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        },
+        {
+          "title": "月あたりのデータ使用量（GB）",
+          "layout": {
+            "column": 1,
+            "row": 7,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.stacked-bar"
+          },
+          "rawConfiguration": {
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM NrMTDConsumption SELECT latest(GigabytesIngested) WHERE productLine = 'DataPlatform' FACET month TIMESERIES AUTO SINCE 3 months ago"
+              }
+            ],
+            "platformOptions": {}
+          }
+        },
+        {
+          "title": "月あたりのデータ使用料金（円）",
+          "layout": {
+            "column": 7,
+            "row": 7,
+            "width": 6,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "viz.stacked-bar"
+          },
+          "rawConfiguration": {
+            "facet": {
+              "showOtherSeries": false
+            },
+            "legend": {
+              "enabled": true
+            },
+            "nrqlQueries": [
+              {
+                "accountId": ${nr_account_id},
+                "query": "FROM NrMTDConsumption SELECT latest(GigabytesIngested) * 30.25 WHERE productLine = 'DataPlatform' FACET month TIMESERIES AUTO SINCE 3 months ago"
+              }
+            ],
+            "platformOptions": {
+              "ignoreTimeRange": false
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

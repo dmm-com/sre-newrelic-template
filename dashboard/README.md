@@ -5,10 +5,6 @@
 Terraform による NewRelic ダッシュボード導入のためのテンプレートです。  
 最小限の設定で NewRelic ダッシュボードを作成することが出来ます。
 
-## リリースノート
-
-リリースノートについては、[コンフルエンス](https://confl.arms.dmm.com/pages/viewpage.action?pageId=1100764234)を参照してください。
-
 ## ダッシュボードの種類
 
 本テンプレートで作成可能なダッシュボードは以下の通りです。
@@ -24,6 +20,8 @@ Terraform による NewRelic ダッシュボード導入のためのテンプレ
 各ダッシュボードにおける事前準備については、各モジュールの README.md を参照してください。
 
 ## 使い方
+
+本テンプレートは staging や production といった区別なく利用するため、実環境への適用時には `dashboard/src/environments/production` を使用してください。
 
 以下は手作業で terraform を実行する際の手順です。  
 ※現状、dashboard について CI/CD に対応していません。

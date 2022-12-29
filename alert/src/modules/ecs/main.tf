@@ -23,7 +23,7 @@ resource "newrelic_nrql_alert_condition" "ecs_cpu_utilization" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：MemoryUtilized, MemoryReserved
@@ -49,7 +49,33 @@ resource "newrelic_nrql_alert_condition" "ecs_memory_used_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
+}
+
+// 監視メトリクス：EphemeralStorageUtilized, EphemeralStorageReserved
+// 内容：ディスク使用率を算出。
+//
+resource "newrelic_nrql_alert_condition" "ecs_disk_used_percent" {
+  policy_id = var.policy_id
+  name      = "[ECS] ディスク使用率監視"
+  type      = "static"
+
+  aggregation_window = "60"
+  aggregation_method = "event_flow"
+  aggregation_delay  = "120"
+
+  nrql {
+    query = "SELECT average(aws.ecs.containerinsights.EphemeralStorageUtilized) / average(aws.ecs.containerinsights.EphemeralStorageReserved) * 100 FROM Metric WHERE aws.accountId IN (${data.aws_caller_identity.self.account_id}) FACET aws.ecs.containerinsights.ClusterName, aws.ecs.containerinsights.ServiceName"
+  }
+  critical {
+    operator              = "above"
+    threshold             = 90
+    threshold_duration    = 60
+    threshold_occurrences = "ALL"
+  }
+
+  violation_time_limit_seconds = 3600
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：RunningTaskCount, DesiredTaskCount
@@ -75,7 +101,7 @@ resource "newrelic_nrql_alert_condition" "ecs_task_running_percent" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }
 
 // 監視メトリクス：RunningTaskCount
@@ -101,5 +127,5 @@ resource "newrelic_nrql_alert_condition" "ecs_running_task_count" {
   }
 
   violation_time_limit_seconds = 3600
-  description                  = "Attention <@${var.slack_mention}>"
+  description                  = "Attention <${var.slack_mention}>"
 }

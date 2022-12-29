@@ -1,10 +1,10 @@
 terraform {
-  required_version = "~> 1.1.0"
+  required_version = "~> 1.3.0"
 
   required_providers {
     newrelic = {
       source  = "newrelic/newrelic"
-      version = "~> 3.2.0"
+      version = "~> 3.11.0"
     }
   }
 
@@ -20,7 +20,7 @@ provider "newrelic" {
 module "dashboard_aws_newrelic_charge" {
   source = "../../modules/aws_newrelic_charge"
 
-  nr_account_id  = local.nr_account_id
+  nr_account_id = local.nr_account_id
 
   exchange_rate = local.exchange_rate
 }
@@ -28,7 +28,7 @@ module "dashboard_aws_newrelic_charge" {
 module "dashboard_core_web_vitals" {
   source = "../../modules/core_web_vitals"
 
-  nr_account_id  = local.nr_account_id
+  nr_account_id = local.nr_account_id
 
   core_web_vitals_domain_name = local.core_web_vitals_domain_name
 }
@@ -36,7 +36,7 @@ module "dashboard_core_web_vitals" {
 module "dashboard_circleci" {
   source = "../../modules/circleci"
 
-  nr_account_id  = local.nr_account_id
+  nr_account_id = local.nr_account_id
 
   circleci_organization_name = local.circleci_organization_name
 }

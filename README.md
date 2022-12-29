@@ -72,7 +72,7 @@ tfstate 管理用の S3 バケットが存在することを確認してくだ�
       --create-bucket-configuration LocationConstraint=ap-northeast-1 \
       --bucket ${BUCKET_NAME}
     ```
-4. ブリックアクセスブロック
+4. パブリックアクセスブロック
     ```bash
     $ aws s3api put-public-access-block \
       --bucket ${BUCKET_NAME} \
