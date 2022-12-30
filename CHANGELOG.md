@@ -4,14 +4,14 @@
 
 ## Released
 
-### 2022/11/29
+### 2022/12/29
 
 全体
 
 - terraform fmt 時のエラー修正
   - https://git.dmm.com/sre-team/newrelic-template/issues/49
 
-### 2022/11/28
+### 2022/12/28
 
 全体
 
