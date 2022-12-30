@@ -6,6 +6,25 @@
 
 ### 2022/11/29
 
+全体
+
+- terraform fmt 時のエラー修正
+  - https://git.dmm.com/sre-team/newrelic-template/issues/49
+
+### 2022/11/28
+
+全体
+
+- その他
+  - Terraform アップデート
+    - 1.3.5 → 1.3.6
+  - Terraform AWS プロバイダのアップデート
+    - 4.40.0 → 4.48.0
+  - Terraform NewRelic プロバイダのアップデート
+    - 3.7.0 → 3.11.0
+
+### 2022/11/29
+
 Alert テンプレート
 
 - 新機能
