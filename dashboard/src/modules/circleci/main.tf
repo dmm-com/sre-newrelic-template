@@ -6,3 +6,12 @@ resource "newrelic_one_dashboard_json" "circleci" {
     circleci_organization_name = var.circleci_organization_name,
   })
 }
+
+resource "newrelic_entity_tags" "circleci" {
+  guid = newrelic_one_dashboard_json.circleci.guid
+
+  tag {
+    key    = "terraform"
+    values = [true]
+  }
+}

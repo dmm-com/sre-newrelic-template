@@ -6,3 +6,12 @@ resource "newrelic_one_dashboard_json" "core_web_vitals" {
     core_web_vitals_domain_name = var.core_web_vitals_domain_name,
   })
 }
+
+resource "newrelic_entity_tags" "core_web_vitals" {
+  guid = newrelic_one_dashboard_json.core_web_vitals.guid
+
+  tag {
+    key    = "terraform"
+    values = [true]
+  }
+}
