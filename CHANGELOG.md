@@ -16,6 +16,12 @@
   - Terraform NewRelic プロバイダのアップデート
     - 3.11.0 → 3.16.0
 
+Dashboard テンプレート
+
+- その他
+  - Terraform 管理であることを意味するタグを追加
+    - https://git.dmm.com/sre-team/newrelic-template/issues/55
+
 ### 2022/12/29
 
 全体
