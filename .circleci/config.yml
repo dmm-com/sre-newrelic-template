@@ -18,7 +18,7 @@ jobs:
       - checkout
       - run:
           name: fmt
-          command: terraform fmt -recursive ./aws/src
+          command: terraform fmt -recursive -check ./aws/src
       - run:
           name: init
           command: cd ./aws/src/environments/<< parameters.env >> && terraform init -backend-config="backend.cfg"
@@ -50,7 +50,7 @@ jobs:
       - checkout
       - run:
           name: fmt
-          command: terraform fmt -recursive ./alert/src
+          command: terraform fmt -recursive -check ./alert/src
       - run:
           name: init
           command: cd ./alert/src/environments/<< parameters.env >> && terraform init -backend-config="backend.cfg"
