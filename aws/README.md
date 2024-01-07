@@ -15,31 +15,48 @@ Terraform による NewRelic に関係した AWS リソースの作成を行う�
 
 ## 使い方
 
-本テンプレートは AWS アカウントを staging と production など環境によるアカウント分離を行っている前提としています。  
-実環境への適用時にはそれぞれに対応したディレクトリ `aws/src/environments/{production,staging}` を使用してください。
+本テンプレートは AWS アカウントを development, staging, production といった環境でアカウント分離を行っていることを前提としています。  
+テンプレートで用意している環境は development のみですが、必要に応じてその他環境用のディレクトリを development ディレクトリを元に  `aws/src/environments/` 配下に作成してください。
 
 ### 手作業
 
 以下は手作業で terraform を実行する際の手順です。
 
-※`aws/src/environments/example` にはサンプル設定が入っています。
+#### development 環境の場合
 
-1. ディレクトリを移動します。複数環境（STG/PROD）で設定を分ける場合は、それぞれのディレクトリ（staging, production）を使用してください。
+ここでは development 環境を例とした手順を記載しています。
+
+1. ディレクトリを移動します。他の環境にデプロイする場合は、それぞれのディレクトリ（staging, production）として読み替えてください。
     ```bash
-    $ cd aws/src/environments/*****
+    $ cd aws/src/environments/development
     ```
-2. `locals.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
-3. `backend.cfg` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
-4. AWS 認証情報を読み込みます。
+2. カレントディレクトリ配下に `terraform.tfvars` ファイルを作成します。
+3. 必要となる変数を `terraform.tfvars` に定義します。
+    ```bash
+    nr_account_id  = 1234567                                    # NewRelicアカウントID, 数値型
+    nr_api_key     = "NRAK-XXXXXXXXXXXXXXXXXXXXXXXXXXX"         # Type:USERのAPIキー
+    nr_license_key = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXFFFFNRAL" # Type:Licenseキー
+    ```
+4. `backend.cfg` 内の `bucket` 変数を設定します。設定内容についてはファイル内のコメントを参照してください。
+5. AWS 認証情報を読み込みます。
     ```bash
     $ export AWS_PROFILE=terraform
     ```
-5. terraform を実行します。
+6. terraform を実行します。
     ```bash
     $ terraform init -backend-config="backend.cfg"
-    $ terraform plan
-    $ terraform apply
+    $ terraform plan -var-file="terraform.tfvars"
+    $ terraform apply -var-file="terraform.tfvars"
     ```
+
+#### その他環境の場合
+
+ここではその他の環境を例とした手順を記載しています。  
+基本的に development 環境での手順と同じですが、以下のように一部変更が必要です。
+
+1. `aws/src/environments/` 配下にデプロイする対象の環境用ディレクトリを作成します。
+2. 作成した環境用ディレクトリ配下に `terraform.tfvars` ファイルを作成します。
+3. `backend.cfg` 内の `bucket` 変数を設定します。設定内容についてはファイル内のコメントを参照してください。
 
 ### CircleCI
 
