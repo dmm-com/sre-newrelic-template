@@ -77,6 +77,28 @@ workflows:
     jobs:
       # For aws template
       - aws_plan:
+          name: development_aws_plan
+          env: development
+          context: dev-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          filters:
+            branches:
+              ignore:
+                - main
+
+      - aws_apply_approve:
+          name: development_aws_apply_approve
+          requires:
+            - development_aws_plan
+          type: approval
+
+      - aws_apply:
+          name: development_aws_apply
+          env: development
+          context: dev-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          requires:
+            - development_aws_apply_approve
+
+      - aws_plan:
           name: staging_aws_plan
           env: staging
           context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
@@ -119,6 +141,32 @@ workflows:
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
             - production_aws_apply_approve
+
+      # For alert template
+      - alert_plan:
+          name: development_alert_plan
+          env: development
+          context: dev-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          filters:
+            branches:
+              ignore:
+                - main
+          requires:
+            - development_aws_plan
+
+      - alert_apply_approve:
+          name: development_alert_apply_approve
+          requires:
+            - development_aws_apply
+            - development_alert_plan
+          type: approval
+
+      - alert_apply:
+          name: development_alert_apply
+          env: development
+          context: dev-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          requires:
+            - development_alert_apply_approve
 
       # For alert template
       - alert_plan:
