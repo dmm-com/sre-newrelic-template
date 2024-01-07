@@ -25,7 +25,6 @@ jobs:
       - run:
           name: plan
           command: cd ./aws/src/environments/<< parameters.env >> && terraform plan -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}" -var "nr_license_key=${NEWRELIC_LICENSE_KEY}"
-
   aws_apply:
     executor: newrelic_template
     parameters:
@@ -57,7 +56,6 @@ jobs:
       - run:
           name: plan
           command: cd ./alert/src/environments/<< parameters.env >> && terraform plan -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
-
   alert_apply:
     executor: newrelic_template
     parameters:
@@ -76,6 +74,7 @@ workflows:
   main:
     jobs:
       # For aws template
+      ## development
       - aws_plan:
           name: development_aws_plan
           env: development
@@ -84,13 +83,11 @@ workflows:
             branches:
               ignore:
                 - main
-
       - aws_apply_approve:
           name: development_aws_apply_approve
           requires:
             - development_aws_plan
           type: approval
-
       - aws_apply:
           name: development_aws_apply
           env: development
@@ -98,6 +95,7 @@ workflows:
           requires:
             - development_aws_apply_approve
 
+      ## staging
       - aws_plan:
           name: staging_aws_plan
           env: staging
@@ -106,13 +104,11 @@ workflows:
             branches:
               ignore:
                 - main
-
       - aws_apply_approve:
           name: staging_aws_apply_approve
           requires:
             - staging_aws_plan
           type: approval
-
       - aws_apply:
           name: staging_aws_apply
           env: staging
@@ -120,11 +116,11 @@ workflows:
           requires:
             - staging_aws_apply_approve
 
+      ## production
       - aws_plan:
           name: production_aws_plan
           env: production
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-
       - aws_apply_approve:
           name: production_aws_apply_approve
           requires:
@@ -134,7 +130,6 @@ workflows:
             branches:
               only:
                 - main
-
       - aws_apply:
           name: production_aws_apply
           env: production
@@ -143,6 +138,7 @@ workflows:
             - production_aws_apply_approve
 
       # For alert template
+      ## development
       - alert_plan:
           name: development_alert_plan
           env: development
@@ -153,14 +149,12 @@ workflows:
                 - main
           requires:
             - development_aws_plan
-
       - alert_apply_approve:
           name: development_alert_apply_approve
           requires:
             - development_aws_apply
             - development_alert_plan
           type: approval
-
       - alert_apply:
           name: development_alert_apply
           env: development
@@ -169,6 +163,7 @@ workflows:
             - development_alert_apply_approve
 
       # For alert template
+      ## staging
       - alert_plan:
           name: staging_alert_plan
           env: staging
@@ -179,14 +174,12 @@ workflows:
                 - main
           requires:
             - staging_aws_plan
-
       - alert_apply_approve:
           name: staging_alert_apply_approve
           requires:
             - staging_aws_apply
             - staging_alert_plan
           type: approval
-
       - alert_apply:
           name: staging_alert_apply
           env: staging
@@ -194,13 +187,13 @@ workflows:
           requires:
             - staging_alert_apply_approve
 
+      ## production
       - alert_plan:
           name: production_alert_plan
           env: production
           context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
             - production_aws_plan
-
       - alert_apply_approve:
           name: production_alert_apply_approve
           requires:
@@ -211,7 +204,6 @@ workflows:
             branches:
               only:
                 - main
-
       - alert_apply:
           name: production_alert_apply
           env: production
