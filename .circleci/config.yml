@@ -96,46 +96,46 @@ workflows:
             - development_aws_apply_approve
 
       ## staging
-      - aws_plan:
-          name: staging_aws_plan
-          env: staging
-          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-          filters:
-            branches:
-              ignore:
-                - main
-      - aws_apply_approve:
-          name: staging_aws_apply_approve
-          requires:
-            - staging_aws_plan
-          type: approval
-      - aws_apply:
-          name: staging_aws_apply
-          env: staging
-          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-          requires:
-            - staging_aws_apply_approve
+      #- aws_plan:
+      #    name: staging_aws_plan
+      #    env: staging
+      #    context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+      #    filters:
+      #      branches:
+      #        ignore:
+      #          - main
+      #- aws_apply_approve:
+      #    name: staging_aws_apply_approve
+      #    requires:
+      #      - staging_aws_plan
+      #    type: approval
+      #- aws_apply:
+      #    name: staging_aws_apply
+      #    env: staging
+      #    context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+      #    requires:
+      #      - staging_aws_apply_approve
 
       ## production
-      - aws_plan:
-          name: production_aws_plan
-          env: production
-          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-      - aws_apply_approve:
-          name: production_aws_apply_approve
-          requires:
-            - production_aws_plan
-          type: approval
-          filters:
-            branches:
-              only:
-                - main
-      - aws_apply:
-          name: production_aws_apply
-          env: production
-          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-          requires:
-            - production_aws_apply_approve
+      #- aws_plan:
+      #    name: production_aws_plan
+      #    env: production
+      #    context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+      #- aws_apply_approve:
+      #    name: production_aws_apply_approve
+      #    requires:
+      #      - production_aws_plan
+      #    type: approval
+      #    filters:
+      #      branches:
+      #        only:
+      #          - main
+      #- aws_apply:
+      #    name: production_aws_apply
+      #    env: production
+      #    context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+      #    requires:
+      #      - production_aws_apply_approve
 
       # For alert template
       ## development
@@ -164,49 +164,49 @@ workflows:
 
       # For alert template
       ## staging
-      - alert_plan:
-          name: staging_alert_plan
-          env: staging
-          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-          filters:
-            branches:
-              ignore:
-                - main
-          requires:
-            - staging_aws_plan
-      - alert_apply_approve:
-          name: staging_alert_apply_approve
-          requires:
-            - staging_aws_apply
-            - staging_alert_plan
-          type: approval
-      - alert_apply:
-          name: staging_alert_apply
-          env: staging
-          context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-          requires:
-            - staging_alert_apply_approve
+      #- alert_plan:
+      #    name: staging_alert_plan
+      #    env: staging
+      #    context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+      #    filters:
+      #      branches:
+      #        ignore:
+      #          - main
+      #    requires:
+      #      - staging_aws_plan
+      #- alert_apply_approve:
+      #    name: staging_alert_apply_approve
+      #    requires:
+      #      - staging_aws_apply
+      #      - staging_alert_plan
+      #    type: approval
+      #- alert_apply:
+      #    name: staging_alert_apply
+      #    env: staging
+      #    context: stg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+      #    requires:
+      #      - staging_alert_apply_approve
 
       ## production
-      - alert_plan:
-          name: production_alert_plan
-          env: production
-          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-          requires:
-            - production_aws_plan
-      - alert_apply_approve:
-          name: production_alert_apply_approve
-          requires:
-            - production_aws_apply
-            - production_alert_plan
-          type: approval
-          filters:
-            branches:
-              only:
-                - main
-      - alert_apply:
-          name: production_alert_apply
-          env: production
-          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
-          requires:
-            - production_alert_apply_approve
+      #- alert_plan:
+      #    name: production_alert_plan
+      #    env: production
+      #    context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+      #    requires:
+      #      - production_aws_plan
+      #- alert_apply_approve:
+      #    name: production_alert_apply_approve
+      #    requires:
+      #      - production_aws_apply
+      #      - production_alert_plan
+      #    type: approval
+      #    filters:
+      #      branches:
+      #        only:
+      #          - main
+      #- alert_apply:
+      #    name: production_alert_apply
+      #    env: production
+      #    context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+      #    requires:
+      #      - production_alert_apply_approve
