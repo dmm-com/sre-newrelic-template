@@ -17,42 +17,29 @@ locals {
 
   slack_mention = "" // Slack通知時のメンション先 e.g. !here , @yamada-taro
 
-  apm_app_name_prefix = "" // NewRelic APMの監視対象とするappNameの接頭辞
+  # 以下はサンプル設定です。適宜修正してください。
+  apm_app_name_prefix = "[sample]%" // NewRelic APMの監視対象とするappNameの接頭辞
 
+  # 以下はサンプル設定です。適宜修正してください。
   newrelic_synthetics_ping = [
     {
-      name                      = ""    // Synthetics監視名
-      status                    = ""    // 設定の有効／無効
-      uri                       = ""    // 監視対象URL
-      validation_string         = ""    // 応答で検証する文字列
-      verify_ssl                = true  // SSL証明書検証の有無
-      bypass_head_request       = false // HEAD リクエストをスキップしGETリクエストするかどうか
-      treat_redirect_as_failure = false // リダイレクトされた場合に監視を失敗とするかどうか
-    },
-    {
-      name                      = ""
-      status                    = ""
-      uri                       = ""
-      validation_string         = ""
-      verify_ssl                = true
-      bypass_head_request       = false
-      treat_redirect_as_failure = false
+      name                      = "[DMM] TopPage (Ping)" // Synthetics監視名
+      status                    = "ENABLED"              // 設定の有効／無効
+      uri                       = "https://www.dmm.com/" // 監視対象URL
+      validation_string         = ""                     // 応答で検証する文字列
+      verify_ssl                = true                   // SSL証明書検証の有無
+      bypass_head_request       = false                  // HEAD リクエストをスキップしGETリクエストするかどうか
+      treat_redirect_as_failure = false                  // リダイレクトされた場合に監視を失敗とするかどうか
     }
   ]
 
+  # 以下はサンプル設定です。適宜修正してください。
   newrelic_synthetics_browser = [
     {
-      name              = ""
-      status            = ""
-      uri               = ""
-      validation_string = ""
-      verify_ssl        = true
-    },
-    {
-      name              = ""
-      status            = ""
-      uri               = ""
-      validation_string = ""
+      name              = "[DMM] TopPage (Simple Browser)"
+      status            = "ENABLED"
+      uri               = "https://www.dmm.com/"
+      validation_string = "電子書籍"
       verify_ssl        = true
     }
   ]
