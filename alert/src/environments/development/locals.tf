@@ -1,12 +1,12 @@
 locals {
-  alert_policy_name = "" // アラートポリシー名
+  alert_policy_name = "" // アラートポリシー名 e.g. SampleAlert
 
-  create_email_notification = "true" // E-Mail通知をするか否か "true" or "false"
-  create_slack_notification = "true" // Slack通知をするか否か "true" or "false"
+  create_email_notification = "" // E-Mail通知をするか否か "true" or "false" e.g. false
+  create_slack_notification = "" // Slack通知をするか否か "true" or "false" e.g. true
 
   alert_to_email = {
-    destination_name    = "" // 通知先名
-    destination_address = "" // 通知先メールアドレス（複数指定可 "xxx@dmm.com,yyy@dmm.com,zzz@dmm.com"）
+    destination_name    = "" // 通知先名 e.g. Notify to Email
+    destination_address = "" // 通知先メールアドレス（複数指定可 "xxx@dmm.com,yyy@dmm.com,zzz@dmm.com"） e.g. yamada-taro@dmm.com,yamada-hanako@dmm.com
   }
 
   alert_to_slack = {
@@ -15,7 +15,7 @@ locals {
     channel_id     = "" // Slack ID
   }
 
-  slack_mention = "" // Slack通知時のメンション先 e.g. !here , @yamada-taro
+  slack_mention = "" // Slack通知時のメンション先 e.g. !channel , !here , @yamada-taro
 
   # 以下はサンプル設定です。適宜修正してください。
   apm_app_name_prefix = "[sample]%" // NewRelic APMの監視対象とするappNameの接頭辞
