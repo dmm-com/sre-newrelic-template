@@ -14,8 +14,4 @@ AWS と NewRelic の料金推移を可視化します。
 
 ## aws_newrelic_charge
 
-AWS の料金をクエリするには、AWS polling integrations の設定を行い、Billing を有効にしてください。
-
-https://docs.newrelic.com/jp/docs/infrastructure/amazon-integrations/connect/connect-aws-new-relic-infrastructure-monitoring/
-
-NewRelic の料金をクエリするための事前準備はありません。
+[aws](https://git.dmm.com/sre-team/newrelic-template/tree/main/aws) のデプロイを実施してください。
