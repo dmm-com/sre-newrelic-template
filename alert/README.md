@@ -25,7 +25,7 @@ Terraform による NewRelic への AWS 監視導入のためのテンプレー�
 
 ## 前提条件
 
-* `aws/src/modules/metricstream` の実行が完了し、AWS インテグレーションの設定が終わっているものとします。
+* [aws](https://git.dmm.com/sre-team/newrelic-template/tree/main/aws) のデプロイが完了し、AWS インテグレーションの設定が終わっているものとします。
 
 ## 事前準備
 
