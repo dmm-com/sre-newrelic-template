@@ -19,14 +19,14 @@ resource "aws_kinesis_firehose_delivery_stream" "newrelic_metric_stream" {
     request_configuration {
       content_encoding = "GZIP"
     }
-  }
 
-  s3_configuration {
-    bucket_arn         = var.aws_s3_bucket_newrelic_metric_stream_backup_arn
-    role_arn           = var.aws_iam_role_firehose_cloudwatch_metric_stream_for_newrelic_arn
-    buffer_interval    = 60
-    buffer_size        = 1
-    compression_format = "GZIP"
+    s3_configuration {
+      bucket_arn         = var.aws_s3_bucket_newrelic_metric_stream_backup_arn
+      role_arn           = var.aws_iam_role_firehose_cloudwatch_metric_stream_for_newrelic_arn
+      buffering_interval = 60
+      buffering_size     = 1
+      compression_format = "GZIP"
+    }
   }
 }
 
