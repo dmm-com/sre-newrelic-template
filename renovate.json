@@ -1,3 +1,28 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json"
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    ":label(renovate)",
+    ":timezone(Asia/Tokyo)"
+  ],
+  "configMigration": true,
+  "minimumReleaseAge": "7 days",
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 0,
+  "schedule": [
+    "after 10am and before 5pm on Monday"
+  ],
+  "assignees": [
+    "niwano-satoru"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": [
+        "terraform"
+      ],
+      "additionalBranchPrefix": "{{packageFileDir}}-",
+      "commitMessageSuffix": "({{packageFileDir}})",
+      "groupName": "terraform"
+    }
+  ]
 }
