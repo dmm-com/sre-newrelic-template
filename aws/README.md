@@ -53,8 +53,7 @@ Contexts 名は CircleCI の Organization で一意である必要があるた�
 1. CircleCI の Organization Settings で Contexts を作成します。
     | Contexts 名（例） | 説明 |
     | ---- | ---- |
-    | stg-newrelic-template | ステージング環境用の Contexts |
-    | prd-newrelic-template | 本番環境用の Contexts |
+    | dev-newrelic-template | 開発環境用の Contexts |
 2. 作成した Contexts に以下の環境変数を作成します。
     | 環境変数名 | 説明 |
     | ---- | ---- |
