@@ -25,7 +25,6 @@ jobs:
       - run:
           name: plan
           command: cd ./aws/src/environments/<< parameters.env >> && terraform plan -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}" -var "nr_license_key=${NEWRELIC_LICENSE_KEY}"
-
   aws_apply:
     executor: newrelic_template
     parameters:
@@ -57,7 +56,6 @@ jobs:
       - run:
           name: plan
           command: cd ./alert/src/environments/<< parameters.env >> && terraform plan -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
-
   alert_apply:
     executor: newrelic_template
     parameters:
