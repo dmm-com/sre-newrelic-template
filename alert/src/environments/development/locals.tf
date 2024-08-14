@@ -58,8 +58,8 @@ locals {
 
   alert_to_slack = {
     destination_id = "b1a45e2a-f3bb-48c2-9a0b-beea8761dfd8" // [Alerts & AI] - [Destinations] - [Destinations]にあるSlack連携後に付与されるdestination id（作成されたSlack設定右側にある三点リーダーから Copy destination id to clipboard でコピー可能）
-    channel_name   = "niwano-test"                          // Slackチャンネル名
-    channel_id     = "C02PTMFU5RA"                          // SlackチャンネルID
+    channel_name   = "newrelic-template-sandbox"            // Slackチャンネル名
+    channel_id     = "C072PSCRFEW"                          // SlackチャンネルID
   }
 
   slack_mention = "!here" // Slack通知時のメンション先 e.g. !channel, !here, @yamada-taro
