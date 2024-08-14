@@ -190,3 +190,18 @@ resource "newrelic_cloud_aws_link_account" "newrelic_cloud_integration_cloudwatc
     time_sleep.newrelic_integration_create_role_after_wait_30_seconds
   ]
 }
+
+resource "newrelic_cloud_aws_link_account" "newrelic_cloud_integration_api_polling" {
+  name                   = "${data.aws_caller_identity.self.account_id}-${data.aws_iam_account_alias.current.account_alias}-api-polling"
+  arn                    = aws_iam_role.newrelic_integration.arn
+  metric_collection_mode = "PULL"
+
+  depends_on = [
+    time_sleep.newrelic_integration_create_role_after_wait_30_seconds
+  ]
+}
+
+resource "newrelic_cloud_aws_integrations" "newrelic_cloud_integration_api_polling" {
+  linked_account_id = newrelic_cloud_aws_link_account.newrelic_cloud_integration_api_polling.id
+  billing {}
+}
