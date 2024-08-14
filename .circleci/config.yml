@@ -8,6 +8,15 @@ executors:
       AWS_DEFAULT_REGION: ap-northeast-1
 
 jobs:
+  # For common
+  fmt:
+    executor: newrelic_template
+    steps:
+      - checkout
+      - run:
+          name: fmt
+          command: terraform fmt -recursive -check ./
+
   # For aws template
   aws_plan:
     executor: newrelic_template
@@ -16,9 +25,6 @@ jobs:
         type: string
     steps:
       - checkout
-      - run:
-          name: fmt
-          command: terraform fmt -recursive -check ./aws/src
       - run:
           name: init
           command: cd ./aws/src/environments/<< parameters.env >> && terraform init -backend-config="backend.cfg"
@@ -48,9 +54,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: fmt
-          command: terraform fmt -recursive -check ./alert/src
-      - run:
           name: init
           command: cd ./alert/src/environments/<< parameters.env >> && terraform init -backend-config="backend.cfg"
       - run:
@@ -75,6 +78,9 @@ workflows:
 
   main:
     jobs:
+      # For common
+      - fmt
+
       # For aws template
       - aws_plan:
           name: staging_aws_plan
