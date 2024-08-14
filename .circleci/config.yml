@@ -74,8 +74,6 @@ jobs:
           command: cd ./alert/src/environments/<< parameters.env >> && terraform apply -auto-approve -var "nr_account_id=${NEWRELIC_ACCOUNT_ID}" -var "nr_api_key=${NEWRELIC_API_KEY}"
 
 workflows:
-  version: 2
-
   main:
     jobs:
       # For common
