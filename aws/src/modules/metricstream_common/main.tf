@@ -181,7 +181,7 @@ resource "aws_iam_role_policy_attachment" "cloudwatch_metric_stream_for_newrelic
 #
 # NewRelic と AWS のアカウントリンク設定
 #
-resource "newrelic_cloud_aws_link_account" "cloudwatch_metric_stream_for_newrelic" {
+resource "newrelic_cloud_aws_link_account" "newrelic_cloud_integration_cloudwatch_metric_stream" {
   name                   = "${data.aws_caller_identity.self.account_id}-${data.aws_iam_account_alias.current.account_alias}"
   arn                    = aws_iam_role.newrelic_integration.arn
   metric_collection_mode = "PUSH"
