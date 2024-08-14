@@ -24,7 +24,7 @@ Terraform による NewRelic に関係した AWS リソースの作成を行う�
 
 ※`aws/src/environments/example` にはサンプル設定が入っています。
 
-1. ディレクトリを移動します。複数環境（STG/PROD）で設定を分ける場合は、それぞれのディレクトリ（staging, production）を使用してください。
+1. ディレクトリを移動します。複数環境（STG/PRD）で設定を分ける場合は、それぞれのディレクトリ（staging, production）を使用してください。
     ```bash
     $ cd aws/src/environments/*****
     ```
@@ -65,3 +65,5 @@ Contexts 名は CircleCI の Organization で一意である必要があるた�
     | NEWRELIC_LICENSE_KEY | 操作対象とする NewRelic の API キー（Type:License） |
 
 コード内の各種設定内容については、【[手作業](../aws/README.md#手作業)】を参照してください。
+
+また、config.yml 内の workflows においては、必要に応じて filters 等を用いて実行を制御してください。

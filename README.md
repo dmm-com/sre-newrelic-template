@@ -64,7 +64,7 @@ tfstate 管理用の S3 バケットが存在することを確認してくだ�
 2. 変数定義
     ```bash
     $ AWS_ACCOUNT_ID=`aws sts get-caller-identity --query 'Account' --output text`; echo $AWS_ACCOUNT_ID
-    $ BUCKET_NAME="${AWS_ACCOUNT_ID}-newrelic-tfstate"; echo $BUCKET_NAME
+    $ BUCKET_NAME="${AWS_ACCOUNT_ID}-tfstate"; echo $BUCKET_NAME
     ```
 3. バケット作成
     ```bash
