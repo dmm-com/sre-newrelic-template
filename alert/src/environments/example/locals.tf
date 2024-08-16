@@ -1,10 +1,7 @@
 locals {
-  nr_account_id = 1234567                            // NewRelicアカウントID, 数値型
-  nr_api_key    = "NRAK-xxxxxxxxxxxxxxxxxxxxxxxxxxx" // Type:USERのAPIキー
-
   alert_policy_name = "SampleAlert" // アラートポリシー名
 
-  create_email_notification = "true" // E-Mail通知をするか否か "true" or "false"
+  create_email_notification = "false" // E-Mail通知をするか否か "true" or "false"
   create_slack_notification = "true" // Slack通知をするか否か "true" or "false"
 
   alert_to_email = {
@@ -13,12 +10,12 @@ locals {
   }
 
   alert_to_slack = {
-    destination_id = "" // [Alerts & AI] - [Destinations] - [Destinations]にあるSlack連携後に付与されるdestination id（作成されたSlack設定右側にある三点リーダーから Copy destination id to clipboard でコピー可能）
-    channel_name   = "" // Slackチャンネル名
-    channel_id     = "" // Slack ID
+    destination_id = "b1a45e2a-f3bb-48c2-9a0b-beea8761dfd8" // [Alerts] - [Destinations] - [Destinations]にあるSlack連携後に付与されるdestination id（作成されたSlack設定右側にある三点リーダーから Copy destination id to clipboard でコピー可能）
+    channel_name   = "#newrelic-template-sandbox" // Slackチャンネル名
+    channel_id     = "C072PSCRFEW" // Slack ID
   }
 
-  slack_mention = "" // Slack通知時のメンション先 e.g. !here , @yamada-taro
+  slack_mention = "!here" // Slack通知時のメンション先 e.g. !here , @yamada-taro
 
   apm_app_name_prefix = "[sample]%" // NewRelic APMの監視対象とするappNameの接頭辞
 
