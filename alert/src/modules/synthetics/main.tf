@@ -27,6 +27,10 @@ resource "newrelic_synthetics_monitor" "synthetics_browser" {
   locations_public = ["AP_NORTHEAST_1", "US_WEST_1", "US_EAST_1"]
   status           = var.newrelic_synthetics_browser[count.index].status
 
+  runtime_type         = "CHROME_BROWSER"
+  runtime_type_version = "100"
+  script_language      = "JAVASCRIPT"
+
   uri               = var.newrelic_synthetics_browser[count.index].uri
   validation_string = var.newrelic_synthetics_browser[count.index].validation_string
   verify_ssl        = var.newrelic_synthetics_browser[count.index].verify_ssl
