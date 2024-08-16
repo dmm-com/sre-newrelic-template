@@ -80,48 +80,48 @@ workflows:
       - fmt
 
       # For aws template
-      ## production
+      ## example
       - aws_plan:
-          name: production_aws_plan
-          env: production
-          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          name: example_aws_plan
+          env: example
+          context: eg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
       - aws_apply_approve:
-          name: production_aws_apply_approve
+          name: example_aws_apply_approve
           requires:
-            - production_aws_plan
+            - example_aws_plan
           type: approval
           filters:
             branches:
               only:
                 - main
       - aws_apply:
-          name: production_aws_apply
-          env: production
-          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          name: example_aws_apply
+          env: example
+          context: eg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
-            - production_aws_apply_approve
+            - example_aws_apply_approve
 
       # For alert template
-      ## production
+      ## example
       - alert_plan:
-          name: production_alert_plan
-          env: production
-          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          name: example_alert_plan
+          env: example
+          context: eg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
-            - production_aws_plan
+            - example_aws_plan
       - alert_apply_approve:
-          name: production_alert_apply_approve
+          name: example_alert_apply_approve
           requires:
-            - production_aws_apply
-            - production_alert_plan
+            - example_aws_apply
+            - example_alert_plan
           type: approval
           filters:
             branches:
               only:
                 - main
       - alert_apply:
-          name: production_alert_apply
-          env: production
-          context: prd-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          name: example_alert_apply
+          env: example
+          context: eg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
-            - production_alert_apply_approve
+            - example_alert_apply_approve
