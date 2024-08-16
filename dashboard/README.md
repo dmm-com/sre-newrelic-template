@@ -21,24 +21,31 @@ Terraform による NewRelic ダッシュボード導入のためのテンプレ
 
 ## 使い方
 
-本テンプレートは staging や production といった区別なく利用するため、実環境への適用時には `dashboard/src/environments/production` を使用してください。
+本テンプレートでは、サンプル環境の定義として `example` を用意しています。
+
+実環境への適用時には `dashboard/src/environments/example` を `dashboard/src/environments/production` などのようにコピー、あるいはリネームして使用してください。
 
 以下は手作業で terraform を実行する際の手順です。  
 ※現状、dashboard について CI/CD に対応していません。
 
-※`dashboard/src/environments/example` にはサンプル設定が入っています。
+ここでは `dashboard/src/environments/example` を手作業でデプロイする手順を記載します。
 
-1. ディレクトリを移動します。複数環境（STG/PROD）で設定を分ける場合は、それぞれのディレクトリ（staging, production）を使用してください。
+1. ディレクトリを移動します。
     ```bash
-    $ cd dashboard/src/environments/*****
+    $ cd dashboard/src/environments/example
     ```
-2. `locals.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
-3. `backend.cfg` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
-4. AWS 認証情報を読み込みます。
+2. カレントディレクトリ配下に `terraform.tfvars` ファイルを作成し、以下のように定義します。
+    ```bash
+    nr_account_id = 1234567                            # NewRelicアカウントID, 数値型
+    nr_api_key    = "NRAK-XXXXXXXXXXXXXXXXXXXXXXXXXXX" # Type:USERのAPIキー
+    ```
+3. `backend.cfg` 内の `bucket` 変数を変更します。設定内容についてはファイル内のコメントを参照してください。
+4. `locals.tf` 内の変数を変更します。設定内容についてはファイル内のコメントを参照してください。
+5. AWS 認証情報を読み込みます。
     ```bash
     $ export AWS_PROFILE=terraform
     ```
-5. terraform を実行します。
+6. terraform を実行します。
     ```bash
     $ terraform init -backend-config="backend.cfg"
     $ terraform plan
@@ -50,7 +57,10 @@ Terraform による NewRelic ダッシュボード導入のためのテンプレ
 以下のコマンドを実行し、ダッシュボードのリソースを Terraform の管理下から削除してください。
 
 ```bash
-$ terraform state rm module.dashboard_aws_newrelic_charge.newrelic_one_dashboard.aws_newrelic_charge
-$ terraform state rm module.dashboard_core_web_vitals.newrelic_one_dashboard.core_web_vitals
-$ terraform state rm module.dashboard_circleci.newrelic_one_dashboard.circleci
+$ terraform state rm module.dashboard_aws_newrelic_charge.newrelic_entity_tags.aws_newrelic_charge
+$ terraform state rm module.dashboard_aws_newrelic_charge.newrelic_one_dashboard_json.aws_newrelic_charge
+$ terraform state rm module.dashboard_circleci.newrelic_entity_tags.circleci
+$ terraform state rm module.dashboard_circleci.newrelic_one_dashboard_json.circleci
+$ terraform state rm module.dashboard_core_web_vitals.newrelic_entity_tags.core_web_vitals
+$ terraform state rm module.dashboard_core_web_vitals.newrelic_one_dashboard_json.core_web_vitals
 ```
