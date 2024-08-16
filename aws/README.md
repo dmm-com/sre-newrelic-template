@@ -15,21 +15,27 @@ Terraform による NewRelic に関係した AWS リソースの作成を行う�
 
 ## 使い方
 
-本テンプレートは AWS アカウントを staging と production など環境によるアカウント分離を行っている前提としています。  
-実環境への適用時にはそれぞれに対応したディレクトリ `aws/src/environments/{production,staging}` を使用してください。
+本テンプレートでは、サンプル環境の定義として `example` を用意しています。
+
+実環境への適用時には `aws/src/environments/example` を `aws/src/environments/production` などのようにコピー、あるいはリネームして使用してください。
 
 ### 手作業
 
 以下は手作業で terraform を実行する際の手順です。
 
-※`aws/src/environments/example` にはサンプル設定が入っています。
+ここでは `aws/src/environments/example` を手作業でデプロイする手順を記載します。
 
-1. ディレクトリを移動します。複数環境（STG/PRD）で設定を分ける場合は、それぞれのディレクトリ（staging, production）を使用してください。
+1. ディレクトリを移動します。
     ```bash
-    $ cd aws/src/environments/*****
+    $ cd aws/src/environments/example
     ```
-2. `locals.tf` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
-3. `backend.cfg` 内の変数を設定します。設定内容についてはファイル内のコメントを参照してください。
+2. カレントディレクトリ配下に `terraform.tfvars` ファイルを作成し、以下のように定義します。
+    ```bash
+    nr_account_id  = 1234567                                    # NewRelicアカウントID, 数値型
+    nr_api_key     = "NRAK-XXXXXXXXXXXXXXXXXXXXXXXXXXX"         # Type:USERのAPIキー
+    nr_license_key = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXFFFFNRAL" # Type:Licenseキー
+    ```
+3. `backend.cfg` 内の `bucket` 変数を変更します。設定内容についてはファイル内のコメントを参照してください。
 4. AWS 認証情報を読み込みます。
     ```bash
     $ export AWS_PROFILE=terraform
@@ -53,13 +59,13 @@ Contexts 名は CircleCI の Organization で一意である必要があるた�
 1. CircleCI の Organization Settings で Contexts を作成します。
     | Contexts 名（例） | 説明 |
     | ---- | ---- |
-    | stg-newrelic-template | ステージング環境用の Contexts |
-    | prd-newrelic-template | 本番環境用の Contexts |
+    | eg-newrelic-template | サンプル環境用の Contexts |
 2. 作成した Contexts に以下の環境変数を作成します。
     | 環境変数名 | 説明 |
     | ---- | ---- |
     | AWS_ACCESS_KEY_ID | 操作対象とする AWS アカウントの AWS アクセスキー ID |
     | AWS_SECRET_ACCESS_KEY | 操作対象とする AWS アカウントの AWS シークレットアクセスキー |
+    | AWS_DEFAULT_REGION | 操作対象とする AWS アカウントのリージョンコード |
     | NEWRELIC_ACCOUNT_ID | 操作対象とする NewRelic のアカウント ID |
     | NEWRELIC_API_KEY | 操作対象とする NewRelic の API キー（Type:USER） |
     | NEWRELIC_LICENSE_KEY | 操作対象とする NewRelic の API キー（Type:License） |
