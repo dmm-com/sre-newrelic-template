@@ -3,7 +3,7 @@ version: 2.1
 executors:
   newrelic_template:
     docker:
-      - image: hashicorp/terraform:1.8.1@sha256:6df17a8cb24f9f3252557232edfb4a8425871450b0e494180a6b58e293245d73
+      - image: hashicorp/terraform:1.9.4@sha256:5f39c82f68fc24b6c81401e761ff982cd52739ea971d24d6561adb5a39836314
     environment:
       AWS_DEFAULT_REGION: ap-northeast-1
 
