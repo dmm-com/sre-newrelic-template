@@ -115,6 +115,9 @@ resource "newrelic_nrql_alert_condition" "synthetics_ping_failed_count" {
     threshold_occurrences = "ALL"
   }
 
+  close_violations_on_expiration = true
+  expiration_duration            = 60
+
   violation_time_limit_seconds = 3600
   description                  = "Attention <${var.slack_mention}>"
 }
@@ -141,6 +144,9 @@ resource "newrelic_nrql_alert_condition" "synthetics_browser_failed_count" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  close_violations_on_expiration = true
+  expiration_duration            = 60
 
   violation_time_limit_seconds = 3600
   description                  = "Attention <${var.slack_mention}>"
