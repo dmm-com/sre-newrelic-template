@@ -106,7 +106,7 @@ resource "newrelic_nrql_alert_condition" "synthetics_ping_failed_count" {
   aggregation_delay  = "120"
 
   nrql {
-    query = "SELECT count(result) FROM SyntheticCheck WHERE result = 'FAILED' AND entityGuid = '${newrelic_synthetics_monitor.synthetics_ping[count.index].id}' FACET monitorName"
+    query = "SELECT count(result) FROM SyntheticCheck WHERE result = 'FAILED' AND entityGuid = '${newrelic_synthetics_monitor.synthetics_ping[count.index].id}'"
   }
   critical {
     operator              = "above"
@@ -114,6 +114,9 @@ resource "newrelic_nrql_alert_condition" "synthetics_ping_failed_count" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  close_violations_on_expiration = true
+  expiration_duration            = 60
 
   violation_time_limit_seconds = 3600
   description                  = "Attention <${var.slack_mention}>"
@@ -133,7 +136,7 @@ resource "newrelic_nrql_alert_condition" "synthetics_browser_failed_count" {
   aggregation_delay  = "120"
 
   nrql {
-    query = "SELECT count(result) FROM SyntheticCheck WHERE result = 'FAILED' AND entityGuid = '${newrelic_synthetics_monitor.synthetics_browser[count.index].id}' FACET monitorName"
+    query = "SELECT count(result) FROM SyntheticCheck WHERE result = 'FAILED' AND entityGuid = '${newrelic_synthetics_monitor.synthetics_browser[count.index].id}'"
   }
   critical {
     operator              = "above"
@@ -141,6 +144,9 @@ resource "newrelic_nrql_alert_condition" "synthetics_browser_failed_count" {
     threshold_duration    = 60
     threshold_occurrences = "ALL"
   }
+
+  close_violations_on_expiration = true
+  expiration_duration            = 60
 
   violation_time_limit_seconds = 3600
   description                  = "Attention <${var.slack_mention}>"
