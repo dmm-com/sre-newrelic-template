@@ -17,12 +17,43 @@
   ],
   "packageRules": [
     {
+      "groupName": "terraform-and-docker ({{packageFileDir}})",
+      "description": "Update Terraform required_version and Docker image together",
       "matchManagers": [
-        "terraform"
+        "terraform",
+        "dockerfile",
+        "circleci"
       ],
-      "additionalBranchPrefix": "{{packageFileDir}}-",
-      "commitMessageSuffix": "({{packageFileDir}})",
-      "groupName": "terraform"
+      "additionalBranchPrefix": "{{packageFileDir}}-terraform-combined-",
+      "commitMessageSuffix": "(combined terraform updates in {{packageFileDir}})",
+      "matchPackageNames": [
+        "hashicorp/terraform"
+      ],
+      "separateMinorPatch": true
+    },
+    {
+      "matchManagers": ["terraform"],
+      "matchPackageNames": ["hashicorp/aws"],
+      "groupName": "terraform-aws-provider ({{packageFileDir}})",
+      "additionalBranchPrefix": "terraform-aws-{{packageFileDir}}-",
+      "commitMessageSuffix": "(terraform-aws-provider updates in {{packageFileDir}})",
+      "separateMinorPatch": true
+    },
+    {
+      "matchManagers": ["terraform"],
+      "matchPackageNames": ["newrelic/newrelic"],
+      "groupName": "terraform-newrelic-provider ({{packageFileDir}})",
+      "additionalBranchPrefix": "terraform-newrelic-{{packageFileDir}}-",
+      "commitMessageSuffix": "(terraform-newrelic-provider updates in {{packageFileDir}})",
+      "separateMinorPatch": true
+    },
+    {
+      "matchManagers": ["terraform"],
+      "matchPackageNames": ["hashicorp/time"],
+      "groupName": "terraform-time-provider ({{packageFileDir}})",
+      "additionalBranchPrefix": "terraform-time-{{packageFileDir}}-",
+      "commitMessageSuffix": "(terraform-time-provider updates in {{packageFileDir}})",
+      "separateMinorPatch": true
     }
   ]
 }
