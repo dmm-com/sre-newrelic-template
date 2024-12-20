@@ -17,15 +17,15 @@
   ],
   "packageRules": [
     {
-      "groupName": "terraform-and-docker ({{packageFileDir}})",
+      "groupName": "terraform-and-docker",
       "description": "Update Terraform required_version and Docker image together",
       "matchManagers": [
         "terraform",
         "dockerfile",
         "circleci"
       ],
-      "additionalBranchPrefix": "{{packageFileDir}}-terraform-combined-",
-      "commitMessageSuffix": "(combined terraform updates in {{packageFileDir}})",
+      "additionalBranchPrefix": "terraform-combined-",
+      "commitMessageSuffix": "(combined terraform updates)",
       "matchPackageNames": [
         "hashicorp/terraform"
       ],
