@@ -84,7 +84,7 @@ workflows:
       - aws_plan:
           name: example_aws_plan
           env: example
-          context: eg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          context: sre-eg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
       - aws_apply_approve:
           name: example_aws_apply_approve
           requires:
@@ -97,7 +97,7 @@ workflows:
       - aws_apply:
           name: example_aws_apply
           env: example
-          context: eg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          context: sre-eg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
             - example_aws_apply_approve
 
@@ -106,7 +106,7 @@ workflows:
       - alert_plan:
           name: example_alert_plan
           env: example
-          context: eg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          context: sre-eg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
             - example_aws_plan
       - alert_apply_approve:
@@ -122,6 +122,6 @@ workflows:
       - alert_apply:
           name: example_alert_apply
           env: example
-          context: eg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
+          context: sre-eg-newrelic-template  # 事前に作成した Contexts 名を指定してください。
           requires:
             - example_alert_apply_approve
