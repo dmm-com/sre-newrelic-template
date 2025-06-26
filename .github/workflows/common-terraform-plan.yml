@@ -1,0 +1,90 @@
+name: Common Terraform Plan
+
+on:
+  workflow_call:
+    inputs:
+      target_env:
+        required: true
+        type: string
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      NEWRELIC_ACCOUNT_ID:
+        required: true
+      NEWRELIC_API_KEY:
+        required: true
+      NEWRELIC_LICENSE_KEY:
+        required: true
+    outputs:
+      aws_tf_version:
+        description: "Terraform version for AWS"
+        value: ${{ jobs.plan-aws.outputs.tf_version }}
+      alert_tf_version:
+        description: "Terraform version for Alert"
+        value: ${{ jobs.plan-alert.outputs.tf_version }}
+
+jobs:
+  plan-aws:
+    name: AWS Terraform Plan
+    runs-on: ubuntu-latest
+    outputs:
+      tf_version: ${{ steps.setup.outputs.tf_version }}
+    steps:
+      - name: Setup Environment for AWS
+        id: setup
+        uses: ./.github/actions/action-setup-aws-tf
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          terraform-version-path: ./aws/src/environments/${{ inputs.target_env }}
+      - name: Check AWS Format
+        run: terraform fmt -recursive -check
+        working-directory: ./aws/src/environments/${{ inputs.target_env }}
+      - name: AWS Init
+        run: terraform init -backend-config="backend.cfg"
+        working-directory: ./aws/src/environments/${{ inputs.target_env }}
+      - name: AWS Plan
+        run: terraform plan -no-color -out=aws.tfplan
+        working-directory: ./aws/src/environments/${{ inputs.target_env }}
+        env:
+          TF_VAR_nr_account_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
+          TF_VAR_nr_api_key: ${{ secrets.NEWRELIC_API_KEY }}
+          TF_VAR_nr_license_key: ${{ secrets.NEWRELIC_LICENSE_KEY }}
+      - name: Upload AWS Plan
+        uses: actions/upload-artifact@v3
+        with:
+          name: aws-plan-for-${{ github.run_id }}
+          path: ./aws/src/environments/${{ inputs.target_env }}/aws.tfplan
+
+  plan-alert:
+    name: Alert Terraform Plan
+    runs-on: ubuntu-latest
+    outputs:
+      tf_version: ${{ steps.setup.outputs.tf_version }}
+    steps:
+      - name: Setup Environment for Alert
+        id: setup
+        uses: ./.github/actions/action-setup-aws-tf
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          terraform-version-path: ./alert/src/environments/${{ inputs.target_env }}
+      - name: Check Alert Format
+        run: terraform fmt -recursive -check
+        working-directory: ./alert/src/environments/${{ inputs.target_env }}
+      - name: Alert Init
+        run: terraform init -backend-config="backend.cfg"
+        working-directory: ./alert/src/environments/${{ inputs.target_env }}
+      - name: Alert Plan
+        run: terraform plan -no-color -out=alert.tfplan
+        working-directory: ./alert/src/environments/${{ inputs.target_env }}
+        env:
+          TF_VAR_nr_account_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
+          TF_VAR_nr_api_key: ${{ secrets.NEWRELIC_API_KEY }}
+      - name: Upload Alert Plan
+        uses: actions/upload-artifact@v3
+        with:
+          name: alert-plan-for-${{ github.run_id }}
+          path: ./alert/src/environments/${{ inputs.target_env }}/alert.tfplan

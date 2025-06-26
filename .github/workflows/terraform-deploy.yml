@@ -1,0 +1,61 @@
+name: Deploy to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  plan:
+    name: Generate Plan
+    uses: ./.github/workflows/common-terraform-plan.yml
+    with:
+      target_env: example # 環境名を指定してください
+    secrets: inherit
+
+  apply-aws:
+    name: Approve and Apply AWS
+    needs: plan
+    runs-on: ubuntu-latest
+    environment: example # 必要に応じて対象の環境に手動承認を設定してください
+    steps:
+      - name: Setup Environment for AWS Apply
+        uses: ./.github/actions/action-setup-aws-tf
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          terraform-version: ${{ needs.plan.outputs.aws_tf_version }}
+
+      - name: Download AWS Plan
+        uses: actions/download-artifact@v3
+        with:
+          name: aws-plan-for-${{ github.run_id }}
+      - name: AWS Apply
+        run: terraform apply -auto-approve aws.tfplan
+        env:
+          TF_VAR_nr_account_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
+          TF_VAR_nr_api_key: ${{ secrets.NEWRELIC_API_KEY }}
+          TF_VAR_nr_license_key: ${{ secrets.NEWRELIC_LICENSE_KEY }}
+
+  apply-alert:
+    name: Approve and Apply Alert
+    needs: [plan, apply-aws]
+    runs-on: ubuntu-latest
+    environment: example # 必要に応じて対象の環境に手動承認を設定してください
+    steps:
+      - name: Setup Environment for Alert Apply
+        uses: ./.github/actions/action-setup-aws-tf
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          terraform-version: ${{ needs.plan.outputs.alert_tf_version }}
+
+      - name: Download Alert Plan
+        uses: actions/download-artifact@v3
+        with:
+          name: alert-plan-for-${{ github.run_id }}
+      - name: Alert Apply
+        run: terraform apply -auto-approve alert.tfplan
+        env:
+          TF_VAR_nr_account_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
+          TF_VAR_nr_api_key: ${{ secrets.NEWRELIC_API_KEY }}
