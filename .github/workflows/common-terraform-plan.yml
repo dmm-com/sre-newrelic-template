@@ -53,7 +53,7 @@ jobs:
           TF_VAR_nr_api_key: ${{ secrets.NEWRELIC_API_KEY }}
           TF_VAR_nr_license_key: ${{ secrets.NEWRELIC_LICENSE_KEY }}
       - name: Upload AWS Plan
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: aws-plan-for-${{ github.run_id }}
           path: ./aws/src/environments/${{ inputs.target_env }}/aws.tfplan
@@ -84,7 +84,7 @@ jobs:
           TF_VAR_nr_account_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
           TF_VAR_nr_api_key: ${{ secrets.NEWRELIC_API_KEY }}
       - name: Upload Alert Plan
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: alert-plan-for-${{ github.run_id }}
           path: ./alert/src/environments/${{ inputs.target_env }}/alert.tfplan
