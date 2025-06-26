@@ -32,6 +32,8 @@ jobs:
     outputs:
       tf_version: ${{ steps.setup.outputs.tf_version }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Setup Environment for AWS
         id: setup
         uses: ./.github/actions/action-setup-aws-tf
@@ -64,6 +66,8 @@ jobs:
     outputs:
       tf_version: ${{ steps.setup.outputs.tf_version }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Setup Environment for Alert
         id: setup
         uses: ./.github/actions/action-setup-aws-tf
