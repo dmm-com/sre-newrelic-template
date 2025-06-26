@@ -23,11 +23,9 @@ runs:
   steps:
     - name: Checkout
       uses: actions/checkout@v3
-      shell: bash
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
-      shell: bash
       with:
         aws-access-key-id: ${{ inputs.aws-access-key-id }}
         aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
@@ -36,12 +34,11 @@ runs:
     - name: Detect terraform version from file
       id: detect_version
       if: inputs.terraform-version-path != ''
+      run: echo "tf_version=$(cat .terraform-version)" >> $GITHUB_OUTPUT
       shell: bash
       working-directory: ${{ inputs.terraform-version-path }}
-      run: echo "tf_version=$(cat .terraform-version)" >> $GITHUB_OUTPUT
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
-      shell: bash
       with:
         terraform_version: ${{ inputs.terraform-version || steps.detect_version.outputs.tf_version }} 
