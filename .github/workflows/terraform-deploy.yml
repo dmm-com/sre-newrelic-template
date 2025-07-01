@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Read Terraform version
+      - name: Set Terraform version from file
         id: tfver
         run: echo "version=$(cat .terraform-version)" >> $GITHUB_OUTPUT
 
@@ -54,7 +54,7 @@ jobs:
       - name: Checkout
       uses: actions/checkout@v3
 
-      - name: Read Terraform version
+      - name:Set Terraform version from file
         id: tfver
         run: echo "version=$(cat .terraform-version)" >> $GITHUB_OUTPUT
 
