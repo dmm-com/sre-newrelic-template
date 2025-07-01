@@ -19,19 +19,27 @@ jobs:
     runs-on: ubuntu-latest
     environment: example # 必要に応じて対象の環境に手動承認を設定してください
     steps:
-      - name: Setup Environment for AWS Apply
-        uses: ./.github/actions/action-setup-aws-tf
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Read Terraform version
+        id: tfver
+        run: echo "version=$(cat ./aws/src/environments/${{ inputs.target_env }}/.terraform-version)" >> $GITHUB_OUTPUT
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ steps.tfver.outputs.version }}
+
+       - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          terraform-version: ${{ needs.plan.outputs.aws_tf_version }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
-      - name: Download AWS Plan
-        uses: actions/download-artifact@v4
-        with:
-          name: aws-plan-for-${{ github.run_id }}
-      - name: AWS Apply
-        run: terraform apply -auto-approve aws.tfplan
+      - name: AWS  Terraform Apply
+        run: terraform apply -auto-approve
         env:
           TF_VAR_nr_account_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
           TF_VAR_nr_api_key: ${{ secrets.NEWRELIC_API_KEY }}
@@ -43,17 +51,23 @@ jobs:
     runs-on: ubuntu-latest
     environment: example # 必要に応じて対象の環境に手動承認を設定してください
     steps:
-      - name: Setup Environment for Alert Apply
-        uses: ./.github/actions/action-setup-aws-tf
+      - name: Checkout
+      uses: actions/checkout@v3
+
+      - name: Read Terraform version
+        id: tfver
+        run: echo "version=$(cat ./aws/src/environments/${{ inputs.target_env }}/.terraform-version)" >> $GITHUB_OUTPUT
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+       - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          terraform-version: ${{ needs.plan.outputs.alert_tf_version }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
-      - name: Download Alert Plan
-        uses: actions/download-artifact@v4
-        with:
-          name: alert-plan-for-${{ github.run_id }}
       - name: Alert Apply
         run: terraform apply -auto-approve alert.tfplan
         env:
