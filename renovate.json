@@ -54,6 +54,17 @@
       "additionalBranchPrefix": "terraform-time-{{packageFileDir}}-",
       "commitMessageSuffix": "(terraform-time-provider updates in {{packageFileDir}})",
       "separateMinorPatch": true
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "^.terraform-version$"
+      ],
+      "matchStrings": [
+        "^(?<currentValue>\\d+\\.\\d+\\.\\d+)$"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "hashicorp/terraform"
     }
   ]
 }
