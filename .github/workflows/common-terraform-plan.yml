@@ -40,7 +40,7 @@ jobs:
         working-directory: ./aws/src/environments/${{ inputs.target_env }}
 
       - name: AWS Terraform Plan
-        run: terraform plan -no-color -out=aws.tfplan
+        run: terraform plan
         working-directory: ./aws/src/environments/${{ inputs.target_env }}
         env:
           TF_VAR_nr_account_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
@@ -79,7 +79,7 @@ jobs:
         working-directory: ./alert/src/environments/${{ inputs.target_env }}
 
       - name: Alert Terraform Plan
-        run: terraform plan -no-color -out=alert.tfplan
+        run: terraform plan
         working-directory: ./alert/src/environments/${{ inputs.target_env }}
         env:
           TF_VAR_nr_account_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
