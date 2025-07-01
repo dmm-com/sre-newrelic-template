@@ -17,7 +17,7 @@ jobs:
 
       - name: Read Terraform version
         id: tfver
-        run: echo "version=$(cat ./aws/src/environments/${{ inputs.target_env }}/.terraform-version)" >> $GITHUB_OUTPUT
+        run: echo "version=$(cat .terraform-version)" >> $GITHUB_OUTPUT
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -56,7 +56,7 @@ jobs:
 
       - name: Read Terraform version
         id: tfver
-        run: echo "version=$(cat ./alert/src/environments/${{ inputs.target_env }}/.terraform-version)" >> $GITHUB_OUTPUT
+        run: echo "version=$(cat .terraform-version)" >> $GITHUB_OUTPUT
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
