@@ -38,7 +38,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
-      - name: AWS  Terraform Apply
+      - name: AWS Terraform Apply
         run: terraform apply -auto-approve
         env:
           TF_VAR_nr_account_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
@@ -60,6 +60,8 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ steps.tfver.outputs.version }}
 
        - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -68,8 +70,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
-      - name: Alert Apply
-        run: terraform apply -auto-approve alert.tfplan
+      - name: Alert Terraform Apply
+        run: terraform apply -auto-approve
         env:
           TF_VAR_nr_account_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
           TF_VAR_nr_api_key: ${{ secrets.NEWRELIC_API_KEY }}
+          TF_VAR_nr_license_key: ${{ secrets.NEWRELIC_LICENSE_KEY }}

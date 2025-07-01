@@ -48,7 +48,7 @@ jobs:
           TF_VAR_nr_license_key: ${{ secrets.NEWRELIC_LICENSE_KEY }}
 
   plan-alert:
-    name: Alert Terraform Terraform Plan
+    name: Alert Terraform Plan
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
