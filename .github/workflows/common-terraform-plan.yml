@@ -1,0 +1,86 @@
+name: Common Terraform Plan
+
+on:
+  workflow_call:
+    inputs:
+      target_env:
+        required: true
+        type: string
+
+jobs:
+  plan-aws:
+    name: AWS Terraform Plan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set Terraform version from file
+        id: tfver
+        run: echo "version=$(cat .terraform-version)" >> $GITHUB_OUTPUT
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ steps.tfver.outputs.version }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: AWS Terraform Fmt Check
+        run: terraform fmt -recursive -check
+        working-directory: ./aws/src/environments/${{ inputs.target_env }}
+
+      - name: AWS Terraform Init
+        run: terraform init -backend-config="backend.cfg"
+        working-directory: ./aws/src/environments/${{ inputs.target_env }}
+
+      - name: AWS Terraform Plan
+        run: terraform plan
+        working-directory: ./aws/src/environments/${{ inputs.target_env }}
+        env:
+          TF_VAR_nr_account_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
+          TF_VAR_nr_api_key: ${{ secrets.NEWRELIC_API_KEY }}
+          TF_VAR_nr_license_key: ${{ secrets.NEWRELIC_LICENSE_KEY }}
+
+  plan-alert:
+    name: Alert Terraform Plan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set Terraform version from file
+        id: tfver
+        run: echo "version=$(cat .terraform-version)" >> $GITHUB_OUTPUT
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ steps.tfver.outputs.version }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Alert Terraform Fmt Check
+        run: terraform fmt -recursive -check
+        working-directory: ./alert/src/environments/${{ inputs.target_env }}
+
+      - name: Alert Terraform Init
+        run: terraform init -backend-config="backend.cfg"
+        working-directory: ./alert/src/environments/${{ inputs.target_env }}
+
+      - name: Alert Terraform Plan
+        run: terraform plan
+        working-directory: ./alert/src/environments/${{ inputs.target_env }}
+        env:
+          TF_VAR_nr_account_id: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
+          TF_VAR_nr_api_key: ${{ secrets.NEWRELIC_API_KEY }}

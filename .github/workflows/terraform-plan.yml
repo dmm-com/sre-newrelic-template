@@ -1,0 +1,13 @@
+name: Terraform Plan for PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  call-reusable-plan:
+    name: Call Reusable Plan Workflow
+    uses: ./.github/workflows/common-terraform-plan.yml
+    with:
+      target_env: example
+    secrets: inherit
