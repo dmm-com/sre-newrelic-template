@@ -10,8 +10,8 @@
   "prHourlyLimit": 0,
   "prConcurrentLimit": 0,
   "schedule": [
-    "after 10am and before 5pm on the first Monday of the month",
-    "after 10am and before 5pm on the third Monday of the month"
+    "* 10-16 1-7 * 1",  // 毎月第一月曜日の午前10時から午後5時
+    "* 10-16 15-21 * 1" // 毎月第三月曜日の午前10時から午後5時
   ],
   "assignees": [
     "niwano-satoru"
