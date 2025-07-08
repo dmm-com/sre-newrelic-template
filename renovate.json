@@ -65,7 +65,8 @@
         "^(?<currentValue>\\d+\\.\\d+\\.\\d+)$"
       ],
       "datasourceTemplate": "github-releases",
-      "depNameTemplate": "hashicorp/terraform"
+      "depNameTemplate": "hashicorp/terraform",
+      "matchManagers": ["regex"] // <-- この行を追加
     }
   ]
 }
